@@ -1,6 +1,6 @@
-# Selamat Datang di Proyek Data Mining Aldi
+# Selamat Datang di Proyek Penambangan Data Aldi
 
-Halo! Saya **M. Aldi Rahmandika** dengan **NIM 230411100040**, mahasiswa yang sedang mempelajari **Data Mining** dalam rangka tugas kuliah.  
+Halo! Saya **M. Aldi Rahmandika** prodi **Teknik Informatika** di **Universitas trunojoyo Madura** dengan **NIM 230411100040**, mahasiswa yang sedang mempelajari **Data Mining** dalam rangka tugas kuliah.  
 Website ini dibuat sebagai bagian dari proyek akademik untuk mengeksplorasi teknik analisis data, menemukan pola tersembunyi, serta menerapkan berbagai metode Data Mining.
 
 ## 🔍 **Apa yang Akan Dibahas dalam Proyek Ini?**  
