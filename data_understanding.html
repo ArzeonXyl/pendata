@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>🌟 Data Understanding &#8212; My sample book</title>
+    <title>🌟 Data Understanding &#8212; Penambangan Data Aldi</title>
   
   
   
@@ -152,8 +152,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
   
   
 </a></div>
@@ -379,16 +379,16 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data-terkait-dengan-iris-dataset">🌿 Pengumpulan Data terkait dengan <em>Iris Dataset</em></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">📚 <strong>Sumber Data</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-mengumpulkan-data">🛢️ <strong>Cara Mengumpulkan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-pymysql-di-google-colab">🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-pymysql">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-pymysql-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-pymysql-di-google-colab">🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-pymysql">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-pymysql-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab">🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-psycopg2">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-psycopg2-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab">🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-psycopg2">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-psycopg2-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-pengumpulan-data-di-mysql">🐬 <strong>Proses Pengumpulan Data di MySQL</strong></a><ul class="nav section-nav flex-column">
@@ -475,13 +475,12 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </li>
 </ol>
 </section>
-</section>
 <section id="menginstal-dan-menggunakan-pymysql-di-google-colab">
-<h2>🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong><a class="headerlink" href="#menginstal-dan-menggunakan-pymysql-di-google-colab" title="Link to this heading">#</a></h2>
+<h3>🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong><a class="headerlink" href="#menginstal-dan-menggunakan-pymysql-di-google-colab" title="Link to this heading">#</a></h3>
 <p>Pada tahap ini, kita akan menggunakan <strong><code class="docutils literal notranslate"><span class="pre">pymysql</span></code></strong> — sebuah <em>library</em> Python yang memungkinkan kita untuk berinteraksi dengan database MySQL secara langsung melalui skrip Python.</p>
 <hr class="docutils" />
 <section id="mengapa-menggunakan-pymysql">
-<h3>📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong><a class="headerlink" href="#mengapa-menggunakan-pymysql" title="Link to this heading">#</a></h3>
+<h4>📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong><a class="headerlink" href="#mengapa-menggunakan-pymysql" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Memungkinkan koneksi ke database <strong>MySQL</strong> untuk mengambil, memperbarui, dan memanipulasi data.</p></li>
 <li><p>Terintegrasi dengan baik dengan <em>libraries</em> lain seperti <strong>pandas</strong> untuk analisis data.</p></li>
@@ -490,7 +489,7 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </section>
 <hr class="docutils" />
 <section id="cara-instalasi-pymysql-di-google-colab">
-<h3>⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong><a class="headerlink" href="#cara-instalasi-pymysql-di-google-colab" title="Link to this heading">#</a></h3>
+<h4>⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong><a class="headerlink" href="#cara-instalasi-pymysql-di-google-colab" title="Link to this heading">#</a></h4>
 <p>Sebelum menggunakannya, kita harus menginstal <em>library</em> ini terlebih dahulu. Jalankan perintah berikut di sel <em>code</em>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">pymysql</span>
 </pre></div>
@@ -510,11 +509,11 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </section>
 </section>
 <section id="menginstal-dan-menggunakan-psycopg2-di-google-colab">
-<h2>🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong><a class="headerlink" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab" title="Link to this heading">#</a></h2>
+<h3>🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong><a class="headerlink" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab" title="Link to this heading">#</a></h3>
 <p>Sekarang, kita akan membahas <strong><code class="docutils literal notranslate"><span class="pre">psycopg2</span></code></strong> — sebuah <em>library</em> populer untuk berinteraksi dengan database PostgreSQL menggunakan Python.</p>
 <hr class="docutils" />
 <section id="mengapa-menggunakan-psycopg2">
-<h3>📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong><a class="headerlink" href="#mengapa-menggunakan-psycopg2" title="Link to this heading">#</a></h3>
+<h4>📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong><a class="headerlink" href="#mengapa-menggunakan-psycopg2" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Memungkinkan kita untuk <strong>menghubungkan PostgreSQL</strong> ke proyek Python.</p></li>
 <li><p>Mendukung berbagai operasi database seperti <strong>CRUD</strong> (<em>Create, Read, Update, Delete</em>).</p></li>
@@ -523,7 +522,7 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </section>
 <hr class="docutils" />
 <section id="cara-instalasi-psycopg2-di-google-colab">
-<h3>⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong><a class="headerlink" href="#cara-instalasi-psycopg2-di-google-colab" title="Link to this heading">#</a></h3>
+<h4>⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong><a class="headerlink" href="#cara-instalasi-psycopg2-di-google-colab" title="Link to this heading">#</a></h4>
 <p>Sebelum kita bisa menggunakannya, jalankan perintah berikut untuk menginstal <em>library</em> ini:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">psycopg2</span><span class="o">-</span><span class="n">binary</span>
 </pre></div>
@@ -544,6 +543,7 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="proses-pengumpulan-data-di-mysql">
@@ -1880,16 +1880,16 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data-terkait-dengan-iris-dataset">🌿 Pengumpulan Data terkait dengan <em>Iris Dataset</em></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">📚 <strong>Sumber Data</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-mengumpulkan-data">🛢️ <strong>Cara Mengumpulkan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-pymysql-di-google-colab">🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-pymysql">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-pymysql-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-pymysql-di-google-colab">🐍 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-pymysql">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-pymysql-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">pymysql</span></code> di Google Colab</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab">🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-psycopg2">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-psycopg2-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menginstal-dan-menggunakan-psycopg2-di-google-colab">🐘 <strong>Menginstal dan Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-psycopg2">📦 <strong>Mengapa Menggunakan <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code>?</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-instalasi-psycopg2-di-google-colab">⚙️ <strong>Cara Instalasi <code class="docutils literal notranslate"><span class="pre">psycopg2</span></code> di Google Colab</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proses-pengumpulan-data-di-mysql">🐬 <strong>Proses Pengumpulan Data di MySQL</strong></a><ul class="nav section-nav flex-column">
@@ -1938,7 +1938,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   <div class="footer-item">
     
 <p class="component-author">
-By The Jupyter Book Community
+By M. Aldi Rahmandika
 </p>
 
   </div>
