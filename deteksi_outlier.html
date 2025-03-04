@@ -1,0 +1,1337 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN) &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'deteksi_outlier';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="🌟 Data Understanding" href="data_understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdeteksi_outlier.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/deteksi_outlier.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-deteksi-outlier">🔍 Apa itu Deteksi Outlier?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-k-nearest-neighbors-knn">🤔 Mengapa Menggunakan K-Nearest Neighbors (KNN)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-deteksi-outlier-menggunakan-knn">🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-mysql">1️⃣ Ambil Data dari MySQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-postgresql">2️⃣ Ambil Data dari PostgreSQL</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-yang-diduga-outlier">🚨 Menampilkan Data yang Diduga Outlier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cetak-data-yang-diduga-outlier">🔥 Cetak Data yang Diduga Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">🧐 Penjelasan Kode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier-dengan-knn">📈 Visualisasi Outlier dengan KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-deteksi-outlier-dengan-knn">🎯 Kesimpulan Deteksi Outlier dengan KNN</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="deteksi-outlier-dengan-k-nearest-neighbors-knn">
+<h1>🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)<a class="headerlink" href="#deteksi-outlier-dengan-k-nearest-neighbors-knn" title="Link to this heading">#</a></h1>
+<section id="apa-itu-deteksi-outlier">
+<h2>🔍 Apa itu Deteksi Outlier?<a class="headerlink" href="#apa-itu-deteksi-outlier" title="Link to this heading">#</a></h2>
+<p>Deteksi outlier adalah proses mengidentifikasi titik data yang berbeda secara signifikan dari mayoritas data lainnya. Outlier bisa muncul karena:</p>
+<ul class="simple">
+<li><p><strong>Kesalahan pengukuran</strong> ❌</p></li>
+<li><p><strong>Variasi alami</strong> 🌿</p></li>
+<li><p><strong>Fenomena khusus</strong> ⭐</p></li>
+</ul>
+<p>Mengapa penting?</p>
+<ul class="simple">
+<li><p><strong>Meningkatkan akurasi model</strong> 🤖</p></li>
+<li><p><strong>Mengungkap pola tersembunyi</strong> 📈</p></li>
+<li><p><strong>Mendeteksi anomali atau fraud</strong> 🚨</p></li>
+</ul>
+</section>
+<section id="mengapa-menggunakan-k-nearest-neighbors-knn">
+<h2>🤔 Mengapa Menggunakan K-Nearest Neighbors (KNN)?<a class="headerlink" href="#mengapa-menggunakan-k-nearest-neighbors-knn" title="Link to this heading">#</a></h2>
+<p>KNN adalah algoritma non-parametrik yang menentukan outlier berdasarkan jarak ke tetangga terdekat.</p>
+<p><strong>Cara kerjanya:</strong></p>
+<ol class="arabic simple">
+<li><p>Tentukan jumlah tetangga <strong>k</strong>.</p></li>
+<li><p>Hitung jarak dari tiap titik data ke <strong>k</strong> tetangga terdekat.</p></li>
+<li><p>Jika jarak terlalu jauh (di atas threshold tertentu), maka data tersebut dianggap <strong>outlier</strong> 🚩.</p></li>
+</ol>
+</section>
+<section id="langkah-langkah-deteksi-outlier-menggunakan-knn">
+<h2>🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN<a class="headerlink" href="#langkah-langkah-deteksi-outlier-menggunakan-knn" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymysql
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>psycopg2
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>tabulate
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2 in /usr/local/lib/python3.11/dist-packages (2.9.10)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tabulate in /usr/local/lib/python3.11/dist-packages (0.9.0)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ambil-data-dari-mysql">
+<h3>1️⃣ Ambil Data dari MySQL<a class="headerlink" href="#ambil-data-dari-mysql" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Koneksi ke MySQL</span>
+<span class="n">mysql_conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mysql-34425cbd-irismysqlaldi.h.aivencloud.com&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">22476</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_QsQ7Yf7zzcmrk83yFgg&quot;</span><span class="p">,</span>
+    <span class="n">db</span><span class="o">=</span><span class="s2">&quot;irismysqlaldi&quot;</span><span class="p">,</span>
+    <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf8mb4&quot;</span><span class="p">,</span>
+    <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span>
+<span class="p">)</span>
+
+<span class="c1"># Ambil data dari MySQL</span>
+<span class="k">with</span> <span class="n">mysql_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">mysql_cur</span><span class="p">:</span>
+    <span class="n">mysql_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, class, `petal length`, `petal width` FROM flowers&quot;</span><span class="p">)</span>
+    <span class="n">mysql_data</span> <span class="o">=</span> <span class="n">mysql_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">mysql_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mysql_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari MySQL:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mysql_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">mysql_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari MySQL:
+   id        class  petal length  petal width
+0   1  Iris-setosa          86.4         70.0
+1   2  Iris-setosa           1.4          0.2
+2   3  Iris-setosa           1.3          0.2
+3   4  Iris-setosa           1.5          0.2
+4   5  Iris-setosa           1.4          0.2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ambil-data-dari-postgresql">
+<h3>2️⃣ Ambil Data dari PostgreSQL<a class="headerlink" href="#ambil-data-dari-postgresql" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psycopg2</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Koneksi ke PostgreSQL</span>
+<span class="n">pg_conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="s2">&quot;postgres://avnadmin:AVNS_0S2t3zth51a__4WQCdz@pg-2c20c354-pendataku.h.aivencloud.com:26053/defaultdb?sslmode=require&quot;</span>
+<span class="p">)</span>
+<span class="n">pg_cur</span> <span class="o">=</span> <span class="n">pg_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># Ambil data dari PostgreSQL</span>
+<span class="n">pg_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, class, sepal_length, sepal_width FROM flowers&quot;</span><span class="p">)</span>
+<span class="n">pg_data</span> <span class="o">=</span> <span class="n">pg_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">pg_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">pg_cur</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+<span class="n">pg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pg_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">pg_columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari PostgreSQL:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pg_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">pg_cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">pg_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari PostgreSQL:
+   id        class  sepal_length  sepal_width
+0   1  Iris-setosa          20.1         30.5
+1   2  Iris-setosa           4.9          3.0
+2   3  Iris-setosa           4.7          3.2
+3   4  Iris-setosa           4.6          3.1
+4   5  Iris-setosa           5.0          3.6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join data berdasarkan &#39;id&#39; dan &#39;class&#39;</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mysql_df</span><span class="p">,</span> <span class="n">pg_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+
+<span class="c1"># Tentukan panjang maksimum tiap kolom agar tidak geser</span>
+<span class="n">col_widths</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">result_df</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">3</span><span class="p">),</span>
+  <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">result_df</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">6</span><span class="p">),</span>
+  <span class="s2">&quot;petal length&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+  <span class="s2">&quot;petal width&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+  <span class="s2">&quot;sepal_length&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+  <span class="s2">&quot;sepal_width&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Header tabel</span>
+<span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;| </span><span class="si">{</span><span class="s1">&#39;ID&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Class&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Petal Length&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Petal Width&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Sepal Length&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Sepal Width&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> |&quot;</span>
+<span class="n">separator</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">col_widths</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_widths</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+
+<span class="c1"># Isi tabel</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">result_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;| </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> |&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----+-----------------+---------------+--------------+---------------+--------------+
+| ID  | Class           | Petal Length  | Petal Width  | Sepal Length  | Sepal Width  |
++-----+-----------------+---------------+--------------+---------------+--------------+
+| 1   | Iris-setosa     | 86.4          | 70.0         | 20.1          | 30.5         |
+| 2   | Iris-setosa     | 1.4           | 0.2          | 4.9           | 3.0          |
+| 3   | Iris-setosa     | 1.3           | 0.2          | 4.7           | 3.2          |
+| 4   | Iris-setosa     | 1.5           | 0.2          | 4.6           | 3.1          |
+| 5   | Iris-setosa     | 1.4           | 0.2          | 5.0           | 3.6          |
+| 6   | Iris-setosa     | 1.7           | 0.4          | 5.4           | 3.9          |
+| 7   | Iris-setosa     | 1.4           | 0.3          | 4.6           | 3.4          |
+| 8   | Iris-setosa     | 1.5           | 0.2          | 5.0           | 3.4          |
+| 9   | Iris-setosa     | 1.4           | 0.2          | 4.4           | 2.9          |
+| 10  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 11  | Iris-setosa     | 1.5           | 0.2          | 5.4           | 3.7          |
+| 12  | Iris-setosa     | 1.6           | 0.2          | 4.8           | 3.4          |
+| 13  | Iris-setosa     | 1.4           | 0.1          | 4.8           | 3.0          |
+| 14  | Iris-setosa     | 1.1           | 0.1          | 4.3           | 3.0          |
+| 15  | Iris-setosa     | 1.2           | 0.2          | 5.8           | 4.0          |
+| 16  | Iris-setosa     | 1.5           | 0.4          | 5.7           | 4.4          |
+| 17  | Iris-setosa     | 1.3           | 0.4          | 5.4           | 3.9          |
+| 18  | Iris-setosa     | 1.4           | 0.3          | 5.1           | 3.5          |
+| 19  | Iris-setosa     | 1.7           | 0.3          | 5.7           | 3.8          |
+| 20  | Iris-setosa     | 1.5           | 0.3          | 5.1           | 3.8          |
+| 21  | Iris-setosa     | 1.7           | 0.2          | 5.4           | 3.4          |
+| 22  | Iris-setosa     | 1.5           | 0.4          | 5.1           | 3.7          |
+| 23  | Iris-setosa     | 1.0           | 0.2          | 4.6           | 3.6          |
+| 24  | Iris-setosa     | 1.7           | 0.5          | 5.1           | 3.3          |
+| 25  | Iris-setosa     | 1.9           | 0.2          | 4.8           | 3.4          |
+| 26  | Iris-setosa     | 1.6           | 0.2          | 5.0           | 3.0          |
+| 27  | Iris-setosa     | 1.6           | 0.4          | 5.0           | 3.4          |
+| 28  | Iris-setosa     | 1.5           | 0.2          | 5.2           | 3.5          |
+| 29  | Iris-setosa     | 1.4           | 0.2          | 5.2           | 3.4          |
+| 30  | Iris-setosa     | 1.6           | 0.2          | 4.7           | 3.2          |
+| 31  | Iris-setosa     | 1.6           | 0.2          | 4.8           | 3.1          |
+| 32  | Iris-setosa     | 1.5           | 0.4          | 5.4           | 3.4          |
+| 33  | Iris-setosa     | 1.5           | 0.1          | 5.2           | 4.1          |
+| 34  | Iris-setosa     | 1.4           | 0.2          | 5.5           | 4.2          |
+| 35  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 36  | Iris-setosa     | 1.2           | 0.2          | 5.0           | 3.2          |
+| 37  | Iris-setosa     | 1.3           | 0.2          | 5.5           | 3.5          |
+| 38  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 39  | Iris-setosa     | 1.3           | 0.2          | 4.4           | 3.0          |
+| 40  | Iris-setosa     | 1.5           | 0.2          | 5.1           | 3.4          |
+| 41  | Iris-setosa     | 1.3           | 0.3          | 5.0           | 3.5          |
+| 42  | Iris-setosa     | 1.3           | 0.3          | 4.5           | 2.3          |
+| 43  | Iris-setosa     | 1.3           | 0.2          | 4.4           | 3.2          |
+| 44  | Iris-setosa     | 1.6           | 0.6          | 5.0           | 3.5          |
+| 45  | Iris-setosa     | 1.9           | 0.4          | 5.1           | 3.8          |
+| 46  | Iris-setosa     | 1.4           | 0.3          | 4.8           | 3.0          |
+| 47  | Iris-setosa     | 1.6           | 0.2          | 5.1           | 3.8          |
+| 48  | Iris-setosa     | 1.4           | 0.2          | 4.6           | 3.2          |
+| 49  | Iris-setosa     | 1.5           | 0.2          | 5.3           | 3.7          |
+| 50  | Iris-setosa     | 1.4           | 0.2          | 5.0           | 3.3          |
+| 51  | Iris-versicolor | 4.7           | 1.4          | 7.0           | 3.2          |
+| 52  | Iris-versicolor | 4.5           | 1.5          | 6.4           | 3.2          |
+| 53  | Iris-versicolor | 4.9           | 1.5          | 6.9           | 3.1          |
+| 54  | Iris-versicolor | 4.0           | 1.3          | 5.5           | 2.3          |
+| 55  | Iris-versicolor | 4.6           | 1.5          | 6.5           | 2.8          |
+| 56  | Iris-versicolor | 4.5           | 1.3          | 5.7           | 2.8          |
+| 57  | Iris-versicolor | 4.7           | 1.6          | 6.3           | 3.3          |
+| 58  | Iris-versicolor | 3.3           | 1.0          | 4.9           | 2.4          |
+| 59  | Iris-versicolor | 4.6           | 1.3          | 6.6           | 2.9          |
+| 60  | Iris-versicolor | 3.9           | 1.4          | 5.2           | 2.7          |
+| 61  | Iris-versicolor | 3.5           | 1.0          | 5.0           | 2.0          |
+| 62  | Iris-versicolor | 4.2           | 1.5          | 5.9           | 3.0          |
+| 63  | Iris-versicolor | 4.0           | 1.0          | 6.0           | 2.2          |
+| 64  | Iris-versicolor | 4.7           | 1.4          | 6.1           | 2.9          |
+| 65  | Iris-versicolor | 3.6           | 1.3          | 5.6           | 2.9          |
+| 66  | Iris-versicolor | 4.4           | 1.4          | 6.7           | 3.1          |
+| 67  | Iris-versicolor | 4.5           | 1.5          | 5.6           | 3.0          |
+| 68  | Iris-versicolor | 4.1           | 1.0          | 5.8           | 2.7          |
+| 69  | Iris-versicolor | 4.5           | 1.5          | 6.2           | 2.2          |
+| 70  | Iris-versicolor | 3.9           | 1.1          | 5.6           | 2.5          |
+| 71  | Iris-versicolor | 4.8           | 1.8          | 5.9           | 3.2          |
+| 72  | Iris-versicolor | 4.0           | 1.3          | 6.1           | 2.8          |
+| 73  | Iris-versicolor | 4.9           | 1.5          | 6.3           | 2.5          |
+| 74  | Iris-versicolor | 4.7           | 1.2          | 6.1           | 2.8          |
+| 75  | Iris-versicolor | 4.3           | 1.3          | 6.4           | 2.9          |
+| 76  | Iris-versicolor | 4.4           | 1.4          | 6.6           | 3.0          |
+| 77  | Iris-versicolor | 4.8           | 1.4          | 6.8           | 2.8          |
+| 78  | Iris-versicolor | 5.0           | 1.7          | 6.7           | 3.0          |
+| 79  | Iris-versicolor | 4.5           | 1.5          | 6.0           | 2.9          |
+| 80  | Iris-versicolor | 3.5           | 1.0          | 5.7           | 2.6          |
+| 81  | Iris-versicolor | 3.8           | 1.1          | 5.5           | 2.4          |
+| 82  | Iris-versicolor | 3.7           | 1.0          | 5.5           | 2.4          |
+| 83  | Iris-versicolor | 3.9           | 1.2          | 5.8           | 2.7          |
+| 84  | Iris-versicolor | 5.1           | 1.6          | 6.0           | 2.7          |
+| 85  | Iris-versicolor | 4.5           | 1.5          | 5.4           | 3.0          |
+| 86  | Iris-versicolor | 4.5           | 1.6          | 6.0           | 3.4          |
+| 87  | Iris-versicolor | 4.7           | 1.5          | 6.7           | 3.1          |
+| 88  | Iris-versicolor | 4.4           | 1.3          | 6.3           | 2.3          |
+| 89  | Iris-versicolor | 4.1           | 1.3          | 5.6           | 3.0          |
+| 90  | Iris-versicolor | 4.0           | 1.3          | 5.5           | 2.5          |
+| 91  | Iris-versicolor | 4.4           | 1.2          | 5.5           | 2.6          |
+| 92  | Iris-versicolor | 4.6           | 1.4          | 6.1           | 3.0          |
+| 93  | Iris-versicolor | 4.0           | 1.2          | 5.8           | 2.6          |
+| 94  | Iris-versicolor | 3.3           | 1.0          | 5.0           | 2.3          |
+| 95  | Iris-versicolor | 4.2           | 1.3          | 5.6           | 2.7          |
+| 96  | Iris-versicolor | 4.2           | 1.2          | 5.7           | 3.0          |
+| 97  | Iris-versicolor | 4.2           | 1.3          | 5.7           | 2.9          |
+| 98  | Iris-versicolor | 4.3           | 1.3          | 6.2           | 2.9          |
+| 99  | Iris-versicolor | 3.0           | 1.1          | 5.1           | 2.5          |
+| 100 | Iris-versicolor | 4.1           | 1.3          | 5.7           | 2.8          |
+| 101 | Iris-virginica  | 6.0           | 2.5          | 6.3           | 3.3          |
+| 102 | Iris-virginica  | 5.1           | 1.9          | 5.8           | 2.7          |
+| 103 | Iris-virginica  | 5.9           | 2.1          | 7.1           | 3.0          |
+| 104 | Iris-virginica  | 5.6           | 1.8          | 6.3           | 2.9          |
+| 105 | Iris-virginica  | 5.8           | 2.2          | 6.5           | 3.0          |
+| 106 | Iris-virginica  | 6.6           | 2.1          | 7.6           | 3.0          |
+| 107 | Iris-virginica  | 4.5           | 1.7          | 4.9           | 2.5          |
+| 108 | Iris-virginica  | 6.3           | 1.8          | 7.3           | 2.9          |
+| 109 | Iris-virginica  | 5.8           | 1.8          | 6.7           | 2.5          |
+| 110 | Iris-virginica  | 6.1           | 2.5          | 7.2           | 3.6          |
+| 111 | Iris-virginica  | 5.1           | 2.0          | 6.5           | 3.2          |
+| 112 | Iris-virginica  | 5.3           | 1.9          | 6.4           | 2.7          |
+| 113 | Iris-virginica  | 5.5           | 2.1          | 6.8           | 3.0          |
+| 114 | Iris-virginica  | 5.0           | 2.0          | 5.7           | 2.5          |
+| 115 | Iris-virginica  | 5.1           | 2.4          | 5.8           | 2.8          |
+| 116 | Iris-virginica  | 5.3           | 2.3          | 6.4           | 3.2          |
+| 117 | Iris-virginica  | 5.5           | 1.8          | 6.5           | 3.0          |
+| 118 | Iris-virginica  | 6.7           | 2.2          | 7.7           | 3.8          |
+| 119 | Iris-virginica  | 6.9           | 2.3          | 7.7           | 2.6          |
+| 120 | Iris-virginica  | 5.0           | 1.5          | 6.0           | 2.2          |
+| 121 | Iris-virginica  | 5.7           | 2.3          | 6.9           | 3.2          |
+| 122 | Iris-virginica  | 4.9           | 2.0          | 5.6           | 2.8          |
+| 123 | Iris-virginica  | 6.7           | 2.0          | 7.7           | 2.8          |
+| 124 | Iris-virginica  | 4.9           | 1.8          | 6.3           | 2.7          |
+| 125 | Iris-virginica  | 5.7           | 2.1          | 6.7           | 3.3          |
+| 126 | Iris-virginica  | 6.0           | 1.8          | 7.2           | 3.2          |
+| 127 | Iris-virginica  | 4.8           | 1.8          | 6.2           | 2.8          |
+| 128 | Iris-virginica  | 4.9           | 1.8          | 6.1           | 3.0          |
+| 129 | Iris-virginica  | 5.6           | 2.1          | 6.4           | 2.8          |
+| 130 | Iris-virginica  | 5.8           | 1.6          | 7.2           | 3.0          |
+| 131 | Iris-virginica  | 6.1           | 1.9          | 7.4           | 2.8          |
+| 132 | Iris-virginica  | 6.4           | 2.0          | 7.9           | 3.8          |
+| 133 | Iris-virginica  | 5.6           | 2.2          | 6.4           | 2.8          |
+| 134 | Iris-virginica  | 5.1           | 1.5          | 6.3           | 2.8          |
+| 135 | Iris-virginica  | 5.6           | 1.4          | 6.1           | 2.6          |
+| 136 | Iris-virginica  | 6.1           | 2.3          | 7.7           | 3.0          |
+| 137 | Iris-virginica  | 5.6           | 2.4          | 6.3           | 3.4          |
+| 138 | Iris-virginica  | 5.5           | 1.8          | 6.4           | 3.1          |
+| 139 | Iris-virginica  | 4.8           | 1.8          | 6.0           | 3.0          |
+| 140 | Iris-virginica  | 5.4           | 2.1          | 6.9           | 3.1          |
+| 141 | Iris-virginica  | 5.6           | 2.4          | 6.7           | 3.1          |
+| 142 | Iris-virginica  | 5.1           | 2.3          | 6.9           | 3.1          |
+| 143 | Iris-virginica  | 5.1           | 1.9          | 5.8           | 2.7          |
+| 144 | Iris-virginica  | 5.9           | 2.3          | 6.8           | 3.2          |
+| 145 | Iris-virginica  | 5.7           | 2.5          | 6.7           | 3.3          |
+| 146 | Iris-virginica  | 5.2           | 2.3          | 6.7           | 3.0          |
+| 147 | Iris-virginica  | 5.0           | 1.9          | 6.3           | 2.5          |
+| 148 | Iris-virginica  | 5.2           | 2.0          | 6.5           | 3.0          |
+| 149 | Iris-virginica  | 5.4           | 2.3          | 6.2           | 3.4          |
+| 150 | Iris-virginica  | 5.1           | 1.8          | 5.9           | 3.0          |
++-----+-----------------+---------------+--------------+---------------+--------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># jumlah tetangga yang kamu mau</span>
+<span class="n">hasil</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result_df</span><span class="p">)):</span>
+    <span class="n">jarak</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result_df</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>  <span class="c1"># supaya tidak membandingkan diri sendiri</span>
+            <span class="n">total</span> <span class="o">=</span> <span class="p">((</span><span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                     <span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                     <span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                     <span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">result_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+            <span class="n">jarak</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+
+    <span class="n">jarak</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  <span class="c1"># urutkan jarak</span>
+    <span class="n">avg_distance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">jarak</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="n">k</span>  <span class="c1"># ambil k tetangga terdekat</span>
+    <span class="n">hasil</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_distance</span><span class="p">)</span>
+
+<span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil</span>
+
+<span class="c1"># Deteksi outlier (misalnya, data dengan jarak rata-rata &gt; threshold tertentu)</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.9999</span><span class="p">)</span>  <span class="c1"># ambil threshold 95% persentil</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
+<span class="c1"># Menampilkan semua baris hasil perhitungan KNN</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil perhitungan jarak rata-rata (KNN):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">result_df</span><span class="p">[[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_distance&#39;</span><span class="p">]],</span>
+               <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil perhitungan jarak rata-rata (KNN):
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|     |   id |   petal length |   petal width |   sepal_length |   sepal_width |   avg_distance |
++=====+======+================+===============+================+===============+================+
+|   0 |    1 |           86.4 |          70   |           20.1 |          30.5 |     108.838    |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   1 |    2 |            1.4 |           0.2 |            4.9 |           3   |       0.152016 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   2 |    3 |            1.3 |           0.2 |            4.7 |           3.2 |       0.216982 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   3 |    4 |            1.5 |           0.2 |            4.6 |           3.1 |       0.179411 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   4 |    5 |            1.4 |           0.2 |            5   |           3.6 |       0.190006 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   5 |    6 |            1.7 |           0.4 |            5.4 |           3.9 |       0.346209 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   6 |    7 |            1.4 |           0.3 |            4.6 |           3.4 |       0.262727 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   7 |    8 |            1.5 |           0.2 |            5   |           3.4 |       0.14714  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   8 |    9 |            1.4 |           0.2 |            4.4 |           2.9 |       0.25255  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|   9 |   10 |            1.5 |           0.1 |            4.9 |           3.1 |       0.057735 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  10 |   11 |            1.5 |           0.2 |            5.4 |           3.7 |       0.227614 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  11 |   12 |            1.6 |           0.2 |            4.8 |           3.4 |       0.243352 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  12 |   13 |            1.4 |           0.1 |            4.8 |           3   |       0.162611 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  13 |   14 |            1.1 |           0.1 |            4.3 |           3   |       0.302529 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  14 |   15 |            1.2 |           0.2 |            5.8 |           4   |       0.476358 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  15 |   16 |            1.5 |           0.4 |            5.7 |           4.4 |       0.50824  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  16 |   17 |            1.3 |           0.4 |            5.4 |           3.9 |       0.364755 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  17 |   18 |            1.4 |           0.3 |            5.1 |           3.5 |       0.162611 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  18 |   19 |            1.7 |           0.3 |            5.7 |           3.8 |       0.396001 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  19 |   20 |            1.5 |           0.3 |            5.1 |           3.8 |       0.175931 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  20 |   21 |            1.7 |           0.2 |            5.4 |           3.4 |       0.314466 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  21 |   22 |            1.5 |           0.4 |            5.1 |           3.7 |       0.21044  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  22 |   23 |            1   |           0.2 |            4.6 |           3.6 |       0.495925 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  23 |   24 |            1.7 |           0.5 |            5.1 |           3.3 |       0.27958  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  24 |   25 |            1.9 |           0.2 |            4.8 |           3.4 |       0.362159 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  25 |   26 |            1.6 |           0.2 |            5   |           3   |       0.2      |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  26 |   27 |            1.6 |           0.4 |            5   |           3.4 |       0.215738 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  27 |   28 |            1.5 |           0.2 |            5.2 |           3.5 |       0.152016 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  28 |   29 |            1.4 |           0.2 |            5.2 |           3.4 |       0.152016 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  29 |   30 |            1.6 |           0.2 |            4.7 |           3.2 |       0.179411 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  30 |   31 |            1.6 |           0.2 |            4.8 |           3.1 |       0.162611 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  31 |   32 |            1.5 |           0.4 |            5.4 |           3.4 |       0.294281 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  32 |   33 |            1.5 |           0.1 |            5.2 |           4.1 |       0.355662 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  33 |   34 |            1.4 |           0.2 |            5.5 |           4.2 |       0.364755 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  34 |   35 |            1.5 |           0.1 |            4.9 |           3.1 |       0.057735 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  35 |   36 |            1.2 |           0.2 |            5   |           3.2 |       0.279945 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  36 |   37 |            1.3 |           0.2 |            5.5 |           3.5 |       0.315963 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  37 |   38 |            1.5 |           0.1 |            4.9 |           3.1 |       0.057735 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  38 |   39 |            1.3 |           0.2 |            4.4 |           3   |       0.195457 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  39 |   40 |            1.5 |           0.2 |            5.1 |           3.4 |       0.127614 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  40 |   41 |            1.3 |           0.3 |            5   |           3.5 |       0.186525 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  41 |   42 |            1.3 |           0.3 |            4.5 |           2.3 |       0.702252 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  42 |   43 |            1.3 |           0.2 |            4.4 |           3.2 |       0.241202 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  43 |   44 |            1.6 |           0.6 |            5   |           3.5 |       0.268137 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  44 |   45 |            1.9 |           0.4 |            5.1 |           3.8 |       0.382344 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  45 |   46 |            1.4 |           0.3 |            4.8 |           3   |       0.195457 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  46 |   47 |            1.6 |           0.2 |            5.1 |           3.8 |       0.21044  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  47 |   48 |            1.4 |           0.2 |            4.6 |           3.2 |       0.168817 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  48 |   49 |            1.5 |           0.2 |            5.3 |           3.7 |       0.189519 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  49 |   50 |            1.4 |           0.2 |            5   |           3.3 |       0.179411 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  50 |   51 |            4.7 |           1.4 |            7   |           3.2 |       0.344043 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  51 |   52 |            4.5 |           1.5 |            6.4 |           3.2 |       0.309071 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  52 |   53 |            4.9 |           1.5 |            6.9 |           3.1 |       0.287882 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  53 |   54 |            4   |           1.3 |            5.5 |           2.3 |       0.272076 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  54 |   55 |            4.6 |           1.5 |            6.5 |           2.8 |       0.311781 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  55 |   56 |            4.5 |           1.3 |            5.7 |           2.8 |       0.310819 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  56 |   57 |            4.7 |           1.6 |            6.3 |           3.3 |       0.354335 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  57 |   58 |            3.3 |           1   |            4.9 |           2.4 |       0.328992 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  58 |   59 |            4.6 |           1.3 |            6.6 |           2.9 |       0.268709 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  59 |   60 |            3.9 |           1.4 |            5.2 |           2.7 |       0.472272 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  60 |   61 |            3.5 |           1   |            5   |           2   |       0.496544 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  61 |   62 |            4.2 |           1.5 |            5.9 |           3   |       0.330739 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  62 |   63 |            4   |           1   |            6   |           2.2 |       0.519079 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  63 |   64 |            4.7 |           1.4 |            6.1 |           2.9 |       0.203326 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  64 |   65 |            3.6 |           1.3 |            5.6 |           2.9 |       0.46046  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  65 |   66 |            4.4 |           1.4 |            6.7 |           3.1 |       0.257959 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  66 |   67 |            4.5 |           1.5 |            5.6 |           3   |       0.295766 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  67 |   68 |            4.1 |           1   |            5.8 |           2.7 |       0.286485 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  68 |   69 |            4.5 |           1.5 |            6.2 |           2.2 |       0.437665 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  69 |   70 |            3.9 |           1.1 |            5.6 |           2.5 |       0.227576 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  70 |   71 |            4.8 |           1.8 |            5.9 |           3.2 |       0.294721 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  71 |   72 |            4   |           1.3 |            6.1 |           2.8 |       0.350746 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  72 |   73 |            4.9 |           1.5 |            6.3 |           2.5 |       0.377807 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  73 |   74 |            4.7 |           1.2 |            6.1 |           2.8 |       0.303635 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  74 |   75 |            4.3 |           1.3 |            6.4 |           2.9 |       0.275043 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  75 |   76 |            4.4 |           1.4 |            6.6 |           3   |       0.216982 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  76 |   77 |            4.8 |           1.4 |            6.8 |           2.8 |       0.336349 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  77 |   78 |            5   |           1.7 |            6.7 |           3   |       0.367568 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  78 |   79 |            4.5 |           1.5 |            6   |           2.9 |       0.25887  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  79 |   80 |            3.5 |           1   |            5.7 |           2.6 |       0.402188 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  80 |   81 |            3.8 |           1.1 |            5.5 |           2.4 |       0.204875 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  81 |   82 |            3.7 |           1   |            5.5 |           2.4 |       0.250802 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  82 |   83 |            3.9 |           1.2 |            5.8 |           2.7 |       0.229613 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  83 |   84 |            5.1 |           1.6 |            6   |           2.7 |       0.350924 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  84 |   85 |            4.5 |           1.5 |            5.4 |           3   |       0.363965 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  85 |   86 |            4.5 |           1.6 |            6   |           3.4 |       0.418896 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  86 |   87 |            4.7 |           1.5 |            6.7 |           3.1 |       0.305099 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  87 |   88 |            4.4 |           1.3 |            6.3 |           2.3 |       0.47688  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  88 |   89 |            4.1 |           1.3 |            5.6 |           3   |       0.190006 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  89 |   90 |            4   |           1.3 |            5.5 |           2.5 |       0.248316 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  90 |   91 |            4.4 |           1.2 |            5.5 |           2.6 |       0.335022 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  91 |   92 |            4.6 |           1.4 |            6.1 |           3   |       0.213807 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  92 |   93 |            4   |           1.2 |            5.8 |           2.6 |       0.216982 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  93 |   94 |            3.3 |           1   |            5   |           2.3 |       0.296425 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  94 |   95 |            4.2 |           1.3 |            5.6 |           2.7 |       0.220462 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  95 |   96 |            4.2 |           1.2 |            5.7 |           3   |       0.186525 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  96 |   97 |            4.2 |           1.3 |            5.7 |           2.9 |       0.152016 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  97 |   98 |            4.3 |           1.3 |            6.2 |           2.9 |       0.292691 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  98 |   99 |            3   |           1.1 |            5.1 |           2.5 |       0.498569 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+|  99 |  100 |            4.1 |           1.3 |            5.7 |           2.8 |       0.179411 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 100 |  101 |            6   |           2.5 |            6.3 |           3.3 |       0.478055 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 101 |  102 |            5.1 |           1.9 |            5.8 |           2.7 |       0.193601 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 102 |  103 |            5.9 |           2.1 |            7.1 |           3   |       0.39987  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 103 |  104 |            5.6 |           1.8 |            6.3 |           2.9 |       0.273853 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 104 |  105 |            5.8 |           2.2 |            6.5 |           3   |       0.325594 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 105 |  106 |            6.6 |           2.1 |            7.6 |           3   |       0.447149 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 106 |  107 |            4.5 |           1.7 |            4.9 |           2.5 |       0.763383 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 107 |  108 |            6.3 |           1.8 |            7.3 |           2.9 |       0.409872 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 108 |  109 |            5.8 |           1.8 |            6.7 |           2.5 |       0.591073 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 109 |  110 |            6.1 |           2.5 |            7.2 |           3.6 |       0.670128 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 110 |  111 |            5.1 |           2   |            6.5 |           3.2 |       0.340679 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 111 |  112 |            5.3 |           1.9 |            6.4 |           2.7 |       0.364914 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 112 |  113 |            5.5 |           2.1 |            6.8 |           3   |       0.29339  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 113 |  114 |            5   |           2   |            5.7 |           2.5 |       0.286938 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 114 |  115 |            5.1 |           2.4 |            5.8 |           2.8 |       0.503234 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 115 |  116 |            5.3 |           2.3 |            6.4 |           3.2 |       0.349444 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 116 |  117 |            5.5 |           1.8 |            6.5 |           3   |       0.248975 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 117 |  118 |            6.7 |           2.2 |            7.7 |           3.8 |       0.697026 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 118 |  119 |            6.9 |           2.3 |            7.7 |           2.6 |       0.618153 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 119 |  120 |            5   |           1.5 |            6   |           2.2 |       0.498007 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 120 |  121 |            5.7 |           2.3 |            6.9 |           3.2 |       0.262727 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 121 |  122 |            4.9 |           2   |            5.6 |           2.8 |       0.321373 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 122 |  123 |            6.7 |           2   |            7.7 |           2.8 |       0.428387 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 123 |  124 |            4.9 |           1.8 |            6.3 |           2.7 |       0.25957  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 124 |  125 |            5.7 |           2.1 |            6.7 |           3.3 |       0.330131 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 125 |  126 |            6   |           1.8 |            7.2 |           3.2 |       0.389866 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 126 |  127 |            4.8 |           1.8 |            6.2 |           2.8 |       0.233666 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 127 |  128 |            4.9 |           1.8 |            6.1 |           3   |       0.223071 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 128 |  129 |            5.6 |           2.1 |            6.4 |           2.8 |       0.249297 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 129 |  130 |            5.8 |           1.6 |            7.2 |           3   |       0.458642 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 130 |  131 |            6.1 |           1.9 |            7.4 |           2.8 |       0.397291 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 131 |  132 |            6.4 |           2   |            7.9 |           3.8 |       0.740949 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 132 |  133 |            5.6 |           2.2 |            6.4 |           2.8 |       0.274755 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 133 |  134 |            5.1 |           1.5 |            6.3 |           2.8 |       0.355461 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 134 |  135 |            5.6 |           1.4 |            6.1 |           2.6 |       0.559463 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 135 |  136 |            6.1 |           2.3 |            7.7 |           3   |       0.583188 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 136 |  137 |            5.6 |           2.4 |            6.3 |           3.4 |       0.35217  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 137 |  138 |            5.5 |           1.8 |            6.4 |           3.1 |       0.25789  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 138 |  139 |            4.8 |           1.8 |            6   |           3   |       0.215957 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 139 |  140 |            5.4 |           2.1 |            6.9 |           3.1 |       0.298105 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 140 |  141 |            5.6 |           2.4 |            6.7 |           3.1 |       0.285311 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 141 |  142 |            5.1 |           2.3 |            6.9 |           3.1 |       0.358182 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 142 |  143 |            5.1 |           1.9 |            5.8 |           2.7 |       0.193601 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 143 |  144 |            5.9 |           2.3 |            6.8 |           3.2 |       0.285354 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 144 |  145 |            5.7 |           2.5 |            6.7 |           3.3 |       0.287059 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 145 |  146 |            5.2 |           2.3 |            6.7 |           3   |       0.32202  |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 146 |  147 |            5   |           1.9 |            6.3 |           2.5 |       0.335471 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 147 |  148 |            5.2 |           2   |            6.5 |           3   |       0.310191 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 148 |  149 |            5.4 |           2.3 |            6.2 |           3.4 |       0.367242 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+| 149 |  150 |            5.1 |           1.8 |            5.9 |           3   |       0.310244 |
++-----+------+----------------+---------------+----------------+---------------+----------------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="menampilkan-data-yang-diduga-outlier">
+<h2>🚨 Menampilkan Data yang Diduga Outlier<a class="headerlink" href="#menampilkan-data-yang-diduga-outlier" title="Link to this heading">#</a></h2>
+<p>Setelah kita menghitung jarak rata-rata ke K tetangga terdekat untuk setiap titik data, langkah berikutnya adalah <strong>mengidentifikasi dan menampilkan outlier</strong>.</p>
+<p>💡 <strong>Apa yang dilakukan pada tahap ini?</strong></p>
+<ul class="simple">
+<li><p><strong>Filter data:</strong> Kita menyaring titik data yang memiliki jarak rata-rata lebih besar dari threshold tertentu.</p></li>
+<li><p><strong>Menampilkan hasil:</strong> Data yang melebihi threshold dianggap sebagai outlier dan akan ditampilkan dalam bentuk tabel agar mudah dianalisis.</p></li>
+</ul>
+<p>📊 <strong>Tujuannya:</strong></p>
+<ul class="simple">
+<li><p>Memastikan kita bisa dengan cepat mengamati titik data yang berpotensi bermasalah.</p></li>
+<li><p>Memberikan gambaran visual terkait seberapa jauh outlier tersebut dari kelompok data utama.</p></li>
+</ul>
+<section id="cetak-data-yang-diduga-outlier">
+<h3>🔥 Cetak Data yang Diduga Outlier<a class="headerlink" href="#cetak-data-yang-diduga-outlier" title="Link to this heading">#</a></h3>
+<p>Kode berikut bertujuan untuk menampilkan data yang dikategorikan sebagai outlier berdasarkan jarak rata-rata KNN:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data yang diduga outlier:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">outliers</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data yang diduga outlier:
++----+------+-------------+----------------+---------------+----------------+---------------+----------------+
+|    |   id | class       |   petal length |   petal width |   sepal_length |   sepal_width |   avg_distance |
++====+======+=============+================+===============+================+===============+================+
+|  0 |    1 | Iris-setosa |           86.4 |            70 |           20.1 |          30.5 |        108.838 |
++----+------+-------------+----------------+---------------+----------------+---------------+----------------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="penjelasan-kode">
+<h3>🧐 Penjelasan Kode<a class="headerlink" href="#penjelasan-kode" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>print(“Data yang diduga outlier:”)</strong></p>
+<ul class="simple">
+<li><p>🏷️ Fungsi ini mencetak teks sederhana untuk memberi tahu pengguna bahwa data berikut adalah data yang diklasifikasikan sebagai outlier.</p></li>
+</ul>
+</li>
+<li><p><strong>tabulate(outliers, headers=’keys’, tablefmt=’grid’)</strong></p>
+<ul class="simple">
+<li><p>📦 <strong><code class="docutils literal notranslate"><span class="pre">outliers</span></code></strong> adalah DataFrame yang berisi data dengan jarak rata-rata lebih besar dari threshold.</p></li>
+<li><p>📊 <strong><code class="docutils literal notranslate"><span class="pre">tabulate()</span></code></strong> digunakan untuk menampilkan tabel yang rapi dan terformat.</p></li>
+<li><p>🗝️ <strong><code class="docutils literal notranslate"><span class="pre">headers='keys'</span></code></strong> secara otomatis mengambil nama kolom dari DataFrame.</p></li>
+<li><p>🏗️ <strong><code class="docutils literal notranslate"><span class="pre">tablefmt='grid'</span></code></strong> membuat tabel dalam format grid agar lebih mudah dibaca.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="visualisasi-outlier-dengan-knn">
+<h2>📈 Visualisasi Outlier dengan KNN<a class="headerlink" href="#visualisasi-outlier-dengan-knn" title="Link to this heading">#</a></h2>
+<p>Grafik di bawah menunjukkan bagaimana outlier dideteksi menggunakan metode KNN. Mari kita bahas elemen-elemen penting yang terlihat:</p>
+<ol class="arabic simple">
+<li><p><strong>📊 Titik Biru (Data)</strong></p>
+<ul class="simple">
+<li><p>Titik-titik biru merepresentasikan data normal, yaitu data yang memiliki jarak rata-rata ke tetangga terdekat (K) yang tidak melebihi ambang batas (threshold).</p></li>
+<li><p>Mereka cenderung terkumpul di bagian bawah grafik, menunjukkan jarak rata-rata yang relatif kecil.</p></li>
+</ul>
+</li>
+<li><p><strong>🔴 Titik Merah (Outlier)</strong></p>
+<ul class="simple">
+<li><p>Titik merah menunjukkan outlier, yaitu data yang memiliki jarak rata-rata ke K tetangga yang jauh lebih besar dari data lainnya.</p></li>
+<li><p>Titik ini secara visual jauh terpisah dari kelompok utama, mengindikasikan bahwa jaraknya terhadap data lain cukup besar.</p></li>
+</ul>
+</li>
+<li><p><strong>📉 Sumbu X (Indeks Data)</strong></p>
+<ul class="simple">
+<li><p>Sumbu X menunjukkan indeks dari setiap titik data.</p></li>
+<li><p>Indeks ini membantu kita memahami posisi masing-masing data di dataset.</p></li>
+</ul>
+</li>
+<li><p><strong>📏 Sumbu Y (Jarak Rata-rata)</strong></p>
+<ul class="simple">
+<li><p>Sumbu Y merepresentasikan jarak rata-rata setiap titik data ke K tetangga terdekat.</p></li>
+<li><p>Semakin tinggi nilainya, semakin besar jaraknya dan semakin besar kemungkinan data tersebut adalah outlier.</p></li>
+</ul>
+</li>
+</ol>
+<p>Grafik ini membantu kita secara visual mengidentifikasi outlier, di mana titik merah yang menyendiri menjadi peringatan adanya data yang tidak biasa. 🚨</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memilih baris yang termasuk outlier</span>
+<span class="n">outlier_df</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
+
+<span class="c1"># Visualisasi</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outlier_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">outlier_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Deteksi Outlier dengan KNN&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7cea604542dae2cc4161d377b8e0c34cba93eca112d45abde2de4f016310a240.png" src="_images/7cea604542dae2cc4161d377b8e0c34cba93eca112d45abde2de4f016310a240.png" />
+</div>
+</div>
+</section>
+<section id="kesimpulan-deteksi-outlier-dengan-knn">
+<h2>🎯 Kesimpulan Deteksi Outlier dengan KNN<a class="headerlink" href="#kesimpulan-deteksi-outlier-dengan-knn" title="Link to this heading">#</a></h2>
+<p>Berdasarkan implementasi dan visualisasi yang telah dilakukan, kita bisa menarik beberapa kesimpulan penting terkait deteksi outlier menggunakan K-Nearest Neighbors (KNN):</p>
+<ol class="arabic simple">
+<li><p><strong>KNN sebagai Metode Outlier Detection</strong></p>
+<ul class="simple">
+<li><p>KNN efektif untuk mendeteksi outlier dengan mengukur jarak rata-rata ke tetangga terdekat.</p></li>
+<li><p>Titik data yang memiliki jarak lebih jauh dari mayoritas titik lainnya akan diidentifikasi sebagai outlier.</p></li>
+</ul>
+</li>
+<li><p><strong>Signifikansi Threshold</strong></p>
+<ul class="simple">
+<li><p>Penentuan threshold (contohnya, kuantil tertentu seperti 99.99%) penting untuk membedakan data normal dan data outlier.</p></li>
+<li><p>Semakin tinggi threshold, semakin ketat kriteria untuk mendeteksi outlier.</p></li>
+</ul>
+</li>
+<li><p><strong>Visualisasi Membantu Identifikasi</strong></p>
+<ul class="simple">
+<li><p>Plot visual seperti scatter plot membantu memahami pola data dan mengamati titik-titik yang menyimpang.</p></li>
+<li><p>Outlier biasanya terlihat terisolasi dan jauh dari kluster data utama.</p></li>
+</ul>
+</li>
+<li><p><strong>Keterbatasan KNN dalam Outlier Detection</strong></p>
+<ul class="simple">
+<li><p>KNN cenderung kurang efisien jika dataset terlalu besar karena proses perhitungan jarak yang memakan waktu.</p></li>
+<li><p>Sensitif terhadap nilai K — K yang terlalu kecil bisa membuat banyak false positive, sementara K yang terlalu besar bisa menyamarkan outlier.</p></li>
+</ul>
+</li>
+</ol>
+<p>🌟 <strong>Kesimpulan Utama:</strong> KNN menawarkan pendekatan intuitif untuk mendeteksi outlier, namun hasil terbaik diperoleh dengan kombinasi pemilihan K yang tepat, threshold yang sesuai, dan visualisasi yang informatif.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data_understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🌟 Data Understanding</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-deteksi-outlier">🔍 Apa itu Deteksi Outlier?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-k-nearest-neighbors-knn">🤔 Mengapa Menggunakan K-Nearest Neighbors (KNN)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-deteksi-outlier-menggunakan-knn">🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-mysql">1️⃣ Ambil Data dari MySQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-postgresql">2️⃣ Ambil Data dari PostgreSQL</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-yang-diduga-outlier">🚨 Menampilkan Data yang Diduga Outlier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cetak-data-yang-diduga-outlier">🔥 Cetak Data yang Diduga Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">🧐 Penjelasan Kode</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier-dengan-knn">📈 Visualisasi Outlier dengan KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-deteksi-outlier-dengan-knn">🎯 Kesimpulan Deteksi Outlier dengan KNN</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

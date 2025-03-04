@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'data_understanding';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)" href="deteksi_outlier.html" />
     <link rel="prev" title="Selamat Datang di Proyek Penambangan Data Aldi" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,6 +181,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
 </ul>
 
     </div>
@@ -423,6 +425,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-boxplot">analisis boxplot</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-understanding-dalam-data-mining">📊 Tipe Data Understanding dalam Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-numerik-numerical-data">🔹 1. <strong>Data Numerik (Numerical Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-kategorikal-categorical-data">🔸 2. <strong>Data Kategorikal (Categorical Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-biner-binary-data">🔹 3. <strong>Data Biner (Binary Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-waktu-time-series-data">🔸 4. <strong>Data Waktu (Time-Series Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-teks-text-data">🔹 5. <strong>Data Teks (Text Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-memahami-tipe-data">🎯 Pentingnya Memahami Tipe Data</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -501,7 +512,16 @@ Query untuk mengambil data <strong>petal</strong>:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">1.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
 </pre></div>
 </div>
 </div>
@@ -612,7 +632,7 @@ Pertama, pastikan kita sudah menginstal <em>library</em> <strong><code class="do
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------+-----------------+----------------+---------------+
 |   id | class           |   petal length |   petal width |
 +======+=================+================+===============+
-|    1 | Iris-setosa     |            1.4 |           0.2 |
+|    1 | Iris-setosa     |           86.4 |          70   |
 +------+-----------------+----------------+---------------+
 |    2 | Iris-setosa     |            1.4 |           0.2 |
 +------+-----------------+----------------+---------------+
@@ -1006,7 +1026,7 @@ Pastikan kita sudah menginstal <em>library</em> <strong><code class="docutils li
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----+-----------------+--------------+-------------+
 | id  | class           | petal length | petal width |
 +-----+-----------------+--------------+-------------+
-| 1   | Iris-setosa     | 1.4          | 0.2         |
+| 1   | Iris-setosa     | 86.4         | 70.0        |
 | 2   | Iris-setosa     | 1.4          | 0.2         |
 | 3   | Iris-setosa     | 1.3          | 0.2         |
 | 4   | Iris-setosa     | 1.5          | 0.2         |
@@ -1220,7 +1240,7 @@ Kita tarik data dari tabel <strong>petal</strong> (MySQL) dan <strong>sepal</str
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari MySQL:
    id        class  petal length  petal width
-0   1  Iris-setosa           1.4          0.2
+0   1  Iris-setosa          86.4         70.0
 1   2  Iris-setosa           1.4          0.2
 2   3  Iris-setosa           1.3          0.2
 3   4  Iris-setosa           1.5          0.2
@@ -1261,7 +1281,7 @@ Kita tarik data dari tabel <strong>petal</strong> (MySQL) dan <strong>sepal</str
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari PostgreSQL:
    id        class  sepal_length  sepal_width
-0   1  Iris-setosa           5.1          3.5
+0   1  Iris-setosa          20.1         30.5
 1   2  Iris-setosa           4.9          3.0
 2   3  Iris-setosa           4.7          3.2
 3   4  Iris-setosa           4.6          3.1
@@ -1368,7 +1388,7 @@ Untuk menggabungkan kedua dataset, kita menggunakan fungsi <strong>merge()</stro
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----+-----------------+---------------+--------------+---------------+--------------+
 | ID  | Class           | Petal Length  | Petal Width  | Sepal Length  | Sepal Width  |
 +-----+-----------------+---------------+--------------+---------------+--------------+
-| 1   | Iris-setosa     | 1.4           | 0.2          | 5.1           | 3.5          |
+| 1   | Iris-setosa     | 86.4          | 70.0         | 20.1          | 30.5         |
 | 2   | Iris-setosa     | 1.4           | 0.2          | 4.9           | 3.0          |
 | 3   | Iris-setosa     | 1.3           | 0.2          | 4.7           | 3.2          |
 | 4   | Iris-setosa     | 1.5           | 0.2          | 4.6           | 3.1          |
@@ -1603,13 +1623,13 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 +----+--------------+---------+----------+-------+-------+----------------------+---------+
 |    | Kolom        |    Mean |   Median |   Min |   Max |   Standard Deviation |   Count |
 +====+==============+=========+==========+=======+=======+======================+=========+
-|  0 | petal length | 3.75867 |     4.35 |   1   |   6.9 |             1.76442  |     150 |
+|  0 | petal length | 4.32533 |      4.4 |   1   |  86.4 |              6.97056 |     150 |
 +----+--------------+---------+----------+-------+-------+----------------------+---------+
-|  1 | petal width  | 1.19867 |     1.3  |   0.1 |   2.5 |             0.763161 |     150 |
+|  1 | petal width  | 1.664   |      1.3 |   0.1 |  70   |              5.66807 |     150 |
 +----+--------------+---------+----------+-------+-------+----------------------+---------+
-|  2 | sepal_length | 5.84333 |     5.8  |   4.3 |   7.9 |             0.828066 |     150 |
+|  2 | sepal_length | 5.94333 |      5.8 |   4.3 |  20.1 |              1.42689 |     150 |
 +----+--------------+---------+----------+-------+-------+----------------------+---------+
-|  3 | sepal_width  | 3.054   |     3    |   2   |   4.4 |             0.433594 |     150 |
+|  3 | sepal_width  | 3.234   |      3   |   2   |  30.5 |              2.28246 |     150 |
 +----+--------------+---------+----------+-------+-------+----------------------+---------+
 </pre></div>
 </div>
@@ -1632,7 +1652,7 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0325b507a94b3797545964d0bb46eabddd16d95a5587ebfe18c8409ea749a5e0.png" src="_images/0325b507a94b3797545964d0bb46eabddd16d95a5587ebfe18c8409ea749a5e0.png" />
+<img alt="_images/2a548f4d00d1c09499731340067842250f3fe094aa82a7a3fcbe2a88dcb09b61.png" src="_images/2a548f4d00d1c09499731340067842250f3fe094aa82a7a3fcbe2a88dcb09b61.png" />
 </div>
 </div>
 </section>
@@ -1651,7 +1671,7 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d62e3b88f9cebd5ee6ff3f346d49e1b6428fd69ddd5df528cf1499ce9c585e19.png" src="_images/d62e3b88f9cebd5ee6ff3f346d49e1b6428fd69ddd5df528cf1499ce9c585e19.png" />
+<img alt="_images/5a55cfc7a583e14168a778955eaae53f6d3dba413cbf40ca6f49843d3c322277.png" src="_images/5a55cfc7a583e14168a778955eaae53f6d3dba413cbf40ca6f49843d3c322277.png" />
 </div>
 </div>
 </section>
@@ -1670,7 +1690,7 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5ecc2bcfcd0a333942b0020cf199096282c393739c15618877fb7044addd3466.png" src="_images/5ecc2bcfcd0a333942b0020cf199096282c393739c15618877fb7044addd3466.png" />
+<img alt="_images/3dfff45115c5bfb35ab3e8bf29acd135e0cb09d363e8bc3aff102bbc373e0716.png" src="_images/3dfff45115c5bfb35ab3e8bf29acd135e0cb09d363e8bc3aff102bbc373e0716.png" />
 </div>
 </div>
 </section>
@@ -1689,7 +1709,7 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/40d3495bba4162189f1c98470fc390d57feeb1909baebd78ae71cf25210393cd.png" src="_images/40d3495bba4162189f1c98470fc390d57feeb1909baebd78ae71cf25210393cd.png" />
+<img alt="_images/ae620b1b31c940442d9efc4575e67c05b7328e6b6c0995442cb400b542443102.png" src="_images/ae620b1b31c940442d9efc4575e67c05b7328e6b6c0995442cb400b542443102.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1733,10 +1753,10 @@ Selanjutnya, mari kita masuk ke tahap <strong>analisis statistik</strong> sepert
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5708aa572a40a3df601d447807a77b91af0606658dd580daa9aadb1759f81489.png" src="_images/5708aa572a40a3df601d447807a77b91af0606658dd580daa9aadb1759f81489.png" />
-<img alt="_images/b2e5fec569e9f53594cf251361ec83e2f98efb9b56055a6cb65cb4cdaabfa676.png" src="_images/b2e5fec569e9f53594cf251361ec83e2f98efb9b56055a6cb65cb4cdaabfa676.png" />
-<img alt="_images/01623493328c897fc86aa1ea60ff6a99ead1f7f339c9b0478bc8664e6b65d0b8.png" src="_images/01623493328c897fc86aa1ea60ff6a99ead1f7f339c9b0478bc8664e6b65d0b8.png" />
-<img alt="_images/8a668d63fbe964f1a4881c7359eec44e1c167b83879c0134cd440dd63d3b3c02.png" src="_images/8a668d63fbe964f1a4881c7359eec44e1c167b83879c0134cd440dd63d3b3c02.png" />
+<img alt="_images/06de77a945491a01c1b06d6fd259ecc826a404ab5d8440334347e85677d35e63.png" src="_images/06de77a945491a01c1b06d6fd259ecc826a404ab5d8440334347e85677d35e63.png" />
+<img alt="_images/1fce69ccd800679a2059437d4b4ddcbf485a2e5dc8f31594906cafb72e59cf83.png" src="_images/1fce69ccd800679a2059437d4b4ddcbf485a2e5dc8f31594906cafb72e59cf83.png" />
+<img alt="_images/d44400031b537c4d8f0a0e29e1731f0d797bb19bc9ae963eaa03f5067c0631bd.png" src="_images/d44400031b537c4d8f0a0e29e1731f0d797bb19bc9ae963eaa03f5067c0631bd.png" />
+<img alt="_images/5cb20268838d887f4dc158640276863862ab8301f96d61cf98489a7bf905fc00.png" src="_images/5cb20268838d887f4dc158640276863862ab8301f96d61cf98489a7bf905fc00.png" />
 </div>
 </div>
 </section>
@@ -1790,7 +1810,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   sns.boxplot(data=result_df, x=&#39;class&#39;, y=&#39;petal length&#39;, palette=&#39;Blues&#39;)
 </pre></div>
 </div>
-<img alt="_images/c8217fbc939aa5cc11273bd0c4d493abb287f87cfd61c59200d3d3f542359592.png" src="_images/c8217fbc939aa5cc11273bd0c4d493abb287f87cfd61c59200d3d3f542359592.png" />
+<img alt="_images/c070a71c3ed9913084016db39d23ccf636e442a8b04e3e3df26d0398702aaf6d.png" src="_images/c070a71c3ed9913084016db39d23ccf636e442a8b04e3e3df26d0398702aaf6d.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-14-8f8c0a7c8d1a&gt;:15: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
@@ -1798,7 +1818,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   sns.boxplot(data=result_df, x=&#39;class&#39;, y=&#39;petal width&#39;, palette=&#39;Greens&#39;)
 </pre></div>
 </div>
-<img alt="_images/5b17da5719d037b3e28ed5dcff1bf20bf8ddca5fe83f811405b07b2009ece8cd.png" src="_images/5b17da5719d037b3e28ed5dcff1bf20bf8ddca5fe83f811405b07b2009ece8cd.png" />
+<img alt="_images/fb19d228cdb6b51f392e86b357667d257c4f8fa994b24ef15a5d896546ef7784.png" src="_images/fb19d228cdb6b51f392e86b357667d257c4f8fa994b24ef15a5d896546ef7784.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-14-8f8c0a7c8d1a&gt;:23: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
@@ -1806,7 +1826,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   sns.boxplot(data=result_df, x=&#39;class&#39;, y=&#39;sepal_length&#39;, palette=&#39;Reds&#39;)
 </pre></div>
 </div>
-<img alt="_images/6ec17c030e4109eb8407f9fc5bad06fd28a5b163253a87a242fe38f153348d85.png" src="_images/6ec17c030e4109eb8407f9fc5bad06fd28a5b163253a87a242fe38f153348d85.png" />
+<img alt="_images/9f5185bbaa8e8458d3e39acbdc2ac75ffec5e1d4413161516fbf7d6252759137.png" src="_images/9f5185bbaa8e8458d3e39acbdc2ac75ffec5e1d4413161516fbf7d6252759137.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-14-8f8c0a7c8d1a&gt;:31: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
@@ -1814,9 +1834,51 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   sns.boxplot(data=result_df, x=&#39;class&#39;, y=&#39;sepal_width&#39;, palette=&#39;Oranges&#39;)
 </pre></div>
 </div>
-<img alt="_images/c56731892656ebd88f994dab6cf0f86b722322eacdb6112a3f06b6f2b1064428.png" src="_images/c56731892656ebd88f994dab6cf0f86b722322eacdb6112a3f06b6f2b1064428.png" />
+<img alt="_images/bb0c10941b4f6137b43118232c24fdc631d67953dc4ee226b7cf4e204b657bf6.png" src="_images/bb0c10941b4f6137b43118232c24fdc631d67953dc4ee226b7cf4e204b657bf6.png" />
 </div>
 </div>
+</section>
+</section>
+<section id="tipe-data-understanding-dalam-data-mining">
+<h2>📊 Tipe Data Understanding dalam Data Mining<a class="headerlink" href="#tipe-data-understanding-dalam-data-mining" title="Link to this heading">#</a></h2>
+<p>Dalam proses data mining, tahap <em>Data Understanding</em> sangat penting untuk memahami karakteristik data yang kita miliki. Salah satu aspek utama adalah mengenali <strong>tipe data</strong> yang ada. Berikut adalah macam-macam tipe data yang biasa ditemukan dalam data mining:</p>
+<section id="data-numerik-numerical-data">
+<h3>🔹 1. <strong>Data Numerik (Numerical Data)</strong><a class="headerlink" href="#data-numerik-numerical-data" title="Link to this heading">#</a></h3>
+<p>Data yang berupa angka dan bisa dioperasikan secara matematis. Tipe ini terbagi menjadi dua:</p>
+<ul class="simple">
+<li><p><strong>Diskrit (Discrete):</strong> Nilai yang dapat dihitung, biasanya bilangan bulat, misalnya jumlah siswa dalam kelas.</p></li>
+<li><p><strong>Kontinu (Continuous):</strong> Nilai yang tidak terbatas dalam rentang tertentu, misalnya suhu atau berat badan.</p></li>
+</ul>
+</section>
+<section id="data-kategorikal-categorical-data">
+<h3>🔸 2. <strong>Data Kategorikal (Categorical Data)</strong><a class="headerlink" href="#data-kategorikal-categorical-data" title="Link to this heading">#</a></h3>
+<p>Data yang merepresentasikan kategori atau label tertentu. Tipe ini juga terbagi menjadi dua:</p>
+<ul class="simple">
+<li><p><strong>Nominal:</strong> Kategori tanpa urutan, misalnya jenis kelamin (Pria, Wanita).</p></li>
+<li><p><strong>Ordinal:</strong> Kategori yang memiliki tingkatan atau urutan, misalnya tingkat pendidikan (SD, SMP, SMA).</p></li>
+</ul>
+</section>
+<section id="data-biner-binary-data">
+<h3>🔹 3. <strong>Data Biner (Binary Data)</strong><a class="headerlink" href="#data-biner-binary-data" title="Link to this heading">#</a></h3>
+<p>Data yang hanya memiliki dua kemungkinan nilai, sering kali digunakan untuk representasi <em>True/False</em> atau <em>Yes/No</em>. Contohnya, apakah seseorang lulus ujian (Lulus/Tidak Lulus).</p>
+</section>
+<section id="data-waktu-time-series-data">
+<h3>🔸 4. <strong>Data Waktu (Time-Series Data)</strong><a class="headerlink" href="#data-waktu-time-series-data" title="Link to this heading">#</a></h3>
+<p>Data yang dikumpulkan berdasarkan urutan waktu tertentu. Contohnya, data penjualan harian, suhu mingguan, atau pergerakan harga saham.</p>
+</section>
+<section id="data-teks-text-data">
+<h3>🔹 5. <strong>Data Teks (Text Data)</strong><a class="headerlink" href="#data-teks-text-data" title="Link to this heading">#</a></h3>
+<p>Data dalam bentuk teks bebas yang biasanya digunakan dalam <em>text mining</em>. Contohnya ulasan pelanggan atau komentar media sosial.</p>
+</section>
+<section id="pentingnya-memahami-tipe-data">
+<h3>🎯 Pentingnya Memahami Tipe Data<a class="headerlink" href="#pentingnya-memahami-tipe-data" title="Link to this heading">#</a></h3>
+<p>Memahami tipe data sangat penting karena:</p>
+<ul class="simple">
+<li><p><strong>Metode Analisis:</strong> Algoritma tertentu hanya bisa digunakan untuk tipe data tertentu.</p></li>
+<li><p><strong>Pra-pemrosesan:</strong> Menentukan cara penanganan data, misalnya normalisasi untuk data numerik.</p></li>
+<li><p><strong>Visualisasi:</strong> Memilih grafik atau plot yang sesuai untuk setiap tipe data.</p></li>
+</ul>
+<hr class="docutils" />
 </section>
 </section>
 </section>
@@ -1859,6 +1921,15 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Selamat Datang di Proyek Penambangan Data Aldi</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="deteksi_outlier.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -1922,6 +1993,15 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-histogram-sepal-length-by-class">Analisis Histogram Sepal Length by Class</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-histogram-sepal-width-by-class">Analisis Histogram Sepal Width by Class</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-boxplot">analisis boxplot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipe-data-understanding-dalam-data-mining">📊 Tipe Data Understanding dalam Data Mining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-numerik-numerical-data">🔹 1. <strong>Data Numerik (Numerical Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-kategorikal-categorical-data">🔸 2. <strong>Data Kategorikal (Categorical Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-biner-binary-data">🔹 3. <strong>Data Biner (Binary Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-waktu-time-series-data">🔸 4. <strong>Data Waktu (Time-Series Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-teks-text-data">🔹 5. <strong>Data Teks (Text Data)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pentingnya-memahami-tipe-data">🎯 Pentingnya Memahami Tipe Data</a></li>
 </ul>
 </li>
 </ul>
