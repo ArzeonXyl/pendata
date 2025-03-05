@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'deteksi_outlier';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -181,6 +183,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
 </ul>
 
     </div>
@@ -376,13 +380,32 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-deteksi-outlier">🔍 Apa itu Deteksi Outlier?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-k-nearest-neighbors-knn">🤔 Mengapa Menggunakan K-Nearest Neighbors (KNN)?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance-pada-knn">🌟 Euclidean Distance pada KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-euclidean-distance">📏 Rumus Euclidean Distance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-kasus">🍭 Contoh Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-euclidean-distance">✨ Perhitungan Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-perhitungan-euclidean-distance">📊 Hasil Perhitungan Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">✅ Kesimpulan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan-dan-kekurangan-knn">📚 Kelebihan dan Kekurangan KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">🏎️ Referensi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-deteksi-outlier-menggunakan-knn">🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-mysql">1️⃣ Ambil Data dari MySQL</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-postgresql">2️⃣ Ambil Data dari PostgreSQL</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-mencari-knn-k-nearest-neighbors">🔍 Kode untuk Mencari KNN (K-Nearest Neighbors)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-perhitungan-euclidean-distance-pada-knn-pada-code">📐 Penjelasan Perhitungan Euclidean Distance pada KNN pada code</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✨ Rumus Euclidean Distance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata-jarak-k-tetangga-terdekat">📏 Rata-rata Jarak K Tetangga Terdekat</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-yang-diduga-outlier">🚨 Menampilkan Data yang Diduga Outlier</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cetak-data-yang-diduga-outlier">🔥 Cetak Data yang Diduga Outlier</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">🧐 Penjelasan Kode</a></li>
@@ -391,6 +414,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier-dengan-knn">📈 Visualisasi Outlier dengan KNN</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-deteksi-outlier-dengan-knn">🎯 Kesimpulan Deteksi Outlier dengan KNN</a></li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -428,6 +454,209 @@ document.write(`
 <li><p>Jika jarak terlalu jauh (di atas threshold tertentu), maka data tersebut dianggap <strong>outlier</strong> 🚩.</p></li>
 </ol>
 </section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="euclidean-distance-pada-knn">
+<h1>🌟 Euclidean Distance pada KNN<a class="headerlink" href="#euclidean-distance-pada-knn" title="Link to this heading">#</a></h1>
+<section id="rumus-euclidean-distance">
+<h2>📏 Rumus Euclidean Distance<a class="headerlink" href="#rumus-euclidean-distance" title="Link to this heading">#</a></h2>
+<p>Euclidean Distance digunakan dalam algoritma K-Nearest Neighbors (KNN) untuk mengukur jarak antara dua titik data dalam ruang fitur. Rumusnya adalah:</p>
+<div class="math notranslate nohighlight">
+\[
+d(p, q) = \sqrt{(q_1 - p_1)^2 + (q_2 - p_2)^2 + \dots + (q_n - p_n)^2}
+\]</div>
+<p><strong>Keterangan:</strong></p>
+<ul class="simple">
+<li><p>📍 <span class="math notranslate nohighlight">\(p\)</span>: titik data pertama <span class="math notranslate nohighlight">\((p_1, p_2, \dots, p_n)\)</span></p></li>
+<li><p>🎯 <span class="math notranslate nohighlight">\(q\)</span>: titik data kedua <span class="math notranslate nohighlight">\((q_1, q_2, \dots, q_n)\)</span></p></li>
+<li><p>📊 <span class="math notranslate nohighlight">\(n\)</span>: jumlah fitur (dimensi)</p></li>
+</ul>
+</section>
+<section id="contoh-kasus">
+<h2>🍭 Contoh Kasus<a class="headerlink" href="#contoh-kasus" title="Link to this heading">#</a></h2>
+<p>Kita memiliki dataset tentang rasa buah 🍭🍋 dan kelasnya. Tujuannya adalah memprediksi kelas data baru.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Buah</p></th>
+<th class="head"><p>Kadar Gula (Brix)</p></th>
+<th class="head"><p>pH (Keasaman)</p></th>
+<th class="head"><p>Kelas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Apel</p></td>
+<td><p>12</p></td>
+<td><p>3.5</p></td>
+<td><p>Manis</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lemon</p></td>
+<td><p>6</p></td>
+<td><p>2.3</p></td>
+<td><p>Asam</p></td>
+</tr>
+<tr class="row-even"><td><p>Mangga</p></td>
+<td><p>14</p></td>
+<td><p>4.0</p></td>
+<td><p>Manis</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jeruk</p></td>
+<td><p>7</p></td>
+<td><p>2.8</p></td>
+<td><p>Asam</p></td>
+</tr>
+<tr class="row-even"><td><p>? (Data Baru)</p></td>
+<td><p>10</p></td>
+<td><p>3.0</p></td>
+<td><p>?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Kita ingin menentukan apakah data baru (Kadar Gula: 10 Brix, pH: 3.0) termasuk kelas <strong>Manis</strong> atau <strong>Asam</strong>.</p>
+<section id="perhitungan-euclidean-distance">
+<h3>✨ Perhitungan Euclidean Distance<a class="headerlink" href="#perhitungan-euclidean-distance" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Jarak ke Apel (12, 3.5):</strong> 🍭</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d = \sqrt{(10 - 12)^2 + (3.0 - 3.5)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(-2)^2 + (-0.5)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{4 + 0.25}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{4.25} \approx 2.06
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Jarak ke Lemon (6, 2.3):</strong> 🍋</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d = \sqrt{(10 - 6)^2 + (3.0 - 2.3)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(4)^2 + (0.7)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{16 + 0.49}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{16.49} \approx 4.06
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Jarak ke Mangga (14, 4.0):</strong> 🍭</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d = \sqrt{(10 - 14)^2 + (3.0 - 4.0)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(-4)^2 + (-1.0)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{16 + 1.0}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{17} \approx 4.12
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Jarak ke Jeruk (7, 2.8):</strong> 🍋</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d = \sqrt{(10 - 7)^2 + (3.0 - 2.8)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(3)^2 + (0.2)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{9 + 0.04}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{9.04} \approx 3.01
+\]</div>
+</section>
+<section id="hasil-perhitungan-euclidean-distance">
+<h3>📊 Hasil Perhitungan Euclidean Distance<a class="headerlink" href="#hasil-perhitungan-euclidean-distance" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Buah</p></th>
+<th class="head"><p>Jarak Euclidean</p></th>
+<th class="head"><p>Kelas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Apel 🍭</p></td>
+<td><p>2.06</p></td>
+<td><p>Manis</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lemon 🍋</p></td>
+<td><p>4.06</p></td>
+<td><p>Asam</p></td>
+</tr>
+<tr class="row-even"><td><p>Mangga 🍭</p></td>
+<td><p>4.12</p></td>
+<td><p>Manis</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jeruk 🍋</p></td>
+<td><p>3.01</p></td>
+<td><p>Asam</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="kesimpulan">
+<h3>✅ Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h3>
+<p>Karena kita menggunakan <strong>K = 3</strong> (3 tetangga terdekat), kita mengambil 3 jarak terkecil:</p>
+<ul class="simple">
+<li><p>Apel 🍭 (2.06)</p></li>
+<li><p>Jeruk 🍋 (3.01)</p></li>
+<li><p>Lemon 🍋 (4.06)</p></li>
+</ul>
+<p>Dari 3 tetangga terdekat, mayoritas adalah <strong>Asam</strong> 🍋.</p>
+<p>Jadi, data baru kemungkinan besar termasuk dalam kelas <strong>Asam</strong>! 🎉</p>
+<hr class="docutils" />
+<p>Semakin kecil jarak Euclidean, semakin mirip data tersebut. KNN menggunakan informasi ini untuk mengklasifikasikan data baru berdasarkan tetangga terdekatnya. 🚀</p>
+</section>
+</section>
+<section id="kelebihan-dan-kekurangan-knn">
+<h2>📚 Kelebihan dan Kekurangan KNN<a class="headerlink" href="#kelebihan-dan-kekurangan-knn" title="Link to this heading">#</a></h2>
+<p><strong>Kelebihan:</strong></p>
+<ul class="simple">
+<li><p>Mudah diimplementasikan dan dipahami.</p></li>
+<li><p>Cocok untuk data dengan hubungan non-linear.</p></li>
+<li><p>Tidak memerlukan proses pelatihan yang rumit.</p></li>
+</ul>
+<p><strong>Kekurangan:</strong></p>
+<ul class="simple">
+<li><p>Sensitif terhadap data yang memiliki noise.</p></li>
+<li><p>Performa menurun pada dataset yang besar.</p></li>
+<li><p>Memerlukan perhitungan jarak untuk setiap pasangan data.</p></li>
+</ul>
+</section>
+<section id="referensi">
+<h2>🏎️ Referensi<a class="headerlink" href="#referensi" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Han, J., Kamber, M., &amp; Pei, J. (2011). <em>Data Mining: Concepts and Techniques</em>. Morgan Kaufmann.</p></li>
+<li><p>Altman, N. S. (1992). <em>An Introduction to Kernel and Nearest-Neighbor Nonparametric Regression</em>. The American Statistician.</p></li>
+</ul>
+</section>
 <section id="langkah-langkah-deteksi-outlier-menggunakan-knn">
 <h2>🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN<a class="headerlink" href="#langkah-langkah-deteksi-outlier-menggunakan-knn" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -437,7 +666,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
 </pre></div>
 </div>
 </div>
@@ -729,6 +969,10 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="kode-untuk-mencari-knn-k-nearest-neighbors">
+<h2>🔍 Kode untuk Mencari KNN (K-Nearest Neighbors)<a class="headerlink" href="#kode-untuk-mencari-knn-k-nearest-neighbors" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -753,7 +997,7 @@ document.write(`
 <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil</span>
 
 <span class="c1"># Deteksi outlier (misalnya, data dengan jarak rata-rata &gt; threshold tertentu)</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.9999</span><span class="p">)</span>  <span class="c1"># ambil threshold 95% persentil</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.9999</span><span class="p">)</span>  <span class="c1"># ambil threshold 99% persentil</span>
 <span class="n">outliers</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
 <span class="c1"># Menampilkan semua baris hasil perhitungan KNN</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil perhitungan jarak rata-rata (KNN):&quot;</span><span class="p">)</span>
@@ -1073,6 +1317,49 @@ document.write(`
 </div>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="penjelasan-perhitungan-euclidean-distance-pada-knn-pada-code">
+<h1>📐 Penjelasan Perhitungan Euclidean Distance pada KNN pada code<a class="headerlink" href="#penjelasan-perhitungan-euclidean-distance-pada-knn-pada-code" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>✨ Rumus Euclidean Distance<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Pada kode ini, perhitungan jarak antara dua titik data <span class="math notranslate nohighlight">\(p\)</span> dan <span class="math notranslate nohighlight">\(q\)</span> dalam ruang fitur menggunakan rumus <strong>Euclidean Distance</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+d(p, q) = \sqrt{(p_1 - q_1)^2 + (p_2 - q_2)^2 + \dots + (p_n - q_n)^2}
+\]</div>
+<p>Di dalam kode Python, rumus ini diterapkan untuk menghitung jarak antara satu baris data dengan semua baris data lainnya:</p>
+<div class="math notranslate nohighlight">
+\[
+d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\text{petal width}} - q_{\text{petal width}})^2 + (p_{\text{sepal _length}} - q_{\text{sepal_length}})^2 + (p_{\text{sepal_width}} - q_{\text{sepal_width}})^2}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p\)</span> dan <span class="math notranslate nohighlight">\(q\)</span>: dua baris data berbeda (titik data)</p></li>
+<li><p><strong>Fitur</strong>:</p>
+<ul>
+<li><p><strong>petal length</strong> (panjang kelopak bunga)</p></li>
+<li><p><strong>petal width</strong> (lebar kelopak bunga)</p></li>
+<li><p><strong>sepal_length</strong> (panjang sepal/kelopak luar)</p></li>
+<li><p><strong>sepal_width</strong> (lebar sepal/kelopak luar)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="rata-rata-jarak-k-tetangga-terdekat">
+<h2>📏 Rata-rata Jarak K Tetangga Terdekat<a class="headerlink" href="#rata-rata-jarak-k-tetangga-terdekat" title="Link to this heading">#</a></h2>
+<p>Setelah menghitung jarak antara satu titik data dengan semua titik lainnya, langkah selanjutnya adalah mencari <strong>rata-rata jarak dari K tetangga terdekat</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{avg_distance} = \frac{d_1 + d_2 + \dots + d_k}{k}
+\]</div>
+<p>dengan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k\)</span>: jumlah tetangga yang diinginkan (dalam kode: <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">3</span></code>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(d_1, d_2, \dots, d_k\)</span>: <span class="math notranslate nohighlight">\(K\)</span> jarak terkecil setelah diurutkan</p></li>
+</ul>
+<p>Di kode, ini dilakukan dengan:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">avg_distance</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">jarak</span><span class="p">[:</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="n">k</span>
+</pre></div>
+</div>
+</section>
 <section id="menampilkan-data-yang-diduga-outlier">
 <h2>🚨 Menampilkan Data yang Diduga Outlier<a class="headerlink" href="#menampilkan-data-yang-diduga-outlier" title="Link to this heading">#</a></h2>
 <p>Setelah kita menghitung jarak rata-rata ke K tetangga terdekat untuk setiap titik data, langkah berikutnya adalah <strong>mengidentifikasi dan menampilkan outlier</strong>.</p>
@@ -1266,13 +1553,32 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-deteksi-outlier">🔍 Apa itu Deteksi Outlier?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-menggunakan-k-nearest-neighbors-knn">🤔 Mengapa Menggunakan K-Nearest Neighbors (KNN)?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#euclidean-distance-pada-knn">🌟 Euclidean Distance pada KNN</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-euclidean-distance">📏 Rumus Euclidean Distance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-kasus">🍭 Contoh Kasus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-euclidean-distance">✨ Perhitungan Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-perhitungan-euclidean-distance">📊 Hasil Perhitungan Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">✅ Kesimpulan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan-dan-kekurangan-knn">📚 Kelebihan dan Kekurangan KNN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">🏎️ Referensi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-deteksi-outlier-menggunakan-knn">🧑‍💻 Langkah-langkah Deteksi Outlier menggunakan KNN</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-mysql">1️⃣ Ambil Data dari MySQL</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data-dari-postgresql">2️⃣ Ambil Data dari PostgreSQL</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-untuk-mencari-knn-k-nearest-neighbors">🔍 Kode untuk Mencari KNN (K-Nearest Neighbors)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-perhitungan-euclidean-distance-pada-knn-pada-code">📐 Penjelasan Perhitungan Euclidean Distance pada KNN pada code</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✨ Rumus Euclidean Distance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata-jarak-k-tetangga-terdekat">📏 Rata-rata Jarak K Tetangga Terdekat</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-yang-diduga-outlier">🚨 Menampilkan Data yang Diduga Outlier</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cetak-data-yang-diduga-outlier">🔥 Cetak Data yang Diduga Outlier</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-kode">🧐 Penjelasan Kode</a></li>
@@ -1281,6 +1587,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier-dengan-knn">📈 Visualisasi Outlier dengan KNN</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-deteksi-outlier-dengan-knn">🎯 Kesimpulan Deteksi Outlier dengan KNN</a></li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
