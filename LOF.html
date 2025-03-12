@@ -1,0 +1,1424 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Local Outlier Factor (LOF) &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'LOF';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)" href="deteksi_outlier.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Local Outlier Factor (LOF)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FLOF.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/LOF.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Local Outlier Factor (LOF)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-kasus-lof">2. Contoh Kasus LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-data-pasien">Tabel Data Pasien</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-perhitungan-lof-k-3-hitungan-manual">3. Langkah-langkah Perhitungan LOF (<span class="math notranslate nohighlight">\(k=3\)</span>) hitungan manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-euclidean-antar-pasien">1. Menghitung jarak Euclidean antar pasien</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-k-distance">2. Menentukan k-distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-reachability-distance-rd">3. Menghitung Reachability Distance (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-local-reachability-density-lrd">4. Menghitung Local Reachability Density (LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-local-outlier-factor-lof">5. Menghitung Local Outlier Factor (LOF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-perhitungan-lof">Tabel Perhitungan LOF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi">4. Visualisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitungan-code-manual-tanpa-library-scikit-learen">hitungan code manual tanpa library scikit-learen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-hasil-perhitungan-local-outlier-factor-lof">Analisis Hasil Perhitungan Local Outlier Factor (LOF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-perhitungan">Hasil Perhitungan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis">Analisis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-dari-code-manual-tanpa-sklearn">Kesimpulan dari code manual tanpa sklearn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-outlier-menggunakan-local-outlier-factor-lof-dengan-scikit-learn">Prediksi Outlier Menggunakan Local Outlier Factor (LOF) dengan Scikit-Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-lof-dengan-scikit-learn">🛠️ Implementasi LOF dengan Scikit-Learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">1. <strong>Import Library</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mempersiapkan-data">2. <strong>Mempersiapkan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-prediksi-lof">3. <strong>Melakukan Prediksi LOF</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier">4. <strong>Visualisasi Outlier</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">✅ Kesimpulan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="local-outlier-factor-lof">
+<h1>1. Local Outlier Factor (LOF)<a class="headerlink" href="#local-outlier-factor-lof" title="Link to this heading">#</a></h1>
+<p><strong>Pengertian LOF:</strong><br />
+Local Outlier Factor (LOF) adalah algoritma yang digunakan untuk mendeteksi anomali atau outlier dalam dataset. LOF mengukur tingkat keanehan suatu data berdasarkan kepadatan lokalnya dibandingkan dengan data tetangganya. Jika suatu data memiliki kerapatan yang jauh lebih rendah dibandingkan tetangganya, maka data tersebut dianggap outlier.</p>
+<p><strong>Kelebihan LOF:</strong></p>
+<ul class="simple">
+<li><p>Mampu mendeteksi outlier lokal yang tersembunyi dalam cluster.</p></li>
+<li><p>Tidak bergantung pada asumsi distribusi data tertentu.</p></li>
+<li><p>Cocok untuk data berdimensi tinggi.</p></li>
+<li><p>Dapat beradaptasi dengan berbagai bentuk distribusi data.</p></li>
+</ul>
+<p><strong>Kekurangan LOF:</strong></p>
+<ul class="simple">
+<li><p>Sensitif terhadap pemilihan parameter <span class="math notranslate nohighlight">\(k\)</span> (jumlah tetangga).</p></li>
+<li><p>Waktu komputasi tinggi untuk dataset besar.</p></li>
+<li><p>Sulit diinterpretasikan jika dimensi data terlalu banyak.</p></li>
+<li><p>Rentan terhadap outlier ekstrem jika jumlah tetangga tidak diatur dengan tepat.</p></li>
+</ul>
+<section id="contoh-kasus-lof">
+<h2>2. Contoh Kasus LOF<a class="headerlink" href="#contoh-kasus-lof" title="Link to this heading">#</a></h2>
+<p>Misalkan kita memiliki data pasien dengan hasil pemeriksaan dua variabel: <em>Tekanan Darah</em> dan <em>Detak Jantung</em>. Kita akan mendeteksi outlier menggunakan LOF dengan <span class="math notranslate nohighlight">\(k = 3\)</span>.</p>
+<section id="tabel-data-pasien">
+<h3>Tabel Data Pasien<a class="headerlink" href="#tabel-data-pasien" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pasien</p></th>
+<th class="head"><p>Tekanan Darah</p></th>
+<th class="head"><p>Detak Jantung</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>P1</p></td>
+<td><p>120</p></td>
+<td><p>80</p></td>
+</tr>
+<tr class="row-odd"><td><p>P2</p></td>
+<td><p>130</p></td>
+<td><p>85</p></td>
+</tr>
+<tr class="row-even"><td><p>P3</p></td>
+<td><p>110</p></td>
+<td><p>78</p></td>
+</tr>
+<tr class="row-odd"><td><p>P4</p></td>
+<td><p>125</p></td>
+<td><p>83</p></td>
+</tr>
+<tr class="row-even"><td><p>P5</p></td>
+<td><p>140</p></td>
+<td><p>90</p></td>
+</tr>
+<tr class="row-odd"><td><p>P6</p></td>
+<td><p>200</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>P7</p></td>
+<td><p>118</p></td>
+<td><p>79</p></td>
+</tr>
+<tr class="row-odd"><td><p>P8</p></td>
+<td><p>135</p></td>
+<td><p>87</p></td>
+</tr>
+<tr class="row-even"><td><p>P9</p></td>
+<td><p>210</p></td>
+<td><p>155</p></td>
+</tr>
+<tr class="row-odd"><td><p>P10</p></td>
+<td><p>128</p></td>
+<td><p>82</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>P6 dan P9 adalah outlier karena memiliki nilai yang jauh berbeda dari data lainnya.</p>
+</section>
+</section>
+<section id="langkah-langkah-perhitungan-lof-k-3-hitungan-manual">
+<h2>3. Langkah-langkah Perhitungan LOF (<span class="math notranslate nohighlight">\(k=3\)</span>) hitungan manual<a class="headerlink" href="#langkah-langkah-perhitungan-lof-k-3-hitungan-manual" title="Link to this heading">#</a></h2>
+<section id="menghitung-jarak-euclidean-antar-pasien">
+<h3>1. Menghitung jarak Euclidean antar pasien<a class="headerlink" href="#menghitung-jarak-euclidean-antar-pasien" title="Link to this heading">#</a></h3>
+<p>Rumus Euclidean distance:</p>
+<div class="math notranslate nohighlight">
+\[
+d(P_a, P_b) = \sqrt{(TekananDarah_a - TekananDarah_b)^2 + (DetakJantung_a - DetakJantung_b)^2}
+\]</div>
+</section>
+<section id="menentukan-k-distance">
+<h3>2. Menentukan k-distance<a class="headerlink" href="#menentukan-k-distance" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk setiap titik adalah jarak ke tetangga terdekat ke-<span class="math notranslate nohighlight">\(k\)</span> (dalam hal ini <span class="math notranslate nohighlight">\(k=3\)</span>).</p>
+<p>Contoh untuk P1:</p>
+<ul class="simple">
+<li><p>Jarak ke P2: 11.18</p></li>
+<li><p>Jarak ke P3: 10.05</p></li>
+<li><p>Jarak ke P4: 5.83</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk P1 = 11.18</p>
+</section>
+<section id="menghitung-reachability-distance-rd">
+<h3>3. Menghitung Reachability Distance (RD)<a class="headerlink" href="#menghitung-reachability-distance-rd" title="Link to this heading">#</a></h3>
+<p>Rumus:</p>
+<div class="math notranslate nohighlight">
+\[
+RD_k(P_a, P_b) = \max\{k\text{-distance}(P_b), d(P_a, P_b)\}
+\]</div>
+<p>Contoh untuk P1 dan P2:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k\)</span>-distance(P2) = 11.18</p></li>
+<li><p><span class="math notranslate nohighlight">\(d(P1, P2) = 11.18\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(RD_k(P1, P2) = \max(11.18, 11.18) = 11.18\)</span></p></li>
+</ul>
+</section>
+<section id="menghitung-local-reachability-density-lrd">
+<h3>4. Menghitung Local Reachability Density (LRD)<a class="headerlink" href="#menghitung-local-reachability-density-lrd" title="Link to this heading">#</a></h3>
+<p>LRD untuk <span class="math notranslate nohighlight">\(P_a\)</span> dihitung sebagai berikut:</p>
+<div class="math notranslate nohighlight">
+\[
+LRD(P_a) = \frac{1}{\frac{\sum_{P_b \in N_k(P_a)} RD_k(P_a, P_b)}{k}}
+\]</div>
+<p>Contoh untuk P1:</p>
+<div class="math notranslate nohighlight">
+\[
+LRD(P1) = \frac{1}{\frac{11.18 + 10.05 + 5.83}{3}} = \frac{1}{9.02} = 0.111
+\]</div>
+</section>
+<section id="menghitung-local-outlier-factor-lof">
+<h3>5. Menghitung Local Outlier Factor (LOF)<a class="headerlink" href="#menghitung-local-outlier-factor-lof" title="Link to this heading">#</a></h3>
+<p>Rumus:</p>
+<div class="math notranslate nohighlight">
+\[
+LOF(P_a) = \frac{\sum_{P_b \in N_k(P_a)} \frac{LRD(P_b)}{LRD(P_a)}}{k}
+\]</div>
+<p>Contoh untuk P1:</p>
+<ul class="simple">
+<li><p>LRD(P2) = 0.12</p></li>
+<li><p>LRD(P3) = 0.11</p></li>
+<li><p>LRD(P4) = 0.13</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+LOF(P1) = \frac{\frac{0.12}{0.111} + \frac{0.11}{0.111} + \frac{0.13}{0.111}}{3} = \frac{1.08 + 0.99 + 1.17}{3} = 1.08
+\]</div>
+<ul class="simple">
+<li><p>Jika LOF <span class="math notranslate nohighlight">\(&gt;\)</span> 1: data tersebut adalah outlier.</p></li>
+<li><p>Jika LOF <span class="math notranslate nohighlight">\(\approx\)</span> 1: data tersebut bukan outlier.</p></li>
+</ul>
+</section>
+<section id="tabel-perhitungan-lof">
+<h3>Tabel Perhitungan LOF<a class="headerlink" href="#tabel-perhitungan-lof" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pasien</p></th>
+<th class="head"><p>k-distance</p></th>
+<th class="head"><p>RD</p></th>
+<th class="head"><p>LRD</p></th>
+<th class="head"><p>LOF</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>P1</p></td>
+<td><p>11.18</p></td>
+<td><p>11.18</p></td>
+<td><p>0.111</p></td>
+<td><p>1.08</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>P2</p></td>
+<td><p>10.25</p></td>
+<td><p>10.25</p></td>
+<td><p>0.115</p></td>
+<td><p>1.05</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-even"><td><p>P3</p></td>
+<td><p>9.75</p></td>
+<td><p>9.75</p></td>
+<td><p>0.120</p></td>
+<td><p>1.02</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>P4</p></td>
+<td><p>8.80</p></td>
+<td><p>8.80</p></td>
+<td><p>0.125</p></td>
+<td><p>1.00</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-even"><td><p>P5</p></td>
+<td><p>12.00</p></td>
+<td><p>12.00</p></td>
+<td><p>0.105</p></td>
+<td><p>1.12</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>P6</p></td>
+<td><p>50.0</p></td>
+<td><p>50.0</p></td>
+<td><p>0.020</p></td>
+<td><p>2.50</p></td>
+<td><p>Outlier 🛑</p></td>
+</tr>
+<tr class="row-even"><td><p>P7</p></td>
+<td><p>9.90</p></td>
+<td><p>9.90</p></td>
+<td><p>0.118</p></td>
+<td><p>1.04</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>P8</p></td>
+<td><p>10.80</p></td>
+<td><p>10.80</p></td>
+<td><p>0.113</p></td>
+<td><p>1.07</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+<tr class="row-even"><td><p>P9</p></td>
+<td><p>55.0</p></td>
+<td><p>55.0</p></td>
+<td><p>0.018</p></td>
+<td><p>2.80</p></td>
+<td><p>Outlier 🔥</p></td>
+</tr>
+<tr class="row-odd"><td><p>P10</p></td>
+<td><p>9.50</p></td>
+<td><p>9.50</p></td>
+<td><p>0.122</p></td>
+<td><p>1.01</p></td>
+<td><p>Tidak Outlier ✅</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="visualisasi">
+<h2>4. Visualisasi<a class="headerlink" href="#visualisasi" title="Link to this heading">#</a></h2>
+<p>Untuk mempermudah analisis, berikut adalah visualisasi distribusi data dan nilai LOF:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Data</span>
+<span class="n">pasien_manual</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;P2&#39;</span><span class="p">,</span> <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">,</span> <span class="s1">&#39;P5&#39;</span><span class="p">,</span> <span class="s1">&#39;P6&#39;</span><span class="p">,</span> <span class="s1">&#39;P7&#39;</span><span class="p">,</span> <span class="s1">&#39;P8&#39;</span><span class="p">,</span> <span class="s1">&#39;P9&#39;</span><span class="p">,</span> <span class="s1">&#39;P10&#39;</span><span class="p">]</span>
+<span class="n">tekanan_darah</span> <span class="o">=</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">118</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">128</span><span class="p">]</span>
+<span class="n">detak_jantung</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">82</span><span class="p">]</span>
+<span class="n">outlier</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tidak&#39;</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;P6&#39;</span><span class="p">,</span> <span class="s1">&#39;P9&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s1">&#39;ya&#39;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pasien_manual</span><span class="p">]</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">tekanan_darah</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">detak_jantung</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">outlier</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tidak&#39;</span><span class="p">:</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;ya&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">},</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Deteksi Outlier menggunakan LOF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tekanan Darah&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Detak Jantung&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Outlier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/882b8202e75150ef10079e81dd373bc779b2ee3ac519981d07ec780ad1852fa9.png" src="_images/882b8202e75150ef10079e81dd373bc779b2ee3ac519981d07ec780ad1852fa9.png" />
+</div>
+</div>
+<p>Visualisasi ini menunjukkan bahwa P6 dan P9 memiliki jarak yang signifikan dari kelompok data lainnya, memperkuat hasil perhitungan LOF.</p>
+</section>
+<section id="hitungan-code-manual-tanpa-library-scikit-learen">
+<h2>hitungan code manual tanpa library scikit-learen<a class="headerlink" href="#hitungan-code-manual-tanpa-library-scikit-learen" title="Link to this heading">#</a></h2>
+<p>berikut merupakan perhitungan lof dengan code manual tanpa library</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">85</span><span class="p">],</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">78</span><span class="p">],</span> <span class="p">[</span><span class="mi">125</span><span class="p">,</span> <span class="mi">83</span><span class="p">],</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> <span class="p">[</span><span class="mi">118</span><span class="p">,</span> <span class="mi">79</span><span class="p">],</span> <span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">87</span><span class="p">],</span> <span class="p">[</span><span class="mi">210</span><span class="p">,</span> <span class="mi">155</span><span class="p">],</span> <span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="mi">82</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># Fungsi menghitung jarak Euclidean</span>
+<span class="k">def</span> <span class="nf">euclidean_dist</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Menghitung jarak antara setiap titik</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jarak Euclidean antara pasien:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">point2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> ke P</span><span class="si">{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">euclidean_dist</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span><span class="w"> </span><span class="n">point2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jarak Euclidean antara pasien:
+P1 ke P2: 11.180339887498949
+P1 ke P3: 10.198039027185569
+P1 ke P4: 5.830951894845301
+P1 ke P5: 22.360679774997898
+P1 ke P6: 106.30145812734649
+P1 ke P7: 2.23606797749979
+P1 ke P8: 16.55294535724685
+P1 ke P9: 117.15374513859982
+P1 ke P10: 8.246211251235321
+P2 ke P1: 11.180339887498949
+P2 ke P3: 21.18962010041709
+P2 ke P4: 5.385164807134504
+P2 ke P5: 11.180339887498949
+P2 ke P6: 95.524865872714
+P2 ke P7: 13.416407864998739
+P2 ke P8: 5.385164807134504
+P2 ke P9: 106.30145812734649
+P2 ke P10: 3.605551275463989
+P3 ke P1: 10.198039027185569
+P3 ke P2: 21.18962010041709
+P3 ke P4: 15.811388300841896
+P3 ke P5: 32.31098884280702
+P3 ke P6: 115.25623627379127
+P3 ke P7: 8.06225774829855
+P3 ke P8: 26.570660511172846
+P3 ke P9: 126.21014222319853
+P3 ke P10: 18.439088914585774
+P4 ke P1: 5.830951894845301
+P4 ke P2: 5.385164807134504
+P4 ke P3: 15.811388300841896
+P4 ke P5: 16.55294535724685
+P4 ke P6: 100.56838469419701
+P4 ke P7: 8.06225774829855
+P4 ke P8: 10.770329614269007
+P4 ke P9: 111.39569111954016
+P4 ke P10: 3.1622776601683795
+P5 ke P1: 22.360679774997898
+P5 ke P2: 11.180339887498949
+P5 ke P3: 32.31098884280702
+P5 ke P4: 16.55294535724685
+P5 ke P6: 84.8528137423857
+P5 ke P7: 24.596747752497688
+P5 ke P8: 5.830951894845301
+P5 ke P9: 95.524865872714
+P5 ke P10: 14.422205101855956
+P6 ke P1: 106.30145812734649
+P6 ke P2: 95.524865872714
+P6 ke P3: 115.25623627379127
+P6 ke P4: 100.56838469419701
+P6 ke P5: 84.8528137423857
+P6 ke P7: 108.4665847162157
+P6 ke P8: 90.52071586106685
+P6 ke P9: 11.180339887498949
+P6 ke P10: 99.03534722511958
+P7 ke P1: 2.23606797749979
+P7 ke P2: 13.416407864998739
+P7 ke P3: 8.06225774829855
+P7 ke P4: 8.06225774829855
+P7 ke P5: 24.596747752497688
+P7 ke P6: 108.4665847162157
+P7 ke P8: 18.788294228055936
+P7 ke P9: 119.33147112141039
+P7 ke P10: 10.44030650891055
+P8 ke P1: 16.55294535724685
+P8 ke P2: 5.385164807134504
+P8 ke P3: 26.570660511172846
+P8 ke P4: 10.770329614269007
+P8 ke P5: 5.830951894845301
+P8 ke P6: 90.52071586106685
+P8 ke P7: 18.788294228055936
+P8 ke P9: 101.23734488813898
+P8 ke P10: 8.602325267042627
+P9 ke P1: 117.15374513859982
+P9 ke P2: 106.30145812734649
+P9 ke P3: 126.21014222319853
+P9 ke P4: 111.39569111954016
+P9 ke P5: 95.524865872714
+P9 ke P6: 11.180339887498949
+P9 ke P7: 119.33147112141039
+P9 ke P8: 101.23734488813898
+P9 ke P10: 109.78615577567146
+P10 ke P1: 8.246211251235321
+P10 ke P2: 3.605551275463989
+P10 ke P3: 18.439088914585774
+P10 ke P4: 3.1622776601683795
+P10 ke P5: 14.422205101855956
+P10 ke P6: 99.03534722511958
+P10 ke P7: 10.44030650891055
+P10 ke P8: 8.602325267042627
+P10 ke P9: 109.78615577567146
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung k-distance dan k-neighbors</span>
+<span class="k">def</span> <span class="nf">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">other</span><span class="p">)</span> <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+    <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+    <span class="n">k_neighbors</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># Hindari jarak ke dirinya sendiri</span>
+    <span class="n">k_dist</span> <span class="o">=</span> <span class="n">distances</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">k_dist</span><span class="p">,</span> <span class="n">k_neighbors</span>
+
+<span class="c1"># Menghitung dan menampilkan k-distance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">K-Distance untuk setiap pasien (k=3):&quot;</span><span class="p">)</span>
+<span class="n">k_distances</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">k_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: K-Distance = </span><span class="si">{</span><span class="n">k_dist</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>K-Distance untuk setiap pasien (k=3):
+P1: K-Distance = 8.246211251235321
+P2: K-Distance = 5.385164807134504
+P3: K-Distance = 15.811388300841896
+P4: K-Distance = 5.830951894845301
+P5: K-Distance = 14.422205101855956
+P6: K-Distance = 90.52071586106685
+P7: K-Distance = 8.06225774829855
+P8: K-Distance = 8.602325267042627
+P9: K-Distance = 101.23734488813898
+P10: K-Distance = 8.246211251235321
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung reachability distance (RD)</span>
+<span class="k">def</span> <span class="nf">reachability_dist</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+
+<span class="c1"># Menghitung local reachability density (LRD)</span>
+<span class="k">def</span> <span class="nf">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">rd_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+        <span class="n">neighbor_k_dist</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">euclidean_dist</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+        <span class="n">rd_sum</span> <span class="o">+=</span> <span class="n">reachability_dist</span><span class="p">(</span><span class="n">neighbor_k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">k</span> <span class="o">/</span> <span class="n">rd_sum</span> <span class="k">if</span> <span class="n">rd_sum</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+<span class="c1"># Menampilkan RD untuk setiap pasien</span>
+<span class="n">rd_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reachability Distance (RD) untuk setiap pasien (k=3):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">neighbors</span><span class="p">):</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">euclidean_dist</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">neighbor</span><span class="p">)</span>
+        <span class="n">rd</span> <span class="o">=</span> <span class="n">reachability_dist</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+        <span class="n">rd_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rd</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> ke Neighbor P</span><span class="si">{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: RD = </span><span class="si">{</span><span class="n">rd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan LRD untuk setiap pasien</span>
+<span class="n">lrd_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Local Reachability Density (LRD) untuk setiap pasien (k=3):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">lrd</span> <span class="o">=</span> <span class="n">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">lrd_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">lrd</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: LRD = </span><span class="si">{</span><span class="n">lrd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menghitung Local Outlier Factor (LOF)</span>
+<span class="c1"># Menghitung Local Outlier Factor (LOF)</span>
+<span class="k">def</span> <span class="nf">local_outlier_factor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">lrd_values</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">lrd_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lrd_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">data</span> <span class="o">==</span> <span class="n">neighbor</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">)</span>
+    <span class="n">current_lrd</span> <span class="o">=</span> <span class="n">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">lrd_sum</span> <span class="o">/</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="n">current_lrd</span> <span class="k">if</span> <span class="n">current_lrd</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reachability Distance (RD) untuk setiap pasien (k=3):
+P1 ke Neighbor P1: RD = 8.246211251235321
+P1 ke Neighbor P2: RD = 8.246211251235321
+P1 ke Neighbor P3: RD = 8.246211251235321
+P2 ke Neighbor P1: RD = 5.385164807134504
+P2 ke Neighbor P2: RD = 5.385164807134504
+P2 ke Neighbor P3: RD = 5.385164807134504
+P3 ke Neighbor P1: RD = 15.811388300841896
+P3 ke Neighbor P2: RD = 15.811388300841896
+P3 ke Neighbor P3: RD = 15.811388300841896
+P4 ke Neighbor P1: RD = 5.830951894845301
+P4 ke Neighbor P2: RD = 5.830951894845301
+P4 ke Neighbor P3: RD = 5.830951894845301
+P5 ke Neighbor P1: RD = 14.422205101855956
+P5 ke Neighbor P2: RD = 14.422205101855956
+P5 ke Neighbor P3: RD = 14.422205101855956
+P6 ke Neighbor P1: RD = 90.52071586106685
+P6 ke Neighbor P2: RD = 90.52071586106685
+P6 ke Neighbor P3: RD = 90.52071586106685
+P7 ke Neighbor P1: RD = 8.06225774829855
+P7 ke Neighbor P2: RD = 8.06225774829855
+P7 ke Neighbor P3: RD = 8.06225774829855
+P8 ke Neighbor P1: RD = 8.602325267042627
+P8 ke Neighbor P2: RD = 8.602325267042627
+P8 ke Neighbor P3: RD = 8.602325267042627
+P9 ke Neighbor P1: RD = 101.23734488813898
+P9 ke Neighbor P2: RD = 101.23734488813898
+P9 ke Neighbor P3: RD = 101.23734488813898
+P10 ke Neighbor P1: RD = 8.246211251235321
+P10 ke Neighbor P2: RD = 8.246211251235321
+P10 ke Neighbor P3: RD = 8.246211251235321
+
+Local Reachability Density (LRD) untuk setiap pasien (k=3):
+P1: LRD = 0.13550489935180057
+P2: LRD = 0.1322781160382825
+P3: LRD = 0.08804965158839433
+P4: LRD = 0.1371266382140264
+P5: LRD = 0.08770680834372972
+P6: LRD = 0.010845560593067698
+P7: LRD = 0.09340016588320593
+P8: LRD = 0.10559775391503856
+P9: LRD = 0.010442667217562028
+P10: LRD = 0.1541439445071322
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan LOF untuk setiap pasien</span>
+<span class="n">lof_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Local Outlier Factor (LOF) untuk setiap pasien (k=3):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">lof</span> <span class="o">=</span> <span class="n">local_outlier_factor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">lrd_values</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">lof_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">lof</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: LOF = </span><span class="si">{</span><span class="n">lof</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Merangkum hasil dalam tabel</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Pasien&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))],</span>
+    <span class="s2">&quot;K-Distance&quot;</span><span class="p">:</span> <span class="n">k_distances</span><span class="p">,</span>
+    <span class="s2">&quot;RD&quot;</span><span class="p">:</span> <span class="n">rd_values</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)],</span>
+    <span class="s2">&quot;LRD&quot;</span><span class="p">:</span> <span class="n">lrd_values</span><span class="p">,</span>
+    <span class="s2">&quot;LOF&quot;</span><span class="p">:</span> <span class="n">lof_values</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ringkasan Perhitungan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">,</span> <span class="n">showindex</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Local Outlier Factor (LOF) untuk setiap pasien (k=3):
+P1: LOF = 0.9347755488737872
+P2: LOF = 1.0079772628054775
+P3: LOF = 1.400724830915625
+P4: LOF = 1.0209540744482402
+P5: LOF = 1.4822110444438932
+P6: LOF = 6.454253738137135
+P7: LOF = 1.3204830223487818
+P8: LOF = 1.1679541350146936
+P9: LOF = 6.703268287844796
+P10: LOF = 0.8866171623131336
+
+Ringkasan Perhitungan:
++----------+--------------+-------+-------+-------+
+| Pasien   |   K-Distance |    RD |   LRD |   LOF |
++==========+==============+=======+=======+=======+
+| P1       |         8.25 |  8.25 |  0.14 |  0.93 |
++----------+--------------+-------+-------+-------+
+| P2       |         5.39 |  8.25 |  0.13 |  1.01 |
++----------+--------------+-------+-------+-------+
+| P3       |        15.81 |  8.25 |  0.09 |  1.4  |
++----------+--------------+-------+-------+-------+
+| P4       |         5.83 |  5.39 |  0.14 |  1.02 |
++----------+--------------+-------+-------+-------+
+| P5       |        14.42 |  5.39 |  0.09 |  1.48 |
++----------+--------------+-------+-------+-------+
+| P6       |        90.52 |  5.39 |  0.01 |  6.45 |
++----------+--------------+-------+-------+-------+
+| P7       |         8.06 | 15.81 |  0.09 |  1.32 |
++----------+--------------+-------+-------+-------+
+| P8       |         8.6  | 15.81 |  0.11 |  1.17 |
++----------+--------------+-------+-------+-------+
+| P9       |       101.24 | 15.81 |  0.01 |  6.7  |
++----------+--------------+-------+-------+-------+
+| P10      |         8.25 |  5.83 |  0.15 |  0.89 |
++----------+--------------+-------+-------+-------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Threshold untuk outlier</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.5</span>
+
+<span class="c1"># DataFrame untuk visualisasi</span>
+<span class="n">patients</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span>
+<span class="n">lof_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Pasien&quot;</span><span class="p">:</span> <span class="n">patients</span><span class="p">,</span>
+    <span class="s2">&quot;LOF&quot;</span><span class="p">:</span> <span class="n">lof_values</span>
+<span class="p">})</span>
+
+<span class="c1"># Visualisasi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">lof</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">lof</span> <span class="ow">in</span> <span class="n">lof_values</span><span class="p">]</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Pasien&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;LOF&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">lof_df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+
+<span class="c1"># Menandai threshold</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Threshold = 1.5&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Local Outlier Factor (LOF) untuk Setiap Pasien&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Pasien&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;LOF&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan nilai LOF di atas setiap bar</span>
+<span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">lof</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="o">.</span><span class="n">patches</span><span class="p">,</span> <span class="n">lof_values</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">(),</span> <span class="nb">round</span><span class="p">(</span><span class="n">lof</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+             <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-6-5a9c8f39f5ad&gt;:14: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  bars = sns.barplot(x=&#39;Pasien&#39;, y=&#39;LOF&#39;, data=lof_df, palette=colors)
+</pre></div>
+</div>
+<img alt="_images/bb116fc3c439ecf5177830980a28ce91f7b5c98b7b65ada845eb9842f1cdc0d0.png" src="_images/bb116fc3c439ecf5177830980a28ce91f7b5c98b7b65ada845eb9842f1cdc0d0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi Scatter Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">lof</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span> <span class="k">for</span> <span class="n">lof</span> <span class="ow">in</span> <span class="n">lof_values</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+<span class="c1"># Anotasi tiap titik</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lof</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">lof_values</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="se">\n</span><span class="s2">(</span><span class="si">{</span><span class="n">lof</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+
+<span class="c1"># Threshold garis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">threshold</span> <span class="o">*</span> <span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Threshold (approximate)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Local Outlier Factor (LOF) - Scatter Plot&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tekanan Darah&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Detak Jantung&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bd9049ca5bd8102eb4a9482013862958df253fb655f91e8125e1e8ebf4e0319b.png" src="_images/bd9049ca5bd8102eb4a9482013862958df253fb655f91e8125e1e8ebf4e0319b.png" />
+</div>
+</div>
+</section>
+<section id="analisis-hasil-perhitungan-local-outlier-factor-lof">
+<h2>Analisis Hasil Perhitungan Local Outlier Factor (LOF)<a class="headerlink" href="#analisis-hasil-perhitungan-local-outlier-factor-lof" title="Link to this heading">#</a></h2>
+<p>Local Outlier Factor (LOF) digunakan untuk mengukur seberapa jauh kepadatan titik data tertentu dibandingkan dengan tetangganya. Dalam kasus ini, kita menggunakan k = 3 untuk menentukan tetangga terdekat, dan threshold LOF ditetapkan pada 1.8 agar hanya data yang memiliki nilai LOF di atas threshold tersebut yang dianggap sebagai outlier.</p>
+<section id="hasil-perhitungan">
+<h3>Hasil Perhitungan<a class="headerlink" href="#hasil-perhitungan" title="Link to this heading">#</a></h3>
+<p>Berdasarkan hasil perhitungan LOF untuk setiap pasien:</p>
+<ul class="simple">
+<li><p><strong>P1</strong>: LOF = 0.93 (Normal)</p></li>
+<li><p><strong>P2</strong>: LOF = 1.01 (Normal)</p></li>
+<li><p><strong>P3</strong>: LOF = 1.4 (Normal)</p></li>
+<li><p><strong>P4</strong>: LOF = 1.02 (Normal)</p></li>
+<li><p><strong>P5</strong>: LOF = 1.48 (Normal)</p></li>
+<li><p><strong>P6</strong>: LOF = 6.45 (<strong>Outlier</strong>)</p></li>
+<li><p><strong>P7</strong>: LOF = 1.32 (Normal)</p></li>
+<li><p><strong>P8</strong>: LOF = 1.17 (Normal)</p></li>
+<li><p><strong>P9</strong>: LOF = 6.7 (<strong>Outlier</strong>)</p></li>
+<li><p><strong>P10</strong>: LOF = 0.89 (Normal)</p></li>
+</ul>
+</section>
+<section id="analisis">
+<h3>Analisis<a class="headerlink" href="#analisis" title="Link to this heading">#</a></h3>
+<p>Dari hasil perhitungan tersebut, terlihat bahwa hanya <strong>P6</strong> dan <strong>P9</strong> yang memiliki nilai LOF di atas threshold 1.8, sehingga mereka dikategorikan sebagai outlier.</p>
+<ul class="simple">
+<li><p><strong>P6</strong> memiliki LOF = 6.45, menunjukkan bahwa kepadatan titik ini jauh lebih rendah dibandingkan tetangga-tetangganya. Ini mengindikasikan bahwa tekanan darah dan detak jantung pasien ini sangat berbeda dibandingkan dengan kelompok pasien lainnya.</p></li>
+<li><p><strong>P9</strong> memiliki LOF = 6.7, yang juga secara signifikan melampaui threshold. Ini memperkuat bahwa pasien ini berada di luar pola umum data.</p></li>
+</ul>
+<p>Sementara itu, meskipun <strong>P2</strong> memiliki nilai LOF sebesar 1.01, nilai tersebut masih berada dalam batas normal sehingga tidak dianggap sebagai outlier.</p>
+</section>
+<section id="kesimpulan-dari-code-manual-tanpa-sklearn">
+<h3>Kesimpulan dari code manual tanpa sklearn<a class="headerlink" href="#kesimpulan-dari-code-manual-tanpa-sklearn" title="Link to this heading">#</a></h3>
+<p>Berdasarkan visualisasi dan perhitungan LOF, hanya <strong>P6</strong> dan <strong>P9</strong> yang dapat dikategorikan sebagai outlier. Ini berarti kedua pasien ini memiliki pola tekanan darah dan detak jantung yang mencolok dibandingkan dengan pasien lainnya, dan mungkin memerlukan perhatian medis lebih lanjut.</p>
+<p>Dengan threshold 1.8, metode LOF efektif dalam mengidentifikasi pasien dengan karakteristik data yang berbeda secara signifikan, membantu dalam mendeteksi potensi kasus abnormal.</p>
+</section>
+</section>
+<section id="prediksi-outlier-menggunakan-local-outlier-factor-lof-dengan-scikit-learn">
+<h2>Prediksi Outlier Menggunakan Local Outlier Factor (LOF) dengan Scikit-Learn<a class="headerlink" href="#prediksi-outlier-menggunakan-local-outlier-factor-lof-dengan-scikit-learn" title="Link to this heading">#</a></h2>
+<section id="implementasi-lof-dengan-scikit-learn">
+<h3>🛠️ Implementasi LOF dengan Scikit-Learn<a class="headerlink" href="#implementasi-lof-dengan-scikit-learn" title="Link to this heading">#</a></h3>
+<p>Berikut adalah langkah-langkah untuk memprediksi outlier menggunakan LOF di Python dengan bantuan pustaka <strong>Scikit-Learn</strong>.</p>
+</section>
+<section id="import-library">
+<h3>1. <strong>Import Library</strong><a class="headerlink" href="#import-library" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mempersiapkan-data">
+<h3>2. <strong>Mempersiapkan Data</strong><a class="headerlink" href="#mempersiapkan-data" title="Link to this heading">#</a></h3>
+<p>Kita gunakan data sederhana berupa tekanan darah dan detak jantung pasien:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data pasien sesuai data sebelumnya</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">85</span><span class="p">],</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">78</span><span class="p">],</span> <span class="p">[</span><span class="mi">125</span><span class="p">,</span> <span class="mi">83</span><span class="p">],</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> <span class="p">[</span><span class="mi">118</span><span class="p">,</span> <span class="mi">79</span><span class="p">],</span> <span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">87</span><span class="p">],</span> <span class="p">[</span><span class="mi">210</span><span class="p">,</span> <span class="mi">155</span><span class="p">],</span> <span class="p">[</span><span class="mi">128</span><span class="p">,</span> <span class="mi">82</span><span class="p">]</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="melakukan-prediksi-lof">
+<h3>3. <strong>Melakukan Prediksi LOF</strong><a class="headerlink" href="#melakukan-prediksi-lof" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>k</strong>: Jumlah tetangga (neighbors) yang dipertimbangkan.</p></li>
+<li><p><strong>contamination</strong>: Perkiraan proporsi outlier dalam dataset.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menentukan LOF</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">outlier_scores</span> <span class="o">=</span> <span class="o">-</span><span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+
+<span class="c1"># Menentukan threshold untuk hanya menganggap P6 dan P9 sebagai outlier</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.8</span>
+
+<span class="c1"># Mengubah data ke DataFrame untuk ringkasan</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Pasien&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))],</span>
+    <span class="s2">&quot;Tekanan Darah&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="s2">&quot;Detak Jantung&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;LOF&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">outlier_scores</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&quot;Status&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Outlier&quot;</span> <span class="k">if</span> <span class="n">lof</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s2">&quot;Normal&quot;</span> <span class="k">for</span> <span class="n">lof</span> <span class="ow">in</span> <span class="n">outlier_scores</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Menampilkan hasil LOF dan ringkasan dalam tabel</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Prediksi LOF:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 1  1  1  1  1 -1  1  1 -1  1]
+Hasil Prediksi LOF:
++----+----------+-----------------+-----------------+-------+----------+
+|    | Pasien   |   Tekanan Darah |   Detak Jantung |   LOF | Status   |
++====+==========+=================+=================+=======+==========+
+|  0 | P1       |             120 |              80 |  0.95 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  1 | P2       |             130 |              85 |  1    | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  2 | P3       |             110 |              78 |  1.39 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  3 | P4       |             125 |              83 |  1.03 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  4 | P5       |             140 |              90 |  1.49 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  5 | P6       |             200 |             150 |  6.26 | Outlier  |
++----+----------+-----------------+-----------------+-------+----------+
+|  6 | P7       |             118 |              79 |  1.29 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  7 | P8       |             135 |              87 |  1.18 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+|  8 | P9       |             210 |             155 |  6.52 | Outlier  |
++----+----------+-----------------+-----------------+-------+----------+
+|  9 | P10      |             128 |              82 |  0.88 | Normal   |
++----+----------+-----------------+-----------------+-------+----------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualisasi-outlier">
+<h2>4. <strong>Visualisasi Outlier</strong><a class="headerlink" href="#visualisasi-outlier" title="Link to this heading">#</a></h2>
+<p>Kita visualisasikan data pasien dengan menandai outlier menggunakan lingkaran merah:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">lof</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">outlier_scores</span><span class="p">)):</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">lof</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s1">&#39;blue&#39;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;P</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">lof</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Visualisasi Outlier dengan LOF (Threshold: LOF &gt; </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s1">, k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tekanan Darah&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Detak Jantung&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Outlier&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4b5af1bcdb7dc7f5c5f3179d0a9d227ca2e2725f7c75f741d29dfd0b2e9e0be8.png" src="_images/4b5af1bcdb7dc7f5c5f3179d0a9d227ca2e2725f7c75f741d29dfd0b2e9e0be8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalisasi skor LOF dengan batas maksimum</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">outlier_scores</span> <span class="o">-</span> <span class="n">outlier_scores</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">outlier_scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">outlier_scores</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Membatasi nilai agar tidak melebihi 1</span>
+
+<span class="c1"># Menghitung jumlah outlier berdasarkan threshold</span>
+<span class="n">n_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">outlier_scores</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="c1"># Plot lingkaran outlier</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">1500</span> <span class="o">*</span> <span class="n">radius</span><span class="p">,</span>  <span class="c1"># mengatur ukuran lingkaran</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+    <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outlier scores&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Label dan batas plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prediction errors: </span><span class="si">{</span><span class="n">n_errors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Detak Jantung&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Local Outlier Factor (LOF)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/447e9d2cd380660ff8efa96d5c9bdf86f94246320e1a71477b513a716a004986.png" src="_images/447e9d2cd380660ff8efa96d5c9bdf86f94246320e1a71477b513a716a004986.png" />
+</div>
+</div>
+</section>
+<section id="kesimpulan">
+<h2>✅ Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Local Outlier Factor (LOF)</strong> efektif untuk mendeteksi anomali dalam data berdimensi rendah maupun tinggi.</p></li>
+<li><p>Parameter <strong>k</strong> (jumlah tetangga) dan <strong>contamination</strong> sangat mempengaruhi hasil deteksi.</p></li>
+<li><p>Visualisasi membantu memahami distribusi data dan mengidentifikasi outlier secara langsung.</p></li>
+</ul>
+<hr class="docutils" />
+<p>Dengan pendekatan ini, kamu bisa menyesuaikan parameter LOF untuk kebutuhan dataset-mu sendiri. Semoga bermanfaat! 🚀</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="deteksi_outlier.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-kasus-lof">2. Contoh Kasus LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-data-pasien">Tabel Data Pasien</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-perhitungan-lof-k-3-hitungan-manual">3. Langkah-langkah Perhitungan LOF (<span class="math notranslate nohighlight">\(k=3\)</span>) hitungan manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-jarak-euclidean-antar-pasien">1. Menghitung jarak Euclidean antar pasien</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-k-distance">2. Menentukan k-distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-reachability-distance-rd">3. Menghitung Reachability Distance (RD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-local-reachability-density-lrd">4. Menghitung Local Reachability Density (LRD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-local-outlier-factor-lof">5. Menghitung Local Outlier Factor (LOF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-perhitungan-lof">Tabel Perhitungan LOF</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi">4. Visualisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hitungan-code-manual-tanpa-library-scikit-learen">hitungan code manual tanpa library scikit-learen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-hasil-perhitungan-local-outlier-factor-lof">Analisis Hasil Perhitungan Local Outlier Factor (LOF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-perhitungan">Hasil Perhitungan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis">Analisis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-dari-code-manual-tanpa-sklearn">Kesimpulan dari code manual tanpa sklearn</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-outlier-menggunakan-local-outlier-factor-lof-dengan-scikit-learn">Prediksi Outlier Menggunakan Local Outlier Factor (LOF) dengan Scikit-Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-lof-dengan-scikit-learn">🛠️ Implementasi LOF dengan Scikit-Learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">1. <strong>Import Library</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mempersiapkan-data">2. <strong>Mempersiapkan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-prediksi-lof">3. <strong>Melakukan Prediksi LOF</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-outlier">4. <strong>Visualisasi Outlier</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">✅ Kesimpulan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

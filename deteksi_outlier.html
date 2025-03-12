@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'deteksi_outlier';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Local Outlier Factor (LOF)" href="LOF.html" />
     <link rel="prev" title="🌟 Data Understanding" href="data_understanding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -185,6 +186,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
 
 
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">1. Local Outlier Factor (LOF)</a></li>
 </ul>
 
     </div>
@@ -666,7 +668,16 @@ d = \sqrt{(10 - 7)^2 + (3.0 - 2.8)^2}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
 </pre></div>
 </div>
 </div>
@@ -1513,6 +1524,441 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 </li>
 </ol>
 <p>🌟 <strong>Kesimpulan Utama:</strong> KNN menawarkan pendekatan intuitif untuk mendeteksi outlier, namun hasil terbaik diperoleh dengan kombinasi pemilihan K yang tepat, threshold yang sesuai, dan visualisasi yang informatif.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">X_inliers</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">X_inliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">X_inliers</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">X_inliers</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">X_outliers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">X_inliers</span><span class="p">,</span> <span class="n">X_outliers</span><span class="p">]</span>
+
+<span class="n">n_outliers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_outliers</span><span class="p">)</span>
+<span class="n">ground_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">ground_truth</span><span class="p">[</span><span class="o">-</span><span class="n">n_outliers</span><span class="p">:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">result_df</span><span class="p">[[</span><span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Instead of comparing against ground_truth (which has different size),</span>
+<span class="c1"># evaluate using the model&#39;s inbuilt outlier prediction</span>
+<span class="n">outlier_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Outlier are labeled -1 by LOF</span>
+
+<span class="c1"># Print outliers</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data yang diduga outlier (menggunakan LocalOutlierFactor):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">outlier_index</span><span class="p">])</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;y_pred&quot;</span><span class="p">],</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah total data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result_df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data yang diduga outlier (menggunakan LocalOutlierFactor):
+      id            class  petal length  petal width  sepal_length  \
+0      1      Iris-setosa          86.4         70.0          20.1   
+14    15      Iris-setosa           1.2          0.2           5.8   
+15    16      Iris-setosa           1.5          0.4           5.7   
+33    34      Iris-setosa           1.4          0.2           5.5   
+41    42      Iris-setosa           1.3          0.3           4.5   
+57    58  Iris-versicolor           3.3          1.0           4.9   
+60    61  Iris-versicolor           3.5          1.0           5.0   
+93    94  Iris-versicolor           3.3          1.0           5.0   
+98    99  Iris-versicolor           3.0          1.1           5.1   
+105  106   Iris-virginica           6.6          2.1           7.6   
+106  107   Iris-virginica           4.5          1.7           4.9   
+117  118   Iris-virginica           6.7          2.2           7.7   
+118  119   Iris-virginica           6.9          2.3           7.7   
+122  123   Iris-virginica           6.7          2.0           7.7   
+131  132   Iris-virginica           6.4          2.0           7.9   
+
+     sepal_width  avg_distance    z_score  
+0           30.5    108.837746  12.164466  
+14           4.0      0.476358  -0.063416  
+15           4.4      0.508240  -0.059818  
+33           4.2      0.364755  -0.076010  
+41           2.3      0.702252  -0.037925  
+57           2.4      0.328992  -0.080045  
+60           2.0      0.496544  -0.061138  
+93           2.3      0.296425  -0.083720  
+98           2.5      0.498569  -0.060910  
+105          3.0      0.447149  -0.066712  
+106          2.5      0.763383  -0.031027  
+117          3.8      0.697026  -0.038515  
+118          2.6      0.618153  -0.047415  
+122          2.8      0.428387  -0.068829  
+131          3.8      0.740949  -0.033559  
+[-1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1 -1  1  1 -1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1  1  1
+  1  1 -1  1  1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1  1  1 -1 -1  1
+  1  1 -1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1  1  1  1  1
+  1  1  1  1  1  1]
++---------+----------+
+|   Index |   y_pred |
++=========+==========+
+|       0 |       -1 |
++---------+----------+
+|       1 |        1 |
++---------+----------+
+|       2 |        1 |
++---------+----------+
+|       3 |        1 |
++---------+----------+
+|       4 |        1 |
++---------+----------+
+|       5 |        1 |
++---------+----------+
+|       6 |        1 |
++---------+----------+
+|       7 |        1 |
++---------+----------+
+|       8 |        1 |
++---------+----------+
+|       9 |        1 |
++---------+----------+
+|      10 |        1 |
++---------+----------+
+|      11 |        1 |
++---------+----------+
+|      12 |        1 |
++---------+----------+
+|      13 |        1 |
++---------+----------+
+|      14 |       -1 |
++---------+----------+
+|      15 |       -1 |
++---------+----------+
+|      16 |        1 |
++---------+----------+
+|      17 |        1 |
++---------+----------+
+|      18 |        1 |
++---------+----------+
+|      19 |        1 |
++---------+----------+
+|      20 |        1 |
++---------+----------+
+|      21 |        1 |
++---------+----------+
+|      22 |        1 |
++---------+----------+
+|      23 |        1 |
++---------+----------+
+|      24 |        1 |
++---------+----------+
+|      25 |        1 |
++---------+----------+
+|      26 |        1 |
++---------+----------+
+|      27 |        1 |
++---------+----------+
+|      28 |        1 |
++---------+----------+
+|      29 |        1 |
++---------+----------+
+|      30 |        1 |
++---------+----------+
+|      31 |        1 |
++---------+----------+
+|      32 |        1 |
++---------+----------+
+|      33 |       -1 |
++---------+----------+
+|      34 |        1 |
++---------+----------+
+|      35 |        1 |
++---------+----------+
+|      36 |        1 |
++---------+----------+
+|      37 |        1 |
++---------+----------+
+|      38 |        1 |
++---------+----------+
+|      39 |        1 |
++---------+----------+
+|      40 |        1 |
++---------+----------+
+|      41 |       -1 |
++---------+----------+
+|      42 |        1 |
++---------+----------+
+|      43 |        1 |
++---------+----------+
+|      44 |        1 |
++---------+----------+
+|      45 |        1 |
++---------+----------+
+|      46 |        1 |
++---------+----------+
+|      47 |        1 |
++---------+----------+
+|      48 |        1 |
++---------+----------+
+|      49 |        1 |
++---------+----------+
+|      50 |        1 |
++---------+----------+
+|      51 |        1 |
++---------+----------+
+|      52 |        1 |
++---------+----------+
+|      53 |        1 |
++---------+----------+
+|      54 |        1 |
++---------+----------+
+|      55 |        1 |
++---------+----------+
+|      56 |        1 |
++---------+----------+
+|      57 |       -1 |
++---------+----------+
+|      58 |        1 |
++---------+----------+
+|      59 |        1 |
++---------+----------+
+|      60 |       -1 |
++---------+----------+
+|      61 |        1 |
++---------+----------+
+|      62 |        1 |
++---------+----------+
+|      63 |        1 |
++---------+----------+
+|      64 |        1 |
++---------+----------+
+|      65 |        1 |
++---------+----------+
+|      66 |        1 |
++---------+----------+
+|      67 |        1 |
++---------+----------+
+|      68 |        1 |
++---------+----------+
+|      69 |        1 |
++---------+----------+
+|      70 |        1 |
++---------+----------+
+|      71 |        1 |
++---------+----------+
+|      72 |        1 |
++---------+----------+
+|      73 |        1 |
++---------+----------+
+|      74 |        1 |
++---------+----------+
+|      75 |        1 |
++---------+----------+
+|      76 |        1 |
++---------+----------+
+|      77 |        1 |
++---------+----------+
+|      78 |        1 |
++---------+----------+
+|      79 |        1 |
++---------+----------+
+|      80 |        1 |
++---------+----------+
+|      81 |        1 |
++---------+----------+
+|      82 |        1 |
++---------+----------+
+|      83 |        1 |
++---------+----------+
+|      84 |        1 |
++---------+----------+
+|      85 |        1 |
++---------+----------+
+|      86 |        1 |
++---------+----------+
+|      87 |        1 |
++---------+----------+
+|      88 |        1 |
++---------+----------+
+|      89 |        1 |
++---------+----------+
+|      90 |        1 |
++---------+----------+
+|      91 |        1 |
++---------+----------+
+|      92 |        1 |
++---------+----------+
+|      93 |       -1 |
++---------+----------+
+|      94 |        1 |
++---------+----------+
+|      95 |        1 |
++---------+----------+
+|      96 |        1 |
++---------+----------+
+|      97 |        1 |
++---------+----------+
+|      98 |       -1 |
++---------+----------+
+|      99 |        1 |
++---------+----------+
+|     100 |        1 |
++---------+----------+
+|     101 |        1 |
++---------+----------+
+|     102 |        1 |
++---------+----------+
+|     103 |        1 |
++---------+----------+
+|     104 |        1 |
++---------+----------+
+|     105 |       -1 |
++---------+----------+
+|     106 |       -1 |
++---------+----------+
+|     107 |        1 |
++---------+----------+
+|     108 |        1 |
++---------+----------+
+|     109 |        1 |
++---------+----------+
+|     110 |        1 |
++---------+----------+
+|     111 |        1 |
++---------+----------+
+|     112 |        1 |
++---------+----------+
+|     113 |        1 |
++---------+----------+
+|     114 |        1 |
++---------+----------+
+|     115 |        1 |
++---------+----------+
+|     116 |        1 |
++---------+----------+
+|     117 |       -1 |
++---------+----------+
+|     118 |       -1 |
++---------+----------+
+|     119 |        1 |
++---------+----------+
+|     120 |        1 |
++---------+----------+
+|     121 |        1 |
++---------+----------+
+|     122 |       -1 |
++---------+----------+
+|     123 |        1 |
++---------+----------+
+|     124 |        1 |
++---------+----------+
+|     125 |        1 |
++---------+----------+
+|     126 |        1 |
++---------+----------+
+|     127 |        1 |
++---------+----------+
+|     128 |        1 |
++---------+----------+
+|     129 |        1 |
++---------+----------+
+|     130 |        1 |
++---------+----------+
+|     131 |       -1 |
++---------+----------+
+|     132 |        1 |
++---------+----------+
+|     133 |        1 |
++---------+----------+
+|     134 |        1 |
++---------+----------+
+|     135 |        1 |
++---------+----------+
+|     136 |        1 |
++---------+----------+
+|     137 |        1 |
++---------+----------+
+|     138 |        1 |
++---------+----------+
+|     139 |        1 |
++---------+----------+
+|     140 |        1 |
++---------+----------+
+|     141 |        1 |
++---------+----------+
+|     142 |        1 |
++---------+----------+
+|     143 |        1 |
++---------+----------+
+|     144 |        1 |
++---------+----------+
+|     145 |        1 |
++---------+----------+
+|     146 |        1 |
++---------+----------+
+|     147 |        1 |
++---------+----------+
+|     148 |        1 |
++---------+----------+
+|     149 |        1 |
++---------+----------+
+Jumlah total data: 150
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.legend_handler</span> <span class="kn">import</span> <span class="n">HandlerPathCollection</span>
+
+<span class="k">def</span> <span class="nf">update_legend_marker_size</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">orig</span><span class="p">):</span>
+    <span class="s2">&quot;Customize size of the legend marker&quot;</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">update_from</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
+    <span class="n">handle</span><span class="o">.</span><span class="n">set_sizes</span><span class="p">([</span><span class="mi">20</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data points&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate outlier scores using LocalOutlierFactor</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># Use X for LOF calculation</span>
+<span class="c1"># Get outlier scores</span>
+<span class="n">outlier_scores</span> <span class="o">=</span> <span class="o">-</span><span class="n">clf</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+
+<span class="c1"># plot circles with radius proportional to the outlier scores</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">outlier_scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">outlier_scores</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">outlier_scores</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">outlier_scores</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">radius</span><span class="p">,</span>
+    <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+    <span class="n">facecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outlier scores&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="c1"># Replace n_errors with a relevant value or remove the line if not needed</span>
+<span class="c1"># plt.xlabel(&quot;prediction errors: %d&quot; % (n_errors))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+    <span class="n">handler_map</span><span class="o">=</span><span class="p">{</span><span class="n">scatter</span><span class="p">:</span> <span class="n">HandlerPathCollection</span><span class="p">(</span><span class="n">update_func</span><span class="o">=</span><span class="n">update_legend_marker_size</span><span class="p">)}</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Local Outlier Factor (LOF)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/81183d760a31e8df9b70ffb8b16a35c457023049066e878314048535974be1a0.png" src="_images/81183d760a31e8df9b70ffb8b16a35c457023049066e878314048535974be1a0.png" />
+</div>
+</div>
 </section>
 </section>
 
@@ -1554,6 +2000,15 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">🌟 Data Understanding</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="LOF.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Local Outlier Factor (LOF)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
