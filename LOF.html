@@ -508,17 +508,269 @@ Local Outlier Factor (LOF) adalah algoritma yang digunakan untuk mendeteksi anom
 \[
 d(P_a, P_b) = \sqrt{(TekananDarah_a - TekananDarah_b)^2 + (DetakJantung_a - DetakJantung_b)^2}
 \]</div>
+<p>berikut tabelnya</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>x,y</p></th>
+<th class="head"><p>p1</p></th>
+<th class="head"><p>p2</p></th>
+<th class="head"><p>p3</p></th>
+<th class="head"><p>p4</p></th>
+<th class="head"><p>p5</p></th>
+<th class="head"><p>p6</p></th>
+<th class="head"><p>p7</p></th>
+<th class="head"><p>p8</p></th>
+<th class="head"><p>p9</p></th>
+<th class="head"><p>p10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p1</p></td>
+<td><p>0.00</p></td>
+<td><p>11.18</p></td>
+<td><p>10.20</p></td>
+<td><p>5.83</p></td>
+<td><p>22.36</p></td>
+<td><p>106.30</p></td>
+<td><p>2.24</p></td>
+<td><p>16.55</p></td>
+<td><p>117.15</p></td>
+<td><p>8.25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p2</p></td>
+<td><p>11.18</p></td>
+<td><p>0.00</p></td>
+<td><p>21.19</p></td>
+<td><p>5.39</p></td>
+<td><p>11.18</p></td>
+<td><p>95.52</p></td>
+<td><p>13.42</p></td>
+<td><p>5.39</p></td>
+<td><p>106.30</p></td>
+<td><p>3.61</p></td>
+</tr>
+<tr class="row-even"><td><p>p3</p></td>
+<td><p>10.20</p></td>
+<td><p>21.19</p></td>
+<td><p>0.00</p></td>
+<td><p>15.81</p></td>
+<td><p>32.31</p></td>
+<td><p>115.26</p></td>
+<td><p>8.06</p></td>
+<td><p>26.57</p></td>
+<td><p>126.21</p></td>
+<td><p>18.44</p></td>
+</tr>
+<tr class="row-odd"><td><p>p4</p></td>
+<td><p>5.83</p></td>
+<td><p>5.39</p></td>
+<td><p>15.81</p></td>
+<td><p>0.00</p></td>
+<td><p>16.55</p></td>
+<td><p>100.57</p></td>
+<td><p>8.06</p></td>
+<td><p>10.77</p></td>
+<td><p>111.40</p></td>
+<td><p>3.16</p></td>
+</tr>
+<tr class="row-even"><td><p>p5</p></td>
+<td><p>22.36</p></td>
+<td><p>11.18</p></td>
+<td><p>32.31</p></td>
+<td><p>16.55</p></td>
+<td><p>0.00</p></td>
+<td><p>84.85</p></td>
+<td><p>24.60</p></td>
+<td><p>5.83</p></td>
+<td><p>95.52</p></td>
+<td><p>14.42</p></td>
+</tr>
+<tr class="row-odd"><td><p>p6</p></td>
+<td><p>106.30</p></td>
+<td><p>95.52</p></td>
+<td><p>115.26</p></td>
+<td><p>100.57</p></td>
+<td><p>84.85</p></td>
+<td><p>0.00</p></td>
+<td><p>108.47</p></td>
+<td><p>90.52</p></td>
+<td><p>11.18</p></td>
+<td><p>99.04</p></td>
+</tr>
+<tr class="row-even"><td><p>p7</p></td>
+<td><p>2.24</p></td>
+<td><p>13.42</p></td>
+<td><p>8.06</p></td>
+<td><p>8.06</p></td>
+<td><p>24.60</p></td>
+<td><p>108.47</p></td>
+<td><p>0.00</p></td>
+<td><p>18.79</p></td>
+<td><p>119.33</p></td>
+<td><p>10.44</p></td>
+</tr>
+<tr class="row-odd"><td><p>p8</p></td>
+<td><p>16.55</p></td>
+<td><p>5.39</p></td>
+<td><p>26.57</p></td>
+<td><p>10.77</p></td>
+<td><p>5.83</p></td>
+<td><p>90.52</p></td>
+<td><p>18.79</p></td>
+<td><p>0.00</p></td>
+<td><p>101.24</p></td>
+<td><p>8.60</p></td>
+</tr>
+<tr class="row-even"><td><p>p9</p></td>
+<td><p>117.15</p></td>
+<td><p>106.30</p></td>
+<td><p>126.21</p></td>
+<td><p>111.40</p></td>
+<td><p>95.52</p></td>
+<td><p>11.18</p></td>
+<td><p>119.33</p></td>
+<td><p>101.24</p></td>
+<td><p>0.00</p></td>
+<td><p>109.79</p></td>
+</tr>
+<tr class="row-odd"><td><p>p10</p></td>
+<td><p>8.25</p></td>
+<td><p>3.61</p></td>
+<td><p>18.44</p></td>
+<td><p>3.16</p></td>
+<td><p>14.42</p></td>
+<td><p>99.04</p></td>
+<td><p>10.44</p></td>
+<td><p>8.60</p></td>
+<td><p>109.79</p></td>
+<td><p>0.00</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="menentukan-k-distance">
 <h3>2. Menentukan k-distance<a class="headerlink" href="#menentukan-k-distance" title="Link to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk setiap titik adalah jarak ke tetangga terdekat ke-<span class="math notranslate nohighlight">\(k\)</span> (dalam hal ini <span class="math notranslate nohighlight">\(k=3\)</span>).</p>
-<p>Contoh untuk P1:</p>
+<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk setiap titik adalah jarak ke tetangga terdekat ke-<span class="math notranslate nohighlight">\(k\)</span>
+Contoh untuk P1:</p>
 <ul class="simple">
-<li><p>Jarak ke P2: 11.18</p></li>
-<li><p>Jarak ke P3: 10.05</p></li>
+<li><p>Jarak ke P7: 2.24</p></li>
 <li><p>Jarak ke P4: 5.83</p></li>
+<li><p>Jarak ke P10: 8.25</p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk P1 = 11.18</p>
+<p><span class="math notranslate nohighlight">\(k\)</span>-distance untuk P1 = 8.25</p>
+<p>tabel tetangga</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>p/k</p></th>
+<th class="head"><p>p1</p></th>
+<th class="head"><p>p2</p></th>
+<th class="head"><p>p3</p></th>
+<th class="head"><p>p4</p></th>
+<th class="head"><p>p5</p></th>
+<th class="head"><p>p6</p></th>
+<th class="head"><p>p7</p></th>
+<th class="head"><p>p8</p></th>
+<th class="head"><p>p9</p></th>
+<th class="head"><p>p10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>k1</p></td>
+<td><p>p7</p></td>
+<td><p>p10</p></td>
+<td><p>p7</p></td>
+<td><p>p10</p></td>
+<td><p>p8</p></td>
+<td><p>p9</p></td>
+<td><p>p1</p></td>
+<td><p>p2</p></td>
+<td><p>p6</p></td>
+<td><p>p4</p></td>
+</tr>
+<tr class="row-odd"><td><p>k2</p></td>
+<td><p>p4</p></td>
+<td><p>p3</p></td>
+<td><p>p1</p></td>
+<td><p>p2</p></td>
+<td><p>p2</p></td>
+<td><p>p5</p></td>
+<td><p>p3</p></td>
+<td><p>p5</p></td>
+<td><p>p5</p></td>
+<td><p>p2</p></td>
+</tr>
+<tr class="row-even"><td><p>k3</p></td>
+<td><p>p10</p></td>
+<td><p>p6</p></td>
+<td><p>p4</p></td>
+<td><p>p1</p></td>
+<td><p>p10</p></td>
+<td><p>p8</p></td>
+<td><p>p4</p></td>
+<td><p>p10</p></td>
+<td><p>p8</p></td>
+<td><p>p1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>berikut tabelnya</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>p/k</p></th>
+<th class="head"><p>p1</p></th>
+<th class="head"><p>p2</p></th>
+<th class="head"><p>p3</p></th>
+<th class="head"><p>p4</p></th>
+<th class="head"><p>p5</p></th>
+<th class="head"><p>p6</p></th>
+<th class="head"><p>p7</p></th>
+<th class="head"><p>p8</p></th>
+<th class="head"><p>p9</p></th>
+<th class="head"><p>p10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>k1</p></td>
+<td><p>2,24</p></td>
+<td><p>3,61</p></td>
+<td><p>8,06</p></td>
+<td><p>3,16</p></td>
+<td><p>5,83</p></td>
+<td><p>11,18</p></td>
+<td><p>2,24</p></td>
+<td><p>5,39</p></td>
+<td><p>11,18</p></td>
+<td><p>3,16</p></td>
+</tr>
+<tr class="row-odd"><td><p>k2</p></td>
+<td><p>5,83</p></td>
+<td><p>5,39</p></td>
+<td><p>10,20</p></td>
+<td><p>5,39</p></td>
+<td><p>11,18</p></td>
+<td><p>84,85</p></td>
+<td><p>8,06</p></td>
+<td><p>5,83</p></td>
+<td><p>95,52</p></td>
+<td><p>3,61</p></td>
+</tr>
+<tr class="row-even"><td><p>k3</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="menghitung-reachability-distance-rd">
 <h3>3. Menghitung Reachability Distance (RD)<a class="headerlink" href="#menghitung-reachability-distance-rd" title="Link to this heading">#</a></h3>
@@ -529,10 +781,150 @@ RD_k(P_a, P_b) = \max\{k\text{-distance}(P_b), d(P_a, P_b)\}
 \]</div>
 <p>Contoh untuk P1 dan P2:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(k\)</span>-distance(P2) = 11.18</p></li>
-<li><p><span class="math notranslate nohighlight">\(d(P1, P2) = 11.18\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(RD_k(P1, P2) = \max(11.18, 11.18) = 11.18\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(k\)</span>-distance(P2) = 8.25</p></li>
+<li><p><span class="math notranslate nohighlight">\(d(P1, P2) = 8.25\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(RD_k(P1, P2) = \max(8.25, 8.25) = 8.25\)</span></p></li>
 </ul>
+<p>berikut tabel RD</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>p/p</p></th>
+<th class="head"><p>p1</p></th>
+<th class="head"><p>p2</p></th>
+<th class="head"><p>p3</p></th>
+<th class="head"><p>p4</p></th>
+<th class="head"><p>p5</p></th>
+<th class="head"><p>p6</p></th>
+<th class="head"><p>p7</p></th>
+<th class="head"><p>p8</p></th>
+<th class="head"><p>p9</p></th>
+<th class="head"><p>p10</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p1</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p2</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-even"><td><p>p3</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p4</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-even"><td><p>p5</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p6</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-even"><td><p>p7</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p8</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-even"><td><p>p9</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+<tr class="row-odd"><td><p>p10</p></td>
+<td><p>8,25</p></td>
+<td><p>5,39</p></td>
+<td><p>15,81</p></td>
+<td><p>5,83</p></td>
+<td><p>14,42</p></td>
+<td><p>90,52</p></td>
+<td><p>8,06</p></td>
+<td><p>8,60</p></td>
+<td><p>101,24</p></td>
+<td><p>8,25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="menghitung-local-reachability-density-lrd">
 <h3>4. Menghitung Local Reachability Density (LRD)<a class="headerlink" href="#menghitung-local-reachability-density-lrd" title="Link to this heading">#</a></h3>
@@ -541,11 +933,69 @@ RD_k(P_a, P_b) = \max\{k\text{-distance}(P_b), d(P_a, P_b)\}
 \[
 LRD(P_a) = \frac{1}{\frac{\sum_{P_b \in N_k(P_a)} RD_k(P_a, P_b)}{k}}
 \]</div>
-<p>Contoh untuk P1:</p>
-<div class="math notranslate nohighlight">
-\[
-LRD(P1) = \frac{1}{\frac{11.18 + 10.05 + 5.83}{3}} = \frac{1}{9.02} = 0.111
-\]</div>
+<p>berikut tabel perhitungan LRD</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>p</p></th>
+<th class="head"><p>tetangga</p></th>
+<th class="head"><p>Sum RD (∑RD)</p></th>
+<th class="head"><p>LRD (k / ∑RD)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>p1</p></td>
+<td><p>p7,p4,p10</p></td>
+<td><p>16,32</p></td>
+<td><p>0,183823529</p></td>
+</tr>
+<tr class="row-odd"><td><p>p2</p></td>
+<td><p>p10,p3,p6</p></td>
+<td><p>14,39</p></td>
+<td><p>0,20847811</p></td>
+</tr>
+<tr class="row-even"><td><p>p3</p></td>
+<td><p>p7,p1,p4</p></td>
+<td><p>34,07</p></td>
+<td><p>0,088054006</p></td>
+</tr>
+<tr class="row-odd"><td><p>p4</p></td>
+<td><p>p10,p2,p1</p></td>
+<td><p>14,38</p></td>
+<td><p>0,208623088</p></td>
+</tr>
+<tr class="row-even"><td><p>p5</p></td>
+<td><p>p8,p2,p10</p></td>
+<td><p>31,43</p></td>
+<td><p>0,095450207</p></td>
+</tr>
+<tr class="row-odd"><td><p>p6</p></td>
+<td><p>p9,p5,p8</p></td>
+<td><p>186,55</p></td>
+<td><p>0,016081479</p></td>
+</tr>
+<tr class="row-even"><td><p>p7</p></td>
+<td><p>p1,p3,p4</p></td>
+<td><p>18,36</p></td>
+<td><p>0,163398693</p></td>
+</tr>
+<tr class="row-odd"><td><p>p8</p></td>
+<td><p>p2,p5,p10</p></td>
+<td><p>19,82</p></td>
+<td><p>0,15136226</p></td>
+</tr>
+<tr class="row-even"><td><p>p9</p></td>
+<td><p>p6,p5,p8</p></td>
+<td><p>207,94</p></td>
+<td><p>0,014427239</p></td>
+</tr>
+<tr class="row-odd"><td><p>p10</p></td>
+<td><p>p4,p2,p1</p></td>
+<td><p>15,02</p></td>
+<td><p>0,199733688</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 <section id="menghitung-local-outlier-factor-lof">
 <h3>5. Menghitung Local Outlier Factor (LOF)<a class="headerlink" href="#menghitung-local-outlier-factor-lof" title="Link to this heading">#</a></h3>
@@ -553,16 +1003,6 @@ LRD(P1) = \frac{1}{\frac{11.18 + 10.05 + 5.83}{3}} = \frac{1}{9.02} = 0.111
 <div class="math notranslate nohighlight">
 \[
 LOF(P_a) = \frac{\sum_{P_b \in N_k(P_a)} \frac{LRD(P_b)}{LRD(P_a)}}{k}
-\]</div>
-<p>Contoh untuk P1:</p>
-<ul class="simple">
-<li><p>LRD(P2) = 0.12</p></li>
-<li><p>LRD(P3) = 0.11</p></li>
-<li><p>LRD(P4) = 0.13</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[
-LOF(P1) = \frac{\frac{0.12}{0.111} + \frac{0.11}{0.111} + \frac{0.13}{0.111}}{3} = \frac{1.08 + 0.99 + 1.17}{3} = 1.08
 \]</div>
 <ul class="simple">
 <li><p>Jika LOF <span class="math notranslate nohighlight">\(&gt;\)</span> 1: data tersebut adalah outlier.</p></li>
@@ -573,88 +1013,68 @@ LOF(P1) = \frac{\frac{0.12}{0.111} + \frac{0.11}{0.111} + \frac{0.13}{0.111}}{3}
 <h3>Tabel Perhitungan LOF<a class="headerlink" href="#tabel-perhitungan-lof" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>Pasien</p></th>
-<th class="head"><p>k-distance</p></th>
-<th class="head"><p>RD</p></th>
-<th class="head"><p>LRD</p></th>
-<th class="head"><p>LOF</p></th>
-<th class="head"><p>Keterangan</p></th>
+<tr class="row-odd"><th class="head"><p>p</p></th>
+<th class="head"><p>tetangga</p></th>
+<th class="head"><p>Σ (LRD tetangga / LRD p)</p></th>
+<th class="head"><p>LOF (Σ / k)</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>P1</p></td>
-<td><p>11.18</p></td>
-<td><p>11.18</p></td>
-<td><p>0.111</p></td>
-<td><p>1.08</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-even"><td><p>p1</p></td>
+<td><p>p7,p4,p10</p></td>
+<td><p>3,110349751</p></td>
+<td><p>1,03678325</p></td>
 </tr>
-<tr class="row-odd"><td><p>P2</p></td>
-<td><p>10.25</p></td>
-<td><p>10.25</p></td>
-<td><p>0.115</p></td>
-<td><p>1.05</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-odd"><td><p>p2</p></td>
+<td><p>p10,p3,p6</p></td>
+<td><p>0,499503214</p></td>
+<td><p>0,166501071</p></td>
 </tr>
-<tr class="row-even"><td><p>P3</p></td>
-<td><p>9.75</p></td>
-<td><p>9.75</p></td>
-<td><p>0.120</p></td>
-<td><p>1.02</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-even"><td><p>p3</p></td>
+<td><p>p7,p1,p4</p></td>
+<td><p>6,312549902</p></td>
+<td><p>2,104183301</p></td>
 </tr>
-<tr class="row-odd"><td><p>P4</p></td>
-<td><p>8.80</p></td>
-<td><p>8.80</p></td>
-<td><p>0.125</p></td>
-<td><p>1.00</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-odd"><td><p>p4</p></td>
+<td><p>p10,p2,p1</p></td>
+<td><p>3,882553063</p></td>
+<td><p>1,294184354</p></td>
 </tr>
-<tr class="row-even"><td><p>P5</p></td>
-<td><p>12.00</p></td>
-<td><p>12.00</p></td>
-<td><p>0.105</p></td>
-<td><p>1.12</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-even"><td><p>p5</p></td>
+<td><p>p8,p2,p10</p></td>
+<td><p>5,862470887</p></td>
+<td><p>1,954156962</p></td>
 </tr>
-<tr class="row-odd"><td><p>P6</p></td>
-<td><p>50.0</p></td>
-<td><p>50.0</p></td>
-<td><p>0.020</p></td>
-<td><p>2.50</p></td>
-<td><p>Outlier 🛑</p></td>
+<tr class="row-odd"><td><p>p6</p></td>
+<td><p>p9,p5,p8</p></td>
+<td><p>16,2447557</p></td>
+<td><p>5,414918568</p></td>
 </tr>
-<tr class="row-even"><td><p>P7</p></td>
-<td><p>9.90</p></td>
-<td><p>9.90</p></td>
-<td><p>0.118</p></td>
-<td><p>1.04</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-even"><td><p>p7</p></td>
+<td><p>p1,p3,p4</p></td>
+<td><p>2,940663816</p></td>
+<td><p>0,980221272</p></td>
 </tr>
-<tr class="row-odd"><td><p>P8</p></td>
-<td><p>10.80</p></td>
-<td><p>10.80</p></td>
-<td><p>0.113</p></td>
-<td><p>1.07</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-odd"><td><p>p8</p></td>
+<td><p>p2,p5,p10</p></td>
+<td><p>3,32752698</p></td>
+<td><p>1,10917566</p></td>
 </tr>
-<tr class="row-even"><td><p>P9</p></td>
-<td><p>55.0</p></td>
-<td><p>55.0</p></td>
-<td><p>0.018</p></td>
-<td><p>2.80</p></td>
-<td><p>Outlier 🔥</p></td>
+<tr class="row-even"><td><p>p9</p></td>
+<td><p>p6,p5,p8</p></td>
+<td><p>17,18790941</p></td>
+<td><p>5,729303138</p></td>
 </tr>
-<tr class="row-odd"><td><p>P10</p></td>
-<td><p>9.50</p></td>
-<td><p>9.50</p></td>
-<td><p>0.122</p></td>
-<td><p>1.01</p></td>
-<td><p>Tidak Outlier ✅</p></td>
+<tr class="row-odd"><td><p>p10</p></td>
+<td><p>p4,p2,p1</p></td>
+<td><p>3,008629799</p></td>
+<td><p>1,0028766</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>berikut merupakan hasil perhitungan di exel</p>
+<p><a class="reference external" href="https://docs.google.com/spreadsheets/d/1g8D-lI6DcASHflHwje9GIFr6TxHuoT5p/edit?usp=sharing&amp;amp;ouid=116026049394161582648&amp;amp;rtpof=true&amp;amp;sd=true">perhitungan manual data pasien</a></p>
 </section>
 </section>
 <section id="visualisasi">
