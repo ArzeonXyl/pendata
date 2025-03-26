@@ -1,0 +1,1865 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'naive_bayes';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="1. Local Outlier Factor (LOF)" href="LOF.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">1. Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fnaive_bayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/naive_bayes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📌 Penjelasan Naïve Bayes & Alasan Langkah-langkahnya</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-naive-bayes">🧠 Apa itu Naïve Bayes?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-naive-bayes-penting">🔥 Mengapa Naïve Bayes Penting?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-dasar-teorema-bayes">🔢 Rumus dasar <strong>Teorema Bayes</strong>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-ini-diperlukan">🔄 Langkah-langkah Ini Diperlukan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-data-dari-mysql-postgresql">1️⃣ Mengambil Data dari MySQL &amp; PostgreSQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data">2️⃣ Menggabungkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-dan-menghapus-outlier">3️⃣ Mencari dan menghapus Outlier 🔍</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-perhitungan-naive-bayes">🌟 <strong>Langkah-langkah Perhitungan Naïve Bayes</strong> 📊</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-dataset">📌 1. <strong>Persiapan Dataset</strong> 📂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-prior-probability-p-kelas">📌 2. <strong>Menghitung Prior Probability ( P(Kelas) )</strong> 🧮</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-likelihood-p-fitur-kelas">📌 3. <strong>Menghitung Likelihood ( P(Fitur | Kelas) )</strong> 📊</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posterior-probability-p-kelas-fitur">📌 4. <strong>Menghitung Posterior Probability ( P(Kelas | Fitur) )</strong> 🤔</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kelas-dengan-probabilitas-tertinggi">📌 5. <strong>Menentukan Kelas dengan Probabilitas Tertinggi</strong> 🏆</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-data-asli-96-dan-data-bersih-95">🔍 <strong>Mengapa Data Asli 96% dan Data Bersih 95%?</strong> 🤔</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-akurasi">📊 <strong>Perbedaan Akurasi</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-bisa-membantu-model-membedakan-kelas">📌 <strong>1. Outlier Bisa Membantu Model Membedakan Kelas?</strong> 🎭</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengaruh-outlier-terhadap-distribusi-data">📌 <strong>2. Pengaruh Outlier terhadap Distribusi Data</strong> 📈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#akurasi-naik-tapi-bisa-overfitting">📌 <strong>3. Akurasi Naik, Tapi Bisa Overfitting?</strong> 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">🏆 <strong>Kesimpulan</strong></a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="penjelasan-naive-bayes-alasan-langkah-langkahnya">
+<h1>📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya<a class="headerlink" href="#penjelasan-naive-bayes-alasan-langkah-langkahnya" title="Link to this heading">#</a></h1>
+<section id="apa-itu-naive-bayes">
+<h2>🧠 Apa itu Naïve Bayes?<a class="headerlink" href="#apa-itu-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Naïve Bayes adalah algoritma klasifikasi berbasis <strong>Teorema Bayes</strong>, yang mengasumsikan bahwa setiap fitur dalam dataset <strong>bersifat independen</strong> satu sama lain. Meskipun asumsi ini jarang 100% benar di dunia nyata, Naïve Bayes tetap <strong>sangat efektif</strong> dalam banyak kasus seperti <strong>klasifikasi teks, deteksi spam, dan analisis sentimen</strong>.</p>
+</section>
+<section id="mengapa-naive-bayes-penting">
+<h2>🔥 Mengapa Naïve Bayes Penting?<a class="headerlink" href="#mengapa-naive-bayes-penting" title="Link to this heading">#</a></h2>
+<p>Naïve Bayes memiliki beberapa <strong>keunggulan utama</strong>, di antaranya:</p>
+<p>1️⃣ <strong>Cepat dan Efisien</strong> 🚀</p>
+<ul class="simple">
+<li><p>Naïve Bayes sangat cepat dalam melakukan training, bahkan pada dataset besar.</p></li>
+<li><p>Algoritma ini memiliki <strong>kompleksitas rendah</strong>, biasanya hanya <strong>O(n)</strong> di mana ( n ) adalah jumlah data.</p></li>
+</ul>
+<p>2️⃣ <strong>Bekerja dengan Data Kecil</strong> 🔍</p>
+<ul class="simple">
+<li><p>Dibandingkan dengan algoritma lain seperti Neural Networks atau SVM, Naïve Bayes dapat bekerja dengan baik meskipun data latihnya <strong>terbatas</strong>.</p></li>
+</ul>
+<p>3️⃣ <strong>Performa Baik dalam Klasifikasi Teks &amp; NLP</strong> 📝</p>
+<ul class="simple">
+<li><p>Digunakan luas dalam <strong>deteksi spam, analisis sentimen, dan rekomendasi produk</strong> karena kemampuannya mengelola data kategorikal dan teks.</p></li>
+</ul>
+<p>4️⃣ <strong>Tidak Mudah Overfitting</strong> 🛡</p>
+<ul class="simple">
+<li><p>Karena algoritma ini hanya bergantung pada probabilitas sederhana, Naïve Bayes lebih <strong>stabil terhadap overfitting</strong>, terutama dibandingkan dengan model kompleks lainnya.</p></li>
+</ul>
+<p>5️⃣ <strong>Dapat Menangani Banyak Fitur</strong> 🏗</p>
+<ul class="simple">
+<li><p>Meskipun fitur dalam dataset dianggap independen (asumsi naive), algoritma tetap bisa bekerja <strong>baik dalam praktik</strong> meskipun fitur-fitur memiliki sedikit korelasi.</p></li>
+</ul>
+<section id="rumus-dasar-teorema-bayes">
+<h3>🔢 Rumus dasar <strong>Teorema Bayes</strong>:<a class="headerlink" href="#rumus-dasar-teorema-bayes" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]</div>
+<p>Di mana:</p>
+<ul class="simple">
+<li><p>( P(A|B) ) = Probabilitas kejadian <strong>A terjadi</strong> jika <strong>B sudah terjadi</strong></p></li>
+<li><p>( P(B|A) ) = Probabilitas <strong>B terjadi</strong> jika <strong>A terjadi</strong></p></li>
+<li><p>( P(A) ) = Probabilitas awal <strong>A</strong></p></li>
+<li><p>( P(B) ) = Probabilitas awal <strong>B</strong></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-langkah-ini-diperlukan">
+<h2>🔄 Langkah-langkah Ini Diperlukan<a class="headerlink" href="#langkah-langkah-ini-diperlukan" title="Link to this heading">#</a></h2>
+<section id="mengambil-data-dari-mysql-postgresql">
+<h3>1️⃣ Mengambil Data dari MySQL &amp; PostgreSQL<a class="headerlink" href="#mengambil-data-dari-mysql-postgresql" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Data yang kita pakai kali ini berasal dari database MySQL dan PostgreSQL</p></li>
+<li><p>Mengambil data dari kedua database ini memastikan kita memiliki dataset yang lengkap dan lebih representatif.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymysql
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>psycopg2
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>tabulate
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2 in /usr/local/lib/python3.11/dist-packages (2.9.10)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tabulate in /usr/local/lib/python3.11/dist-packages (0.9.0)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Koneksi ke MySQL</span>
+<span class="n">mysql_conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;mysql-34425cbd-irismysqlaldi.h.aivencloud.com&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">22476</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_QsQ7Yf7zzcmrk83yFgg&quot;</span><span class="p">,</span>
+    <span class="n">db</span><span class="o">=</span><span class="s2">&quot;irismysqlaldi&quot;</span><span class="p">,</span>
+    <span class="n">charset</span><span class="o">=</span><span class="s2">&quot;utf8mb4&quot;</span><span class="p">,</span>
+    <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span>
+<span class="p">)</span>
+
+<span class="c1"># Ambil data dari MySQL</span>
+<span class="k">with</span> <span class="n">mysql_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">mysql_cur</span><span class="p">:</span>
+    <span class="n">mysql_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, class, `petal length`, `petal width` FROM flowers&quot;</span><span class="p">)</span>
+    <span class="n">mysql_data</span> <span class="o">=</span> <span class="n">mysql_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">mysql_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mysql_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari MySQL:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mysql_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">mysql_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari MySQL:
+   id        class  petal length  petal width
+0   1  Iris-setosa          86.4         70.0
+1   2  Iris-setosa           1.4          0.2
+2   3  Iris-setosa           1.3          0.2
+3   4  Iris-setosa           1.5          0.2
+4   5  Iris-setosa           1.4          0.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psycopg2</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Koneksi ke PostgreSQL</span>
+<span class="n">pg_conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="s2">&quot;postgres://avnadmin:AVNS_0S2t3zth51a__4WQCdz@pg-2c20c354-pendataku.h.aivencloud.com:26053/defaultdb?sslmode=require&quot;</span>
+<span class="p">)</span>
+<span class="n">pg_cur</span> <span class="o">=</span> <span class="n">pg_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># Ambil data dari PostgreSQL</span>
+<span class="n">pg_cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, class, sepal_length, sepal_width FROM flowers&quot;</span><span class="p">)</span>
+<span class="n">pg_data</span> <span class="o">=</span> <span class="n">pg_cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">pg_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">pg_cur</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+<span class="n">pg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pg_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">pg_columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari PostgreSQL:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pg_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">pg_cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">pg_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari PostgreSQL:
+   id        class  sepal_length  sepal_width
+0   1  Iris-setosa          20.1         30.5
+1   2  Iris-setosa           4.9          3.0
+2   3  Iris-setosa           4.7          3.2
+3   4  Iris-setosa           4.6          3.1
+4   5  Iris-setosa           5.0          3.6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menggabungkan-data">
+<h3>2️⃣ Menggabungkan Data<a class="headerlink" href="#menggabungkan-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Karena kita mengambil dari dua sumber berbeda, kita perlu <strong>menggabungkannya</strong> untuk membentuk dataset yang siap diproses.</p></li>
+<li><p>Teknik yang digunakan<strong>join berdasarkan ID</strong>.<br />
+berikut code untuk penggabungan data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join data berdasarkan &#39;id&#39; dan &#39;class&#39;</span>
+<span class="n">data_asli</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mysql_df</span><span class="p">,</span> <span class="n">pg_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+
+<span class="c1"># Tentukan panjang maksimum tiap kolom agar tidak geser</span>
+<span class="n">col_widths</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">data_asli</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">3</span><span class="p">),</span>
+  <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">data_asli</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">6</span><span class="p">),</span>
+  <span class="s2">&quot;petal length&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+  <span class="s2">&quot;petal width&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+  <span class="s2">&quot;sepal_length&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+  <span class="s2">&quot;sepal_width&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Header tabel</span>
+<span class="n">header</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;| </span><span class="si">{</span><span class="s1">&#39;ID&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Class&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Petal Length&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Petal Width&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Sepal Length&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Sepal Width&#39;</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> |&quot;</span>
+<span class="n">separator</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">col_widths</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_widths</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+
+<span class="c1"># Isi tabel</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data_asli</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;| </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;petal width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> | </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">])</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="n">col_widths</span><span class="p">[</span><span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span><span class="si">}}</span><span class="s2"> |&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">separator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----+-----------------+---------------+--------------+---------------+--------------+
+| ID  | Class           | Petal Length  | Petal Width  | Sepal Length  | Sepal Width  |
++-----+-----------------+---------------+--------------+---------------+--------------+
+| 1   | Iris-setosa     | 86.4          | 70.0         | 20.1          | 30.5         |
+| 2   | Iris-setosa     | 1.4           | 0.2          | 4.9           | 3.0          |
+| 3   | Iris-setosa     | 1.3           | 0.2          | 4.7           | 3.2          |
+| 4   | Iris-setosa     | 1.5           | 0.2          | 4.6           | 3.1          |
+| 5   | Iris-setosa     | 1.4           | 0.2          | 5.0           | 3.6          |
+| 6   | Iris-setosa     | 1.7           | 0.4          | 5.4           | 3.9          |
+| 7   | Iris-setosa     | 1.4           | 0.3          | 4.6           | 3.4          |
+| 8   | Iris-setosa     | 1.5           | 0.2          | 5.0           | 3.4          |
+| 9   | Iris-setosa     | 1.4           | 0.2          | 4.4           | 2.9          |
+| 10  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 11  | Iris-setosa     | 1.5           | 0.2          | 5.4           | 3.7          |
+| 12  | Iris-setosa     | 1.6           | 0.2          | 4.8           | 3.4          |
+| 13  | Iris-setosa     | 1.4           | 0.1          | 4.8           | 3.0          |
+| 14  | Iris-setosa     | 1.1           | 0.1          | 4.3           | 3.0          |
+| 15  | Iris-setosa     | 1.2           | 0.2          | 5.8           | 4.0          |
+| 16  | Iris-setosa     | 1.5           | 0.4          | 5.7           | 4.4          |
+| 17  | Iris-setosa     | 1.3           | 0.4          | 5.4           | 3.9          |
+| 18  | Iris-setosa     | 1.4           | 0.3          | 5.1           | 3.5          |
+| 19  | Iris-setosa     | 1.7           | 0.3          | 5.7           | 3.8          |
+| 20  | Iris-setosa     | 1.5           | 0.3          | 5.1           | 3.8          |
+| 21  | Iris-setosa     | 1.7           | 0.2          | 5.4           | 3.4          |
+| 22  | Iris-setosa     | 1.5           | 0.4          | 5.1           | 3.7          |
+| 23  | Iris-setosa     | 1.0           | 0.2          | 4.6           | 3.6          |
+| 24  | Iris-setosa     | 1.7           | 0.5          | 5.1           | 3.3          |
+| 25  | Iris-setosa     | 1.9           | 0.2          | 4.8           | 3.4          |
+| 26  | Iris-setosa     | 1.6           | 0.2          | 5.0           | 3.0          |
+| 27  | Iris-setosa     | 1.6           | 0.4          | 5.0           | 3.4          |
+| 28  | Iris-setosa     | 1.5           | 0.2          | 5.2           | 3.5          |
+| 29  | Iris-setosa     | 1.4           | 0.2          | 5.2           | 3.4          |
+| 30  | Iris-setosa     | 1.6           | 0.2          | 4.7           | 3.2          |
+| 31  | Iris-setosa     | 1.6           | 0.2          | 4.8           | 3.1          |
+| 32  | Iris-setosa     | 1.5           | 0.4          | 5.4           | 3.4          |
+| 33  | Iris-setosa     | 1.5           | 0.1          | 5.2           | 4.1          |
+| 34  | Iris-setosa     | 1.4           | 0.2          | 5.5           | 4.2          |
+| 35  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 36  | Iris-setosa     | 1.2           | 0.2          | 5.0           | 3.2          |
+| 37  | Iris-setosa     | 1.3           | 0.2          | 5.5           | 3.5          |
+| 38  | Iris-setosa     | 1.5           | 0.1          | 4.9           | 3.1          |
+| 39  | Iris-setosa     | 1.3           | 0.2          | 4.4           | 3.0          |
+| 40  | Iris-setosa     | 1.5           | 0.2          | 5.1           | 3.4          |
+| 41  | Iris-setosa     | 1.3           | 0.3          | 5.0           | 3.5          |
+| 42  | Iris-setosa     | 1.3           | 0.3          | 4.5           | 2.3          |
+| 43  | Iris-setosa     | 1.3           | 0.2          | 4.4           | 3.2          |
+| 44  | Iris-setosa     | 1.6           | 0.6          | 5.0           | 3.5          |
+| 45  | Iris-setosa     | 1.9           | 0.4          | 5.1           | 3.8          |
+| 46  | Iris-setosa     | 1.4           | 0.3          | 4.8           | 3.0          |
+| 47  | Iris-setosa     | 1.6           | 0.2          | 5.1           | 3.8          |
+| 48  | Iris-setosa     | 1.4           | 0.2          | 4.6           | 3.2          |
+| 49  | Iris-setosa     | 1.5           | 0.2          | 5.3           | 3.7          |
+| 50  | Iris-setosa     | 1.4           | 0.2          | 5.0           | 3.3          |
+| 51  | Iris-versicolor | 4.7           | 1.4          | 7.0           | 3.2          |
+| 52  | Iris-versicolor | 4.5           | 1.5          | 6.4           | 3.2          |
+| 53  | Iris-versicolor | 4.9           | 1.5          | 6.9           | 3.1          |
+| 54  | Iris-versicolor | 4.0           | 1.3          | 5.5           | 2.3          |
+| 55  | Iris-versicolor | 4.6           | 1.5          | 6.5           | 2.8          |
+| 56  | Iris-versicolor | 4.5           | 1.3          | 5.7           | 2.8          |
+| 57  | Iris-versicolor | 4.7           | 1.6          | 6.3           | 3.3          |
+| 58  | Iris-versicolor | 3.3           | 1.0          | 4.9           | 2.4          |
+| 59  | Iris-versicolor | 4.6           | 1.3          | 6.6           | 2.9          |
+| 60  | Iris-versicolor | 3.9           | 1.4          | 5.2           | 2.7          |
+| 61  | Iris-versicolor | 3.5           | 1.0          | 5.0           | 2.0          |
+| 62  | Iris-versicolor | 4.2           | 1.5          | 5.9           | 3.0          |
+| 63  | Iris-versicolor | 4.0           | 1.0          | 6.0           | 2.2          |
+| 64  | Iris-versicolor | 4.7           | 1.4          | 6.1           | 2.9          |
+| 65  | Iris-versicolor | 3.6           | 1.3          | 5.6           | 2.9          |
+| 66  | Iris-versicolor | 4.4           | 1.4          | 6.7           | 3.1          |
+| 67  | Iris-versicolor | 4.5           | 1.5          | 5.6           | 3.0          |
+| 68  | Iris-versicolor | 4.1           | 1.0          | 5.8           | 2.7          |
+| 69  | Iris-versicolor | 4.5           | 1.5          | 6.2           | 2.2          |
+| 70  | Iris-versicolor | 3.9           | 1.1          | 5.6           | 2.5          |
+| 71  | Iris-versicolor | 4.8           | 1.8          | 5.9           | 3.2          |
+| 72  | Iris-versicolor | 4.0           | 1.3          | 6.1           | 2.8          |
+| 73  | Iris-versicolor | 4.9           | 1.5          | 6.3           | 2.5          |
+| 74  | Iris-versicolor | 4.7           | 1.2          | 6.1           | 2.8          |
+| 75  | Iris-versicolor | 4.3           | 1.3          | 6.4           | 2.9          |
+| 76  | Iris-versicolor | 4.4           | 1.4          | 6.6           | 3.0          |
+| 77  | Iris-versicolor | 4.8           | 1.4          | 6.8           | 2.8          |
+| 78  | Iris-versicolor | 5.0           | 1.7          | 6.7           | 3.0          |
+| 79  | Iris-versicolor | 4.5           | 1.5          | 6.0           | 2.9          |
+| 80  | Iris-versicolor | 3.5           | 1.0          | 5.7           | 2.6          |
+| 81  | Iris-versicolor | 3.8           | 1.1          | 5.5           | 2.4          |
+| 82  | Iris-versicolor | 3.7           | 1.0          | 5.5           | 2.4          |
+| 83  | Iris-versicolor | 3.9           | 1.2          | 5.8           | 2.7          |
+| 84  | Iris-versicolor | 5.1           | 1.6          | 6.0           | 2.7          |
+| 85  | Iris-versicolor | 4.5           | 1.5          | 5.4           | 3.0          |
+| 86  | Iris-versicolor | 4.5           | 1.6          | 6.0           | 3.4          |
+| 87  | Iris-versicolor | 4.7           | 1.5          | 6.7           | 3.1          |
+| 88  | Iris-versicolor | 4.4           | 1.3          | 6.3           | 2.3          |
+| 89  | Iris-versicolor | 4.1           | 1.3          | 5.6           | 3.0          |
+| 90  | Iris-versicolor | 4.0           | 1.3          | 5.5           | 2.5          |
+| 91  | Iris-versicolor | 4.4           | 1.2          | 5.5           | 2.6          |
+| 92  | Iris-versicolor | 4.6           | 1.4          | 6.1           | 3.0          |
+| 93  | Iris-versicolor | 4.0           | 1.2          | 5.8           | 2.6          |
+| 94  | Iris-versicolor | 3.3           | 1.0          | 5.0           | 2.3          |
+| 95  | Iris-versicolor | 4.2           | 1.3          | 5.6           | 2.7          |
+| 96  | Iris-versicolor | 4.2           | 1.2          | 5.7           | 3.0          |
+| 97  | Iris-versicolor | 4.2           | 1.3          | 5.7           | 2.9          |
+| 98  | Iris-versicolor | 4.3           | 1.3          | 6.2           | 2.9          |
+| 99  | Iris-versicolor | 3.0           | 1.1          | 5.1           | 2.5          |
+| 100 | Iris-versicolor | 4.1           | 1.3          | 5.7           | 2.8          |
+| 101 | Iris-virginica  | 6.0           | 2.5          | 6.3           | 3.3          |
+| 102 | Iris-virginica  | 5.1           | 1.9          | 5.8           | 2.7          |
+| 103 | Iris-virginica  | 5.9           | 2.1          | 7.1           | 3.0          |
+| 104 | Iris-virginica  | 5.6           | 1.8          | 6.3           | 2.9          |
+| 105 | Iris-virginica  | 5.8           | 2.2          | 6.5           | 3.0          |
+| 106 | Iris-virginica  | 6.6           | 2.1          | 7.6           | 3.0          |
+| 107 | Iris-virginica  | 4.5           | 1.7          | 4.9           | 2.5          |
+| 108 | Iris-virginica  | 6.3           | 1.8          | 7.3           | 2.9          |
+| 109 | Iris-virginica  | 5.8           | 1.8          | 6.7           | 2.5          |
+| 110 | Iris-virginica  | 6.1           | 2.5          | 7.2           | 3.6          |
+| 111 | Iris-virginica  | 5.1           | 2.0          | 6.5           | 3.2          |
+| 112 | Iris-virginica  | 5.3           | 1.9          | 6.4           | 2.7          |
+| 113 | Iris-virginica  | 5.5           | 2.1          | 6.8           | 3.0          |
+| 114 | Iris-virginica  | 5.0           | 2.0          | 5.7           | 2.5          |
+| 115 | Iris-virginica  | 5.1           | 2.4          | 5.8           | 2.8          |
+| 116 | Iris-virginica  | 5.3           | 2.3          | 6.4           | 3.2          |
+| 117 | Iris-virginica  | 5.5           | 1.8          | 6.5           | 3.0          |
+| 118 | Iris-virginica  | 6.7           | 2.2          | 7.7           | 3.8          |
+| 119 | Iris-virginica  | 6.9           | 2.3          | 7.7           | 2.6          |
+| 120 | Iris-virginica  | 5.0           | 1.5          | 6.0           | 2.2          |
+| 121 | Iris-virginica  | 5.7           | 2.3          | 6.9           | 3.2          |
+| 122 | Iris-virginica  | 4.9           | 2.0          | 5.6           | 2.8          |
+| 123 | Iris-virginica  | 6.7           | 2.0          | 7.7           | 2.8          |
+| 124 | Iris-virginica  | 4.9           | 1.8          | 6.3           | 2.7          |
+| 125 | Iris-virginica  | 5.7           | 2.1          | 6.7           | 3.3          |
+| 126 | Iris-virginica  | 6.0           | 1.8          | 7.2           | 3.2          |
+| 127 | Iris-virginica  | 4.8           | 1.8          | 6.2           | 2.8          |
+| 128 | Iris-virginica  | 4.9           | 1.8          | 6.1           | 3.0          |
+| 129 | Iris-virginica  | 5.6           | 2.1          | 6.4           | 2.8          |
+| 130 | Iris-virginica  | 5.8           | 1.6          | 7.2           | 3.0          |
+| 131 | Iris-virginica  | 6.1           | 1.9          | 7.4           | 2.8          |
+| 132 | Iris-virginica  | 6.4           | 2.0          | 7.9           | 3.8          |
+| 133 | Iris-virginica  | 5.6           | 2.2          | 6.4           | 2.8          |
+| 134 | Iris-virginica  | 5.1           | 1.5          | 6.3           | 2.8          |
+| 135 | Iris-virginica  | 5.6           | 1.4          | 6.1           | 2.6          |
+| 136 | Iris-virginica  | 6.1           | 2.3          | 7.7           | 3.0          |
+| 137 | Iris-virginica  | 5.6           | 2.4          | 6.3           | 3.4          |
+| 138 | Iris-virginica  | 5.5           | 1.8          | 6.4           | 3.1          |
+| 139 | Iris-virginica  | 4.8           | 1.8          | 6.0           | 3.0          |
+| 140 | Iris-virginica  | 5.4           | 2.1          | 6.9           | 3.1          |
+| 141 | Iris-virginica  | 5.6           | 2.4          | 6.7           | 3.1          |
+| 142 | Iris-virginica  | 5.1           | 2.3          | 6.9           | 3.1          |
+| 143 | Iris-virginica  | 5.1           | 1.9          | 5.8           | 2.7          |
+| 144 | Iris-virginica  | 5.9           | 2.3          | 6.8           | 3.2          |
+| 145 | Iris-virginica  | 5.7           | 2.5          | 6.7           | 3.3          |
+| 146 | Iris-virginica  | 5.2           | 2.3          | 6.7           | 3.0          |
+| 147 | Iris-virginica  | 5.0           | 1.9          | 6.3           | 2.5          |
+| 148 | Iris-virginica  | 5.2           | 2.0          | 6.5           | 3.0          |
+| 149 | Iris-virginica  | 5.4           | 2.3          | 6.2           | 3.4          |
+| 150 | Iris-virginica  | 5.1           | 1.8          | 5.9           | 3.0          |
++-----+-----------------+---------------+--------------+---------------+--------------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mencari-dan-menghapus-outlier">
+<h3>3️⃣ Mencari dan menghapus Outlier 🔍<a class="headerlink" href="#mencari-dan-menghapus-outlier" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Outlier</strong> adalah nilai ekstrem yang bisa mengganggu proses klasifikasi, terutama dalam model probabilistik seperti <strong>Naïve Bayes</strong>.<br />
+maka dari itu kita harus mencari outlier dan menghapus outliernya</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># Menggunakan LocalOutlierFactor untuk deteksi outlier</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_asli</span><span class="p">[[</span><span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">]]</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Hasil prediksi (-1 untuk outlier, 1 untuk normal)</span>
+<span class="n">data_asli</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outliers</span>
+<span class="n">data_bersih</span> <span class="o">=</span> <span class="n">data_asli</span><span class="p">[</span><span class="n">data_asli</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;outlier&#39;</span><span class="p">])</span>
+
+<span class="c1"># Reset index setelah menghapus outlier</span>
+<span class="n">data_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil setelah membersihkan outlier</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data setelah membersihkan outlier: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_bersih</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data_bersih</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;grid&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data setelah membersihkan outlier: 148
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|     |   id | class           |   petal length |   petal width |   sepal_length |   sepal_width |
++=====+======+=================+================+===============+================+===============+
+|   0 |    2 | Iris-setosa     |            1.4 |           0.2 |            4.9 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   1 |    3 | Iris-setosa     |            1.3 |           0.2 |            4.7 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   2 |    4 | Iris-setosa     |            1.5 |           0.2 |            4.6 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   3 |    5 | Iris-setosa     |            1.4 |           0.2 |            5   |           3.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   4 |    6 | Iris-setosa     |            1.7 |           0.4 |            5.4 |           3.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   5 |    7 | Iris-setosa     |            1.4 |           0.3 |            4.6 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   6 |    8 | Iris-setosa     |            1.5 |           0.2 |            5   |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   7 |    9 | Iris-setosa     |            1.4 |           0.2 |            4.4 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   8 |   10 | Iris-setosa     |            1.5 |           0.1 |            4.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|   9 |   11 | Iris-setosa     |            1.5 |           0.2 |            5.4 |           3.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  10 |   12 | Iris-setosa     |            1.6 |           0.2 |            4.8 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  11 |   13 | Iris-setosa     |            1.4 |           0.1 |            4.8 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  12 |   14 | Iris-setosa     |            1.1 |           0.1 |            4.3 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  13 |   15 | Iris-setosa     |            1.2 |           0.2 |            5.8 |           4   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  14 |   16 | Iris-setosa     |            1.5 |           0.4 |            5.7 |           4.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  15 |   17 | Iris-setosa     |            1.3 |           0.4 |            5.4 |           3.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  16 |   18 | Iris-setosa     |            1.4 |           0.3 |            5.1 |           3.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  17 |   19 | Iris-setosa     |            1.7 |           0.3 |            5.7 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  18 |   20 | Iris-setosa     |            1.5 |           0.3 |            5.1 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  19 |   21 | Iris-setosa     |            1.7 |           0.2 |            5.4 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  20 |   22 | Iris-setosa     |            1.5 |           0.4 |            5.1 |           3.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  21 |   23 | Iris-setosa     |            1   |           0.2 |            4.6 |           3.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  22 |   24 | Iris-setosa     |            1.7 |           0.5 |            5.1 |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  23 |   25 | Iris-setosa     |            1.9 |           0.2 |            4.8 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  24 |   26 | Iris-setosa     |            1.6 |           0.2 |            5   |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  25 |   27 | Iris-setosa     |            1.6 |           0.4 |            5   |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  26 |   28 | Iris-setosa     |            1.5 |           0.2 |            5.2 |           3.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  27 |   29 | Iris-setosa     |            1.4 |           0.2 |            5.2 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  28 |   30 | Iris-setosa     |            1.6 |           0.2 |            4.7 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  29 |   31 | Iris-setosa     |            1.6 |           0.2 |            4.8 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  30 |   32 | Iris-setosa     |            1.5 |           0.4 |            5.4 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  31 |   33 | Iris-setosa     |            1.5 |           0.1 |            5.2 |           4.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  32 |   34 | Iris-setosa     |            1.4 |           0.2 |            5.5 |           4.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  33 |   35 | Iris-setosa     |            1.5 |           0.1 |            4.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  34 |   36 | Iris-setosa     |            1.2 |           0.2 |            5   |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  35 |   37 | Iris-setosa     |            1.3 |           0.2 |            5.5 |           3.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  36 |   38 | Iris-setosa     |            1.5 |           0.1 |            4.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  37 |   39 | Iris-setosa     |            1.3 |           0.2 |            4.4 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  38 |   40 | Iris-setosa     |            1.5 |           0.2 |            5.1 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  39 |   41 | Iris-setosa     |            1.3 |           0.3 |            5   |           3.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  40 |   43 | Iris-setosa     |            1.3 |           0.2 |            4.4 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  41 |   44 | Iris-setosa     |            1.6 |           0.6 |            5   |           3.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  42 |   45 | Iris-setosa     |            1.9 |           0.4 |            5.1 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  43 |   46 | Iris-setosa     |            1.4 |           0.3 |            4.8 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  44 |   47 | Iris-setosa     |            1.6 |           0.2 |            5.1 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  45 |   48 | Iris-setosa     |            1.4 |           0.2 |            4.6 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  46 |   49 | Iris-setosa     |            1.5 |           0.2 |            5.3 |           3.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  47 |   50 | Iris-setosa     |            1.4 |           0.2 |            5   |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  48 |   51 | Iris-versicolor |            4.7 |           1.4 |            7   |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  49 |   52 | Iris-versicolor |            4.5 |           1.5 |            6.4 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  50 |   53 | Iris-versicolor |            4.9 |           1.5 |            6.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  51 |   54 | Iris-versicolor |            4   |           1.3 |            5.5 |           2.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  52 |   55 | Iris-versicolor |            4.6 |           1.5 |            6.5 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  53 |   56 | Iris-versicolor |            4.5 |           1.3 |            5.7 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  54 |   57 | Iris-versicolor |            4.7 |           1.6 |            6.3 |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  55 |   58 | Iris-versicolor |            3.3 |           1   |            4.9 |           2.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  56 |   59 | Iris-versicolor |            4.6 |           1.3 |            6.6 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  57 |   60 | Iris-versicolor |            3.9 |           1.4 |            5.2 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  58 |   61 | Iris-versicolor |            3.5 |           1   |            5   |           2   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  59 |   62 | Iris-versicolor |            4.2 |           1.5 |            5.9 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  60 |   63 | Iris-versicolor |            4   |           1   |            6   |           2.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  61 |   64 | Iris-versicolor |            4.7 |           1.4 |            6.1 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  62 |   65 | Iris-versicolor |            3.6 |           1.3 |            5.6 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  63 |   66 | Iris-versicolor |            4.4 |           1.4 |            6.7 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  64 |   67 | Iris-versicolor |            4.5 |           1.5 |            5.6 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  65 |   68 | Iris-versicolor |            4.1 |           1   |            5.8 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  66 |   69 | Iris-versicolor |            4.5 |           1.5 |            6.2 |           2.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  67 |   70 | Iris-versicolor |            3.9 |           1.1 |            5.6 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  68 |   71 | Iris-versicolor |            4.8 |           1.8 |            5.9 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  69 |   72 | Iris-versicolor |            4   |           1.3 |            6.1 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  70 |   73 | Iris-versicolor |            4.9 |           1.5 |            6.3 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  71 |   74 | Iris-versicolor |            4.7 |           1.2 |            6.1 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  72 |   75 | Iris-versicolor |            4.3 |           1.3 |            6.4 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  73 |   76 | Iris-versicolor |            4.4 |           1.4 |            6.6 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  74 |   77 | Iris-versicolor |            4.8 |           1.4 |            6.8 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  75 |   78 | Iris-versicolor |            5   |           1.7 |            6.7 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  76 |   79 | Iris-versicolor |            4.5 |           1.5 |            6   |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  77 |   80 | Iris-versicolor |            3.5 |           1   |            5.7 |           2.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  78 |   81 | Iris-versicolor |            3.8 |           1.1 |            5.5 |           2.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  79 |   82 | Iris-versicolor |            3.7 |           1   |            5.5 |           2.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  80 |   83 | Iris-versicolor |            3.9 |           1.2 |            5.8 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  81 |   84 | Iris-versicolor |            5.1 |           1.6 |            6   |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  82 |   85 | Iris-versicolor |            4.5 |           1.5 |            5.4 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  83 |   86 | Iris-versicolor |            4.5 |           1.6 |            6   |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  84 |   87 | Iris-versicolor |            4.7 |           1.5 |            6.7 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  85 |   88 | Iris-versicolor |            4.4 |           1.3 |            6.3 |           2.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  86 |   89 | Iris-versicolor |            4.1 |           1.3 |            5.6 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  87 |   90 | Iris-versicolor |            4   |           1.3 |            5.5 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  88 |   91 | Iris-versicolor |            4.4 |           1.2 |            5.5 |           2.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  89 |   92 | Iris-versicolor |            4.6 |           1.4 |            6.1 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  90 |   93 | Iris-versicolor |            4   |           1.2 |            5.8 |           2.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  91 |   94 | Iris-versicolor |            3.3 |           1   |            5   |           2.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  92 |   95 | Iris-versicolor |            4.2 |           1.3 |            5.6 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  93 |   96 | Iris-versicolor |            4.2 |           1.2 |            5.7 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  94 |   97 | Iris-versicolor |            4.2 |           1.3 |            5.7 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  95 |   98 | Iris-versicolor |            4.3 |           1.3 |            6.2 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  96 |   99 | Iris-versicolor |            3   |           1.1 |            5.1 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  97 |  100 | Iris-versicolor |            4.1 |           1.3 |            5.7 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  98 |  101 | Iris-virginica  |            6   |           2.5 |            6.3 |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+|  99 |  102 | Iris-virginica  |            5.1 |           1.9 |            5.8 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 100 |  103 | Iris-virginica  |            5.9 |           2.1 |            7.1 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 101 |  104 | Iris-virginica  |            5.6 |           1.8 |            6.3 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 102 |  105 | Iris-virginica  |            5.8 |           2.2 |            6.5 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 103 |  106 | Iris-virginica  |            6.6 |           2.1 |            7.6 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 104 |  107 | Iris-virginica  |            4.5 |           1.7 |            4.9 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 105 |  108 | Iris-virginica  |            6.3 |           1.8 |            7.3 |           2.9 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 106 |  109 | Iris-virginica  |            5.8 |           1.8 |            6.7 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 107 |  110 | Iris-virginica  |            6.1 |           2.5 |            7.2 |           3.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 108 |  111 | Iris-virginica  |            5.1 |           2   |            6.5 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 109 |  112 | Iris-virginica  |            5.3 |           1.9 |            6.4 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 110 |  113 | Iris-virginica  |            5.5 |           2.1 |            6.8 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 111 |  114 | Iris-virginica  |            5   |           2   |            5.7 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 112 |  115 | Iris-virginica  |            5.1 |           2.4 |            5.8 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 113 |  116 | Iris-virginica  |            5.3 |           2.3 |            6.4 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 114 |  117 | Iris-virginica  |            5.5 |           1.8 |            6.5 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 115 |  118 | Iris-virginica  |            6.7 |           2.2 |            7.7 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 116 |  119 | Iris-virginica  |            6.9 |           2.3 |            7.7 |           2.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 117 |  120 | Iris-virginica  |            5   |           1.5 |            6   |           2.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 118 |  121 | Iris-virginica  |            5.7 |           2.3 |            6.9 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 119 |  122 | Iris-virginica  |            4.9 |           2   |            5.6 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 120 |  123 | Iris-virginica  |            6.7 |           2   |            7.7 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 121 |  124 | Iris-virginica  |            4.9 |           1.8 |            6.3 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 122 |  125 | Iris-virginica  |            5.7 |           2.1 |            6.7 |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 123 |  126 | Iris-virginica  |            6   |           1.8 |            7.2 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 124 |  127 | Iris-virginica  |            4.8 |           1.8 |            6.2 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 125 |  128 | Iris-virginica  |            4.9 |           1.8 |            6.1 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 126 |  129 | Iris-virginica  |            5.6 |           2.1 |            6.4 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 127 |  130 | Iris-virginica  |            5.8 |           1.6 |            7.2 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 128 |  131 | Iris-virginica  |            6.1 |           1.9 |            7.4 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 129 |  132 | Iris-virginica  |            6.4 |           2   |            7.9 |           3.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 130 |  133 | Iris-virginica  |            5.6 |           2.2 |            6.4 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 131 |  134 | Iris-virginica  |            5.1 |           1.5 |            6.3 |           2.8 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 132 |  135 | Iris-virginica  |            5.6 |           1.4 |            6.1 |           2.6 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 133 |  136 | Iris-virginica  |            6.1 |           2.3 |            7.7 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 134 |  137 | Iris-virginica  |            5.6 |           2.4 |            6.3 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 135 |  138 | Iris-virginica  |            5.5 |           1.8 |            6.4 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 136 |  139 | Iris-virginica  |            4.8 |           1.8 |            6   |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 137 |  140 | Iris-virginica  |            5.4 |           2.1 |            6.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 138 |  141 | Iris-virginica  |            5.6 |           2.4 |            6.7 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 139 |  142 | Iris-virginica  |            5.1 |           2.3 |            6.9 |           3.1 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 140 |  143 | Iris-virginica  |            5.1 |           1.9 |            5.8 |           2.7 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 141 |  144 | Iris-virginica  |            5.9 |           2.3 |            6.8 |           3.2 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 142 |  145 | Iris-virginica  |            5.7 |           2.5 |            6.7 |           3.3 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 143 |  146 | Iris-virginica  |            5.2 |           2.3 |            6.7 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 144 |  147 | Iris-virginica  |            5   |           1.9 |            6.3 |           2.5 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 145 |  148 | Iris-virginica  |            5.2 |           2   |            6.5 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 146 |  149 | Iris-virginica  |            5.4 |           2.3 |            6.2 |           3.4 |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+| 147 |  150 | Iris-virginica  |            5.1 |           1.8 |            5.9 |           3   |
++-----+------+-----------------+----------------+---------------+----------------+---------------+
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="langkah-langkah-perhitungan-naive-bayes">
+<h1>🌟 <strong>Langkah-langkah Perhitungan Naïve Bayes</strong> 📊<a class="headerlink" href="#langkah-langkah-perhitungan-naive-bayes" title="Link to this heading">#</a></h1>
+<section id="persiapan-dataset">
+<h2>📌 1. <strong>Persiapan Dataset</strong> 📂<a class="headerlink" href="#persiapan-dataset" title="Link to this heading">#</a></h2>
+<p>Naïve Bayes menghitung probabilitas suatu kelas berdasarkan fitur yang diberikan. Misalnya, kita memiliki dataset bunga iris dengan fitur:</p>
+<ul class="simple">
+<li><p><strong>Petal Length</strong> (Panjang Kelopak)</p></li>
+<li><p><strong>Petal Width</strong> (Lebar Kelopak)</p></li>
+<li><p><strong>Class</strong> (Jenis bunga: Iris-setosa, Iris-versicolor, Iris-virginica)</p></li>
+</ul>
+<p>Kita akan menghitung probabilitas menggunakan Naïve Bayes berdasarkan dataset ini.</p>
+</section>
+<hr class="docutils" />
+<section id="menghitung-prior-probability-p-kelas">
+<h2>📌 2. <strong>Menghitung Prior Probability ( P(Kelas) )</strong> 🧮<a class="headerlink" href="#menghitung-prior-probability-p-kelas" title="Link to this heading">#</a></h2>
+<p>Prior probability adalah probabilitas awal dari setiap kelas sebelum mempertimbangkan fitur.</p>
+<div class="math notranslate nohighlight">
+\[
+P(\text{Iris-setosa}) = \frac{\text{Jumlah Iris-setosa}}{\text{Total Data}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(\text{Iris-versicolor}) = \frac{\text{Jumlah Iris-versicolor}}{\text{Total Data}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(\text{Iris-virginica}) = \frac{\text{Jumlah Iris-virginica}}{\text{Total Data}}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="menghitung-likelihood-p-fitur-kelas">
+<h2>📌 3. <strong>Menghitung Likelihood ( P(Fitur | Kelas) )</strong> 📊<a class="headerlink" href="#menghitung-likelihood-p-fitur-kelas" title="Link to this heading">#</a></h2>
+<p>Untuk setiap fitur (misalnya petal length), kita menghitung distribusi probabilitas dalam masing-masing kelas dengan distribusi normal:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X | Kelas) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(X - \mu)^2}{2\sigma^2} \right)
+\]</div>
+<p>Di mana:</p>
+<ul class="simple">
+<li><p>( \mu ) adalah <strong>mean</strong> dari fitur dalam kelas tertentu</p></li>
+<li><p>( \sigma^2 ) adalah <strong>variance</strong> dari fitur dalam kelas tertentu</p></li>
+<li><p>( X ) adalah nilai fitur yang diamati</p></li>
+</ul>
+<p>Contoh perhitungan untuk <strong>Petal Length</strong> dalam kelas <strong>Iris-setosa</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_{\text{setosa}} = \frac{\sum \text{Petal Length Setosa}}{\text{Jumlah Setosa}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2_{\text{setosa}} = \frac{\sum (X - \mu_{\text{setosa}})^2}{\text{Jumlah Setosa}}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="menghitung-posterior-probability-p-kelas-fitur">
+<h2>📌 4. <strong>Menghitung Posterior Probability ( P(Kelas | Fitur) )</strong> 🤔<a class="headerlink" href="#menghitung-posterior-probability-p-kelas-fitur" title="Link to this heading">#</a></h2>
+<p>Posterior probability dihitung menggunakan <strong>Teorema Bayes</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Kelas | X) = \frac{P(X | Kelas) P(Kelas)}{P(X)}
+\]</div>
+<p>Karena ( P(X) ) sama untuk semua kelas, kita cukup membandingkan nilai <strong>numerator</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Kelas | X) \propto P(X | Kelas) P(Kelas)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="menentukan-kelas-dengan-probabilitas-tertinggi">
+<h2>📌 5. <strong>Menentukan Kelas dengan Probabilitas Tertinggi</strong> 🏆<a class="headerlink" href="#menentukan-kelas-dengan-probabilitas-tertinggi" title="Link to this heading">#</a></h2>
+<p>Kita memilih kelas yang memiliki <strong>posterior probability</strong> tertinggi sebagai prediksi akhir.</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Prediksi} = \arg\max P(Kelas | X)
+\]</div>
+<hr class="docutils" />
+<p>berikuy code nya</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># Pilih fitur numerik untuk model Naïve Bayes</span>
+<span class="n">numeric_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+<span class="n">X_full</span> <span class="o">=</span> <span class="n">data_asli</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span>
+<span class="n">y_full</span> <span class="o">=</span> <span class="n">data_asli</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+
+<span class="c1"># Inisialisasi model Naïve Bayes</span>
+<span class="n">nb_full</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># Latih model dengan data **tanpa menghapus outlier**</span>
+<span class="n">nb_full</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_full</span><span class="p">,</span> <span class="n">y_full</span><span class="p">)</span>
+
+<span class="c1"># Hitung likelihood P(X|Y) untuk setiap sampel</span>
+<span class="n">likelihoods_full</span> <span class="o">=</span> <span class="n">nb_full</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_full</span><span class="p">)</span>
+
+<span class="c1"># Konversi likelihood menjadi DataFrame untuk setiap kelas</span>
+<span class="n">likelihood_df_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">likelihoods_full</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">nb_full</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan hasil likelihood dengan dataset utama</span>
+<span class="n">data_asli</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data_asli</span><span class="p">,</span> <span class="n">likelihood_df_full</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Tambahkan hasil akhir prediksi ke dataset</span>
+<span class="n">data_asli</span><span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nb_full</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_full</span><span class="p">)</span>
+
+<span class="c1"># Hapus kolom class_frequency agar sesuai dengan dataset tanpa outlier</span>
+<span class="k">if</span> <span class="s2">&quot;class_frequency&quot;</span> <span class="ow">in</span> <span class="n">data_asli</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">data_asli</span> <span class="o">=</span> <span class="n">data_asli</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class_frequency&quot;</span><span class="p">])</span>
+
+<span class="c1"># Urutkan ulang kolom agar sesuai dengan versi tanpa outlier</span>
+<span class="n">ordered_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">nb_full</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">]</span>
+
+<span class="c1"># Pastikan hanya kolom yang ada di dataset yang dipilih</span>
+<span class="n">data_asli</span> <span class="o">=</span> <span class="n">data_asli</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ordered_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data_asli</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span>
+
+<span class="c1"># Hitung akurasi</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_full</span><span class="p">,</span> <span class="n">data_asli</span><span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">])</span>
+
+<span class="c1"># Tampilkan hasil akhir dalam bentuk tabel dan akurasi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Naïve Bayes **tanpa menghapus outlier**:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data_asli</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s2">&quot;keys&quot;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;psql&quot;</span><span class="p">,</span> <span class="n">showindex</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Naïve Bayes **tanpa menghapus outlier**:
++------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------+
+|   id |   petal length |   petal width | class           |   Iris-setosa |   Iris-versicolor |   Iris-virginica | final_prediction   |
+|------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------|
+|    1 |           86.4 |          70   | Iris-setosa     |   1           |       0           |      0           | Iris-setosa        |
+|    2 |            1.4 |           0.2 | Iris-setosa     |   1           |       2.78223e-12 |      4.31289e-20 | Iris-setosa        |
+|    3 |            1.3 |           0.2 | Iris-setosa     |   1           |       1.55044e-13 |      3.38143e-21 | Iris-setosa        |
+|    4 |            1.5 |           0.2 | Iris-setosa     |   1           |       2.00939e-12 |      4.04965e-20 | Iris-setosa        |
+|    5 |            1.4 |           0.2 | Iris-setosa     |   1           |       1.45234e-13 |      9.23994e-21 | Iris-setosa        |
+|    6 |            1.7 |           0.4 | Iris-setosa     |   1           |       1.89233e-10 |      2.23068e-17 | Iris-setosa        |
+|    7 |            1.4 |           0.3 | Iris-setosa     |   1           |       2.01344e-12 |      4.95119e-20 | Iris-setosa        |
+|    8 |            1.5 |           0.2 | Iris-setosa     |   1           |       2.42823e-12 |      1.03028e-19 | Iris-setosa        |
+|    9 |            1.4 |           0.2 | Iris-setosa     |   1           |       3.09002e-13 |      3.94989e-21 | Iris-setosa        |
+|   10 |            1.5 |           0.1 | Iris-setosa     |   1           |       3.52447e-13 |      1.24312e-20 | Iris-setosa        |
+|   11 |            1.5 |           0.2 | Iris-setosa     |   1           |       6.51905e-13 |      7.5419e-20  | Iris-setosa        |
+|   12 |            1.6 |           0.2 | Iris-setosa     |   1           |       3.90586e-12 |      1.70767e-19 | Iris-setosa        |
+|   13 |            1.4 |           0.1 | Iris-setosa     |   1           |       8.63158e-14 |      2.22409e-21 | Iris-setosa        |
+|   14 |            1.1 |           0.1 | Iris-setosa     |   1           |       1.02031e-16 |      2.45544e-24 | Iris-setosa        |
+|   15 |            1.2 |           0.2 | Iris-setosa     |   1           |       6.90857e-16 |      2.33652e-22 | Iris-setosa        |
+|   16 |            1.5 |           0.4 | Iris-setosa     |   1           |       2.02945e-14 |      1.10932e-20 | Iris-setosa        |
+|   17 |            1.3 |           0.4 | Iris-setosa     |   1           |       1.15723e-12 |      9.8245e-20  | Iris-setosa        |
+|   18 |            1.4 |           0.3 | Iris-setosa     |   1           |       7.55056e-12 |      2.63759e-19 | Iris-setosa        |
+|   19 |            1.7 |           0.3 | Iris-setosa     |   1           |       7.2024e-11  |      1.21955e-17 | Iris-setosa        |
+|   20 |            1.5 |           0.3 | Iris-setosa     |   1           |       1.78036e-12 |      1.41452e-19 | Iris-setosa        |
+|   21 |            1.7 |           0.2 | Iris-setosa     |   1           |       8.66295e-11 |      5.84066e-18 | Iris-setosa        |
+|   22 |            1.5 |           0.4 | Iris-setosa     |   1           |       6.27491e-11 |      2.92365e-18 | Iris-setosa        |
+|   23 |            1   |           0.2 | Iris-setosa     |   1           |       9.36233e-17 |      4.68405e-24 | Iris-setosa        |
+|   24 |            1.7 |           0.5 | Iris-setosa     |   1           |       1.5e-07     |      2.76869e-15 | Iris-setosa        |
+|   25 |            1.9 |           0.2 | Iris-setosa     |   1           |       1.26361e-10 |      7.77335e-18 | Iris-setosa        |
+|   26 |            1.6 |           0.2 | Iris-setosa     |   1           |       5.15009e-11 |      9.74957e-19 | Iris-setosa        |
+|   27 |            1.6 |           0.4 | Iris-setosa     |   1           |       1.78981e-09 |      4.18323e-17 | Iris-setosa        |
+|   28 |            1.5 |           0.2 | Iris-setosa     |   1           |       2.24876e-12 |      1.3517e-19  | Iris-setosa        |
+|   29 |            1.4 |           0.2 | Iris-setosa     |   1           |       1.24761e-12 |      5.48189e-20 | Iris-setosa        |
+|   30 |            1.6 |           0.2 | Iris-setosa     |   1           |       7.59796e-12 |      2.07957e-19 | Iris-setosa        |
+|   31 |            1.6 |           0.2 | Iris-setosa     |   1           |       1.76253e-11 |      3.90449e-19 | Iris-setosa        |
+|   32 |            1.5 |           0.4 | Iris-setosa     |   1           |       1.56709e-09 |      4.4078e-17  | Iris-setosa        |
+|   33 |            1.5 |           0.1 | Iris-setosa     |   1           |       1.72124e-16 |      8.21985e-23 | Iris-setosa        |
+|   34 |            1.4 |           0.2 | Iris-setosa     |   1           |       4.7597e-16  |      2.1272e-22  | Iris-setosa        |
+|   35 |            1.5 |           0.1 | Iris-setosa     |   1           |       3.52447e-13 |      1.24312e-20 | Iris-setosa        |
+|   36 |            1.2 |           0.2 | Iris-setosa     |   1           |       1.30592e-13 |      2.89918e-21 | Iris-setosa        |
+|   37 |            1.3 |           0.2 | Iris-setosa     |   1           |       3.15308e-13 |      2.14823e-20 | Iris-setosa        |
+|   38 |            1.5 |           0.1 | Iris-setosa     |   1           |       3.52447e-13 |      1.24312e-20 | Iris-setosa        |
+|   39 |            1.3 |           0.2 | Iris-setosa     |   1           |       6.64485e-14 |      9.83981e-22 | Iris-setosa        |
+|   40 |            1.5 |           0.2 | Iris-setosa     |   1           |       3.39028e-12 |      1.51041e-19 | Iris-setosa        |
+|   41 |            1.3 |           0.3 | Iris-setosa     |   1           |       1.41118e-12 |      4.40815e-20 | Iris-setosa        |
+|   42 |            1.3 |           0.3 | Iris-setosa     |   1           |       8.50366e-13 |      2.10355e-21 | Iris-setosa        |
+|   43 |            1.3 |           0.2 | Iris-setosa     |   1           |       3.31377e-14 |      7.59413e-22 | Iris-setosa        |
+|   44 |            1.6 |           0.6 | Iris-setosa     |   1           |       6.55076e-08 |      1.61862e-15 | Iris-setosa        |
+|   45 |            1.9 |           0.4 | Iris-setosa     |   1           |       2.56574e-09 |      2.36935e-16 | Iris-setosa        |
+|   46 |            1.4 |           0.3 | Iris-setosa     |   1           |       3.06749e-11 |      3.09988e-19 | Iris-setosa        |
+|   47 |            1.6 |           0.2 | Iris-setosa     |   1           |       3.7599e-13  |      4.89371e-20 | Iris-setosa        |
+|   48 |            1.4 |           0.2 | Iris-setosa     |   1           |       3.68312e-13 |      8.58453e-21 | Iris-setosa        |
+|   49 |            1.5 |           0.2 | Iris-setosa     |   1           |       5.20353e-13 |      5.5129e-20  | Iris-setosa        |
+|   50 |            1.4 |           0.2 | Iris-setosa     |   1           |       1.21541e-12 |      3.79047e-20 | Iris-setosa        |
+|   51 |            4.7 |           1.4 | Iris-versicolor |   0.000333502 |       0.803769    |      0.195897    | Iris-versicolor    |
+|   52 |            4.5 |           1.5 | Iris-versicolor |   8.22567e-05 |       0.945092    |      0.0548259   | Iris-versicolor    |
+|   53 |            4.9 |           1.5 | Iris-versicolor |   0.000202676 |       0.456059    |      0.543739    | Iris-virginica     |
+|   54 |            4   |           1.3 | Iris-versicolor |   7.34197e-05 |       0.999895    |      3.12467e-05 | Iris-versicolor    |
+|   55 |            4.6 |           1.5 | Iris-versicolor |   4.22136e-05 |       0.952402    |      0.0475562   | Iris-versicolor    |
+|   56 |            4.5 |           1.3 | Iris-versicolor |   1.82992e-05 |       0.999101    |      0.000880359 | Iris-versicolor    |
+|   57 |            4.7 |           1.6 | Iris-versicolor |   0.000202812 |       0.658819    |      0.340978    | Iris-versicolor    |
+|   58 |            3.3 |           1   | Iris-versicolor |   0.00728832  |       0.992711    |      2.31508e-07 | Iris-versicolor    |
+|   59 |            4.6 |           1.3 | Iris-versicolor |   4.01906e-05 |       0.990276    |      0.00968333  | Iris-versicolor    |
+|   60 |            3.9 |           1.4 | Iris-versicolor |   6.03434e-05 |       0.999849    |      9.02484e-05 | Iris-versicolor    |
+|   61 |            3.5 |           1   | Iris-versicolor |   0.0226445   |       0.977355    |      2.29746e-07 | Iris-versicolor    |
+|   62 |            4.2 |           1.5 | Iris-versicolor |   2.7846e-05  |       0.996211    |      0.00376161  | Iris-versicolor    |
+|   63 |            4   |           1   | Iris-versicolor |   0.000328546 |       0.999665    |      6.01437e-06 | Iris-versicolor    |
+|   64 |            4.7 |           1.4 | Iris-versicolor |   2.58537e-05 |       0.986065    |      0.0139088   | Iris-versicolor    |
+|   65 |            3.6 |           1.3 | Iris-versicolor |   5.4286e-05  |       0.999921    |      2.46114e-05 | Iris-versicolor    |
+|   66 |            4.4 |           1.4 | Iris-versicolor |   7.08252e-05 |       0.979968    |      0.0199616   | Iris-versicolor    |
+|   67 |            4.5 |           1.5 | Iris-versicolor |   3.98883e-05 |       0.990648    |      0.00931237  | Iris-versicolor    |
+|   68 |            4.1 |           1   | Iris-versicolor |   6.30944e-05 |       0.999921    |      1.63363e-05 | Iris-versicolor    |
+|   69 |            4.5 |           1.5 | Iris-versicolor |   0.000129558 |       0.994568    |      0.00530221  | Iris-versicolor    |
+|   70 |            3.9 |           1.1 | Iris-versicolor |   6.65618e-05 |       0.999926    |      6.99321e-06 | Iris-versicolor    |
+|   71 |            4.8 |           1.8 | Iris-versicolor |   0.000211545 |       0.154462    |      0.845327    | Iris-virginica     |
+|   72 |            4   |           1.3 | Iris-versicolor |   1.69041e-05 |       0.99979     |      0.000192971 | Iris-versicolor    |
+|   73 |            4.9 |           1.5 | Iris-versicolor |   8.3927e-05  |       0.926999    |      0.0729169   | Iris-versicolor    |
+|   74 |            4.7 |           1.2 | Iris-versicolor |   2.73592e-05 |       0.998129    |      0.00184344  | Iris-versicolor    |
+|   75 |            4.3 |           1.3 | Iris-versicolor |   2.13532e-05 |       0.998439    |      0.00153916  | Iris-versicolor    |
+|   76 |            4.4 |           1.4 | Iris-versicolor |   4.15638e-05 |       0.98743     |      0.0125284   | Iris-versicolor    |
+|   77 |            4.8 |           1.4 | Iris-versicolor |   9.12353e-05 |       0.912761    |      0.0871477   | Iris-versicolor    |
+|   78 |            5   |           1.7 | Iris-versicolor |   7.86083e-05 |       0.0752633   |      0.924658    | Iris-virginica     |
+|   79 |            4.5 |           1.5 | Iris-versicolor |   2.54561e-05 |       0.986455    |      0.0135194   | Iris-versicolor    |
+|   80 |            3.5 |           1   | Iris-versicolor |   0.00027556  |       0.999723    |      1.23761e-06 | Iris-versicolor    |
+|   81 |            3.8 |           1.1 | Iris-versicolor |   0.000129333 |       0.999867    |      3.55207e-06 | Iris-versicolor    |
+|   82 |            3.7 |           1   | Iris-versicolor |   0.000336242 |       0.999662    |      1.34879e-06 | Iris-versicolor    |
+|   83 |            3.9 |           1.2 | Iris-versicolor |   2.47259e-05 |       0.999948    |      2.76518e-05 | Iris-versicolor    |
+|   84 |            5.1 |           1.6 | Iris-versicolor |   0.000116333 |       0.612089    |      0.387795    | Iris-versicolor    |
+|   85 |            4.5 |           1.5 | Iris-versicolor |   5.62774e-05 |       0.992421    |      0.00752295  | Iris-versicolor    |
+|   86 |            4.5 |           1.6 | Iris-versicolor |   0.000298673 |       0.875846    |      0.123855    | Iris-versicolor    |
+|   87 |            4.7 |           1.5 | Iris-versicolor |   0.000119004 |       0.7992      |      0.200681    | Iris-versicolor    |
+|   88 |            4.4 |           1.3 | Iris-versicolor |   5.28745e-05 |       0.999333    |      0.000614552 | Iris-versicolor    |
+|   89 |            4.1 |           1.3 | Iris-versicolor |   2.54787e-05 |       0.999771    |      0.000203726 | Iris-versicolor    |
+|   90 |            4   |           1.3 | Iris-versicolor |   3.48425e-05 |       0.99992     |      4.47651e-05 | Iris-versicolor    |
+|   91 |            4.4 |           1.2 | Iris-versicolor |   3.0464e-05  |       0.999843    |      0.000126317 | Iris-versicolor    |
+|   92 |            4.6 |           1.4 | Iris-versicolor |   2.63133e-05 |       0.989345    |      0.0106283   | Iris-versicolor    |
+|   93 |            4   |           1.2 | Iris-versicolor |   2.40319e-05 |       0.999942    |      3.37706e-05 | Iris-versicolor    |
+|   94 |            3.3 |           1   | Iris-versicolor |   0.00769181  |       0.992308    |      2.00931e-07 | Iris-versicolor    |
+|   95 |            4.2 |           1.3 | Iris-versicolor |   1.84443e-05 |       0.999814    |      0.000167669 | Iris-versicolor    |
+|   96 |            4.2 |           1.2 | Iris-versicolor |   2.62386e-05 |       0.999824    |      0.000150122 | Iris-versicolor    |
+|   97 |            4.2 |           1.3 | Iris-versicolor |   1.77385e-05 |       0.999697    |      0.000285049 | Iris-versicolor    |
+|   98 |            4.3 |           1.3 | Iris-versicolor |   1.68821e-05 |       0.998975    |      0.00100762  | Iris-versicolor    |
+|   99 |            3   |           1.1 | Iris-versicolor |   0.00594186  |       0.994058    |      2.29943e-07 | Iris-versicolor    |
+|  100 |            4.1 |           1.3 | Iris-versicolor |   1.70622e-05 |       0.99983     |      0.000152838 | Iris-versicolor    |
+|  101 |            6   |           2.5 | Iris-virginica  |   0.000322589 |       6.3519e-11  |      0.999677    | Iris-virginica     |
+|  102 |            5.1 |           1.9 | Iris-virginica  |   0.000138517 |       0.0250088   |      0.974853    | Iris-virginica     |
+|  103 |            5.9 |           2.1 | Iris-virginica  |   3.71065e-05 |       1.67911e-07 |      0.999963    | Iris-virginica     |
+|  104 |            5.6 |           1.8 | Iris-virginica  |   4.30011e-05 |       0.00199455  |      0.997962    | Iris-virginica     |
+|  105 |            5.8 |           2.2 | Iris-virginica  |   3.5073e-05  |       2.30538e-07 |      0.999965    | Iris-virginica     |
+|  106 |            6.6 |           2.1 | Iris-virginica  |   0.000392991 |       2.40885e-10 |      0.999607    | Iris-virginica     |
+|  107 |            4.5 |           1.7 | Iris-virginica  |   0.00108588  |       0.972457    |      0.0264569   | Iris-versicolor    |
+|  108 |            6.3 |           1.8 | Iris-virginica  |   0.000133229 |       1.34001e-06 |      0.999865    | Iris-virginica     |
+|  109 |            5.8 |           1.8 | Iris-virginica  |   0.000110605 |       0.000492849 |      0.999397    | Iris-virginica     |
+|  110 |            6.1 |           2.5 | Iris-virginica  |   0.00169601  |       1.40333e-12 |      0.998304    | Iris-virginica     |
+|  111 |            5.1 |           2   | Iris-virginica  |   4.78151e-05 |       0.000412867 |      0.999539    | Iris-virginica     |
+|  112 |            5.3 |           1.9 | Iris-virginica  |   4.8046e-05  |       0.0027773   |      0.997175    | Iris-virginica     |
+|  113 |            5.5 |           2.1 | Iris-virginica  |   2.59474e-05 |       4.80704e-06 |      0.999969    | Iris-virginica     |
+|  114 |            5   |           2   | Iris-virginica  |   0.000382155 |       0.0128759   |      0.986742    | Iris-virginica     |
+|  115 |            5.1 |           2.4 | Iris-virginica  |   0.000265277 |       1.04228e-06 |      0.999734    | Iris-virginica     |
+|  116 |            5.3 |           2.3 | Iris-virginica  |   6.6048e-05  |       4.50929e-07 |      0.999934    | Iris-virginica     |
+|  117 |            5.5 |           1.8 | Iris-virginica  |   3.67644e-05 |       0.0018719   |      0.998091    | Iris-virginica     |
+|  118 |            6.7 |           2.2 | Iris-virginica  |   0.0237204   |       1.60674e-12 |      0.97628     | Iris-virginica     |
+|  119 |            6.9 |           2.3 | Iris-virginica  |   0.00493015  |       6.44226e-13 |      0.99507     | Iris-virginica     |
+|  120 |            5   |           1.5 | Iris-virginica  |   0.000351428 |       0.957799    |      0.04185     | Iris-versicolor    |
+|  121 |            5.7 |           2.3 | Iris-virginica  |   5.71609e-05 |       1.17112e-08 |      0.999943    | Iris-virginica     |
+|  122 |            4.9 |           2   | Iris-virginica  |   0.000236419 |       0.0137594   |      0.986004    | Iris-virginica     |
+|  123 |            6.7 |           2   | Iris-virginica  |   0.000776113 |       7.57659e-10 |      0.999224    | Iris-virginica     |
+|  124 |            4.9 |           1.8 | Iris-virginica  |   0.000106477 |       0.129973    |      0.86992     | Iris-virginica     |
+|  125 |            5.7 |           2.1 | Iris-virginica  |   4.51545e-05 |       9.71744e-07 |      0.999954    | Iris-virginica     |
+|  126 |            6   |           1.8 | Iris-virginica  |   8.26986e-05 |       7.39845e-06 |      0.99991     | Iris-virginica     |
+|  127 |            4.8 |           1.8 | Iris-virginica  |   0.000111599 |       0.199906    |      0.799982    | Iris-virginica     |
+|  128 |            4.9 |           1.8 | Iris-virginica  |   9.81205e-05 |       0.107473    |      0.892429    | Iris-virginica     |
+|  129 |            5.6 |           2.1 | Iris-virginica  |   3.26235e-05 |       1.09465e-05 |      0.999956    | Iris-virginica     |
+|  130 |            5.8 |           1.6 | Iris-virginica  |   0.000122513 |       0.000701721 |      0.999176    | Iris-virginica     |
+|  131 |            6.1 |           1.9 | Iris-virginica  |   8.874e-05   |       9.06164e-07 |      0.99991     | Iris-virginica     |
+|  132 |            6.4 |           2   | Iris-virginica  |   0.0120152   |       2.93168e-10 |      0.987985    | Iris-virginica     |
+|  133 |            5.6 |           2.2 | Iris-virginica  |   3.8561e-05  |       1.50784e-06 |      0.99996     | Iris-virginica     |
+|  134 |            5.1 |           1.5 | Iris-virginica  |   9.02135e-05 |       0.712581    |      0.287329    | Iris-versicolor    |
+|  135 |            5.6 |           1.4 | Iris-virginica  |   0.00052894  |       0.485942    |      0.513529    | Iris-virginica     |
+|  136 |            6.1 |           2.3 | Iris-virginica  |   0.00020748  |       8.98407e-11 |      0.999793    | Iris-virginica     |
+|  137 |            5.6 |           2.4 | Iris-virginica  |   0.00019095  |       6.58735e-09 |      0.999809    | Iris-virginica     |
+|  138 |            5.5 |           1.8 | Iris-virginica  |   4.23121e-05 |       0.0019022   |      0.998055    | Iris-virginica     |
+|  139 |            4.8 |           1.8 | Iris-virginica  |   0.000130787 |       0.193159    |      0.80671     | Iris-virginica     |
+|  140 |            5.4 |           2.1 | Iris-virginica  |   3.01186e-05 |       5.23116e-06 |      0.999965    | Iris-virginica     |
+|  141 |            5.6 |           2.4 | Iris-virginica  |   6.88691e-05 |       5.01421e-09 |      0.999931    | Iris-virginica     |
+|  142 |            5.1 |           2.3 | Iris-virginica  |   6.55384e-05 |       4.67774e-07 |      0.999934    | Iris-virginica     |
+|  143 |            5.1 |           1.9 | Iris-virginica  |   0.000138517 |       0.0250088   |      0.974853    | Iris-virginica     |
+|  144 |            5.9 |           2.3 | Iris-virginica  |   6.50941e-05 |       4.42534e-09 |      0.999935    | Iris-virginica     |
+|  145 |            5.7 |           2.5 | Iris-virginica  |   0.000198298 |       1.64574e-10 |      0.999802    | Iris-virginica     |
+|  146 |            5.2 |           2.3 | Iris-virginica  |   5.05961e-05 |       5.85487e-07 |      0.999949    | Iris-virginica     |
+|  147 |            5   |           1.9 | Iris-virginica  |   0.000156849 |       0.0254419   |      0.974401    | Iris-virginica     |
+|  148 |            5.2 |           2   | Iris-virginica  |   3.22094e-05 |       0.000370158 |      0.999598    | Iris-virginica     |
+|  149 |            5.4 |           2.3 | Iris-virginica  |   0.000142385 |       2.45989e-07 |      0.999857    | Iris-virginica     |
+|  150 |            5.1 |           1.8 | Iris-virginica  |   9.91715e-05 |       0.0559996   |      0.943901    | Iris-virginica     |
++------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Akurasi Model Naïve Bayes: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Model Naïve Bayes: 96.00%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="c1"># Asumsi data_bersih sudah ada setelah menghapus outlier</span>
+<span class="c1"># Pilih fitur numerik untuk model Naïve Bayes</span>
+<span class="n">numeric_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">]</span>
+<span class="n">X_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span>
+<span class="n">y_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span>
+
+<span class="c1"># Tangani NaN (opsi 1: menghapus baris yang memiliki NaN)</span>
+<span class="n">X_bersih</span> <span class="o">=</span> <span class="n">X_bersih</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">y_bersih</span> <span class="o">=</span> <span class="n">y_bersih</span><span class="p">[</span><span class="n">X_bersih</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>  <span class="c1"># Sesuaikan y dengan index X</span>
+
+<span class="c1"># Inisialisasi model Naïve Bayes</span>
+<span class="n">nb_bersih</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># Latih model dengan data bersih (tanpa outlier)</span>
+<span class="n">nb_bersih</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_bersih</span><span class="p">,</span> <span class="n">y_bersih</span><span class="p">)</span>
+
+<span class="c1"># Hitung likelihood P(X|Y) untuk setiap sampel</span>
+<span class="n">likelihoods_bersih</span> <span class="o">=</span> <span class="n">nb_bersih</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_bersih</span><span class="p">)</span>
+
+<span class="c1"># Konversi likelihood menjadi DataFrame untuk setiap kelas</span>
+<span class="n">likelihood_df_bersih</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">likelihoods_bersih</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">nb_bersih</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan hasil likelihood dengan dataset utama</span>
+<span class="n">data_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">X_bersih</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>  <span class="c1"># Menyelaraskan indeks</span>
+<span class="n">data_bersih</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data_bersih</span><span class="p">,</span> <span class="n">likelihood_df_bersih</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Tambahkan hasil akhir prediksi ke dataset</span>
+<span class="n">data_bersih</span><span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nb_bersih</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_bersih</span><span class="p">)</span>
+
+<span class="c1"># Hapus kolom class_frequency agar sesuai dengan dataset</span>
+<span class="k">if</span> <span class="s2">&quot;class_frequency&quot;</span> <span class="ow">in</span> <span class="n">data_bersih</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">data_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;class_frequency&quot;</span><span class="p">])</span>
+
+<span class="c1"># Urutkan ulang kolom</span>
+<span class="n">ordered_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span> <span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal width&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">nb_bersih</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">]</span>
+
+<span class="c1"># Pastikan hanya kolom yang ada di dataset yang dipilih</span>
+<span class="n">data_bersih</span> <span class="o">=</span> <span class="n">data_bersih</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ordered_columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data_bersih</span><span class="o">.</span><span class="n">columns</span><span class="p">]]</span>
+
+<span class="c1"># Tampilkan hasil akhir dalam bentuk tabel</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Naïve Bayes **setelah menghapus outlier**:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">data_bersih</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="s2">&quot;keys&quot;</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;psql&quot;</span><span class="p">,</span> <span class="n">showindex</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Hitung akurasi model</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_bersih</span><span class="p">,</span> <span class="n">data_bersih</span><span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Akurasi Model Naïve Bayes: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Naïve Bayes **setelah menghapus outlier**:
++------+----------------+---------------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------+
+|   id |   sepal_length |   sepal_width |   petal length |   petal width | class           |   Iris-setosa |   Iris-versicolor |   Iris-virginica | final_prediction   |
+|------+----------------+---------------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------|
+|    2 |            4.9 |           3   |            1.4 |           0.2 | Iris-setosa     |  1            |       1.77375e-17 |      2.7496e-25  | Iris-setosa        |
+|    3 |            4.7 |           3.2 |            1.3 |           0.2 | Iris-setosa     |  1            |       1.18185e-18 |      2.57757e-26 | Iris-setosa        |
+|    4 |            4.6 |           3.1 |            1.5 |           0.2 | Iris-setosa     |  1            |       1.63328e-17 |      3.29166e-25 | Iris-setosa        |
+|    5 |            5   |           3.6 |            1.4 |           0.2 | Iris-setosa     |  1            |       4.56454e-19 |      2.90401e-26 | Iris-setosa        |
+|    6 |            5.4 |           3.9 |            1.7 |           0.4 | Iris-setosa     |  1            |       1.42422e-14 |      1.67887e-21 | Iris-setosa        |
+|    7 |            4.6 |           3.4 |            1.4 |           0.3 | Iris-setosa     |  1            |       1.16849e-17 |      2.87341e-25 | Iris-setosa        |
+|    8 |            5   |           3.4 |            1.5 |           0.2 | Iris-setosa     |  1            |       6.45876e-18 |      2.7404e-25  | Iris-setosa        |
+|    9 |            4.4 |           2.9 |            1.4 |           0.2 | Iris-setosa     |  1            |       1.22538e-17 |      1.56638e-25 | Iris-setosa        |
+|   10 |            4.9 |           3.1 |            1.5 |           0.1 | Iris-setosa     |  1            |       3.45177e-18 |      1.21748e-25 | Iris-setosa        |
+|   11 |            5.4 |           3.7 |            1.5 |           0.2 | Iris-setosa     |  1            |       4.27292e-18 |      4.94337e-25 | Iris-setosa        |
+|   12 |            4.8 |           3.4 |            1.6 |           0.2 | Iris-setosa     |  1            |       1.61748e-17 |      7.07176e-25 | Iris-setosa        |
+|   13 |            4.8 |           3   |            1.4 |           0.1 | Iris-setosa     |  1            |       1.39542e-18 |      3.59559e-26 | Iris-setosa        |
+|   14 |            4.3 |           3   |            1.1 |           0.1 | Iris-setosa     |  1            |       9.11626e-20 |      2.19391e-27 | Iris-setosa        |
+|   15 |            5.8 |           4   |            1.2 |           0.2 | Iris-setosa     |  1            |       2.73757e-19 |      9.25869e-26 | Iris-setosa        |
+|   16 |            5.7 |           4.4 |            1.5 |           0.4 | Iris-setosa     |  1            |       4.34933e-17 |      2.37741e-23 | Iris-setosa        |
+|   17 |            5.4 |           3.9 |            1.3 |           0.4 | Iris-setosa     |  1            |       5.7199e-17  |      4.85603e-24 | Iris-setosa        |
+|   18 |            5.1 |           3.5 |            1.4 |           0.3 | Iris-setosa     |  1            |       2.36442e-17 |      8.2595e-25  | Iris-setosa        |
+|   19 |            5.7 |           3.8 |            1.7 |           0.3 | Iris-setosa     |  1            |       5.72911e-15 |      9.70088e-22 | Iris-setosa        |
+|   20 |            5.1 |           3.8 |            1.5 |           0.3 | Iris-setosa     |  1            |       8.87131e-18 |      7.04842e-25 | Iris-setosa        |
+|   21 |            5.4 |           3.4 |            1.7 |           0.2 | Iris-setosa     |  1            |       1.02883e-15 |      6.93653e-23 | Iris-setosa        |
+|   22 |            5.1 |           3.7 |            1.5 |           0.4 | Iris-setosa     |  1            |       6.03944e-16 |      2.81394e-23 | Iris-setosa        |
+|   23 |            4.6 |           3.6 |            1   |           0.2 | Iris-setosa     |  1            |       2.02974e-20 |      1.0155e-27  | Iris-setosa        |
+|   24 |            5.1 |           3.3 |            1.7 |           0.5 | Iris-setosa     |  1            |       1.65462e-11 |      3.0541e-19  | Iris-setosa        |
+|   25 |            4.8 |           3.4 |            1.9 |           0.2 | Iris-setosa     |  1            |       8.68653e-15 |      5.34371e-22 | Iris-setosa        |
+|   26 |            5   |           3   |            1.6 |           0.2 | Iris-setosa     |  1            |       3.87127e-16 |      7.3287e-24  | Iris-setosa        |
+|   27 |            5   |           3.4 |            1.6 |           0.4 | Iris-setosa     |  1            |       1.64794e-14 |      3.85166e-22 | Iris-setosa        |
+|   28 |            5.2 |           3.5 |            1.5 |           0.2 | Iris-setosa     |  1            |       7.03291e-18 |      4.2274e-25  | Iris-setosa        |
+|   29 |            5.2 |           3.4 |            1.4 |           0.2 | Iris-setosa     |  1            |       4.09816e-18 |      1.8007e-25  | Iris-setosa        |
+|   30 |            4.7 |           3.2 |            1.6 |           0.2 | Iris-setosa     |  1            |       4.82092e-17 |      1.3195e-24  | Iris-setosa        |
+|   31 |            4.8 |           3.1 |            1.6 |           0.2 | Iris-setosa     |  1            |       1.14843e-16 |      2.5441e-24  | Iris-setosa        |
+|   32 |            5.4 |           3.4 |            1.5 |           0.4 | Iris-setosa     |  1            |       2.04663e-14 |      5.75665e-22 | Iris-setosa        |
+|   33 |            5.2 |           4.1 |            1.5 |           0.1 | Iris-setosa     |  1            |       7.17708e-21 |      3.42748e-27 | Iris-setosa        |
+|   34 |            5.5 |           4.2 |            1.4 |           0.2 | Iris-setosa     |  1            |       3.86533e-20 |      1.7275e-26  | Iris-setosa        |
+|   35 |            4.9 |           3.1 |            1.5 |           0.1 | Iris-setosa     |  1            |       3.45177e-18 |      1.21748e-25 | Iris-setosa        |
+|   36 |            5   |           3.2 |            1.2 |           0.2 | Iris-setosa     |  1            |       1.41096e-18 |      3.13239e-26 | Iris-setosa        |
+|   37 |            5.5 |           3.5 |            1.3 |           0.2 | Iris-setosa     |  1            |       3.55342e-18 |      2.421e-25   | Iris-setosa        |
+|   38 |            4.9 |           3.1 |            1.5 |           0.1 | Iris-setosa     |  1            |       3.45177e-18 |      1.21748e-25 | Iris-setosa        |
+|   39 |            4.4 |           3   |            1.3 |           0.2 | Iris-setosa     |  1            |       2.6295e-18  |      3.89383e-26 | Iris-setosa        |
+|   40 |            5.1 |           3.4 |            1.5 |           0.2 | Iris-setosa     |  1            |       9.33693e-18 |      4.15972e-25 | Iris-setosa        |
+|   41 |            5   |           3.5 |            1.3 |           0.3 | Iris-setosa     |  1            |       6.32698e-18 |      1.97639e-25 | Iris-setosa        |
+|   43 |            4.4 |           3.2 |            1.3 |           0.2 | Iris-setosa     |  1            |       7.58917e-19 |      1.73921e-26 | Iris-setosa        |
+|   44 |            5   |           3.5 |            1.6 |           0.6 | Iris-setosa     |  1            |       5.02239e-11 |      1.24097e-18 | Iris-setosa        |
+|   45 |            5.1 |           3.8 |            1.9 |           0.4 | Iris-setosa     |  1            |       6.95187e-13 |      6.41975e-20 | Iris-setosa        |
+|   46 |            4.8 |           3   |            1.4 |           0.3 | Iris-setosa     |  1            |       2.34367e-16 |      2.36843e-24 | Iris-setosa        |
+|   47 |            5.1 |           3.8 |            1.6 |           0.2 | Iris-setosa     |  1            |       2.32562e-18 |      3.02694e-25 | Iris-setosa        |
+|   48 |            4.6 |           3.2 |            1.4 |           0.2 | Iris-setosa     |  1            |       2.52189e-18 |      5.878e-26   | Iris-setosa        |
+|   49 |            5.3 |           3.7 |            1.5 |           0.2 | Iris-setosa     |  1            |       2.58887e-18 |      2.74281e-25 | Iris-setosa        |
+|   50 |            5   |           3.3 |            1.4 |           0.2 | Iris-setosa     |  1            |       3.68405e-18 |      1.14895e-25 | Iris-setosa        |
+|   51 |            7   |           3.2 |            4.7 |           1.4 | Iris-versicolor |  5.42523e-106 |       0.804038    |      0.195962    | Iris-versicolor    |
+|   52 |            6.4 |           3.2 |            4.5 |           1.5 | Iris-versicolor |  1.61944e-98  |       0.94517     |      0.0548304   | Iris-versicolor    |
+|   53 |            6.9 |           3.1 |            4.9 |           1.5 | Iris-versicolor |  9.25092e-120 |       0.456151    |      0.543849    | Iris-virginica     |
+|   54 |            5.5 |           2.3 |            4   |           1.3 | Iris-versicolor |  4.56507e-69  |       0.999969    |      3.12489e-05 | Iris-versicolor    |
+|   55 |            6.5 |           2.8 |            4.6 |           1.5 | Iris-versicolor |  2.23396e-104 |       0.952442    |      0.0475582   | Iris-versicolor    |
+|   56 |            5.7 |           2.8 |            4.5 |           1.3 | Iris-versicolor |  1.33104e-88  |       0.99912     |      0.000880373 | Iris-versicolor    |
+|   57 |            6.3 |           3.3 |            4.7 |           1.6 | Iris-versicolor |  1.62595e-111 |       0.658952    |      0.341048    | Iris-versicolor    |
+|   58 |            4.9 |           2.4 |            3.3 |           1   | Iris-versicolor |  4.55549e-34  |       1           |      2.33207e-07 | Iris-versicolor    |
+|   59 |            6.6 |           2.9 |            4.6 |           1.3 | Iris-versicolor |  4.30869e-96  |       0.990316    |      0.00968369  | Iris-versicolor    |
+|   60 |            5.2 |           2.7 |            3.9 |           1.4 | Iris-versicolor |  5.13686e-68  |       0.99991     |      9.02536e-05 | Iris-versicolor    |
+|   61 |            5   |           2   |            3.5 |           1   | Iris-versicolor |  7.04162e-41  |       1           |      2.35068e-07 | Iris-versicolor    |
+|   62 |            5.9 |           3   |            4.2 |           1.5 | Iris-versicolor |  9.54748e-85  |       0.996238    |      0.00376171  | Iris-versicolor    |
+|   63 |            6   |           2.2 |            4   |           1   | Iris-versicolor |  5.61862e-60  |       0.999994    |      6.01632e-06 | Iris-versicolor    |
+|   64 |            6.1 |           2.9 |            4.7 |           1.4 | Iris-versicolor |  1.14316e-102 |       0.986091    |      0.0139092   | Iris-versicolor    |
+|   65 |            5.6 |           2.9 |            3.6 |           1.3 | Iris-versicolor |  3.83298e-54  |       0.999975    |      2.46126e-05 | Iris-versicolor    |
+|   66 |            6.7 |           3.1 |            4.4 |           1.4 | Iris-versicolor |  1.73882e-91  |       0.980037    |      0.019963    | Iris-versicolor    |
+|   67 |            5.6 |           3   |            4.5 |           1.5 | Iris-versicolor |  2.68358e-96  |       0.990687    |      0.00931273  | Iris-versicolor    |
+|   68 |            5.8 |           2.7 |            4.1 |           1   | Iris-versicolor |  4.7075e-62   |       0.999984    |      1.63373e-05 | Iris-versicolor    |
+|   69 |            6.2 |           2.2 |            4.5 |           1.5 | Iris-versicolor |  5.05843e-100 |       0.994697    |      0.00530289  | Iris-versicolor    |
+|   70 |            5.6 |           2.5 |            3.9 |           1.1 | Iris-versicolor |  7.7356e-58   |       0.999993    |      6.99364e-06 | Iris-versicolor    |
+|   71 |            5.9 |           3.2 |            4.8 |           1.8 | Iris-versicolor |  1.17858e-125 |       0.154494    |      0.845506    | Iris-virginica     |
+|   72 |            6.1 |           2.8 |            4   |           1.3 | Iris-versicolor |  8.50615e-70  |       0.999807    |      0.000192974 | Iris-versicolor    |
+|   73 |            6.3 |           2.5 |            4.9 |           1.5 | Iris-versicolor |  3.68815e-118 |       0.927077    |      0.0729229   | Iris-versicolor    |
+|   74 |            6.1 |           2.8 |            4.7 |           1.2 | Iris-versicolor |  5.83337e-95  |       0.998157    |      0.00184348  | Iris-versicolor    |
+|   75 |            6.4 |           2.9 |            4.3 |           1.3 | Iris-versicolor |  2.08636e-82  |       0.998461    |      0.00153918  | Iris-versicolor    |
+|   76 |            6.6 |           3   |            4.4 |           1.4 | Iris-versicolor |  2.7885e-91   |       0.987471    |      0.0125289   | Iris-versicolor    |
+|   77 |            6.8 |           2.8 |            4.8 |           1.4 | Iris-versicolor |  1.36718e-110 |       0.912844    |      0.0871556   | Iris-versicolor    |
+|   78 |            6.7 |           3   |            5   |           1.7 | Iris-versicolor |  3.23316e-134 |       0.0752691   |      0.924731    | Iris-virginica     |
+|   79 |            6   |           2.9 |            4.5 |           1.5 | Iris-versicolor |  9.01848e-98  |       0.98648     |      0.0135197   | Iris-versicolor    |
+|   80 |            5.7 |           2.6 |            3.5 |           1   | Iris-versicolor |  3.14848e-41  |       0.999999    |      1.23794e-06 | Iris-versicolor    |
+|   81 |            5.5 |           2.4 |            3.8 |           1.1 | Iris-versicolor |  2.86402e-54  |       0.999996    |      3.55252e-06 | Iris-versicolor    |
+|   82 |            5.5 |           2.4 |            3.7 |           1   | Iris-versicolor |  1.50925e-47  |       0.999999    |      1.34924e-06 | Iris-versicolor    |
+|   83 |            5.8 |           2.7 |            3.9 |           1.2 | Iris-versicolor |  1.51894e-61  |       0.999972    |      2.76524e-05 | Iris-versicolor    |
+|   84 |            6   |           2.7 |            5.1 |           1.6 | Iris-versicolor |  2.61145e-131 |       0.61216     |      0.38784     | Iris-versicolor    |
+|   85 |            5.4 |           3   |            4.5 |           1.5 | Iris-versicolor |  8.3615e-96   |       0.992477    |      0.00752336  | Iris-versicolor    |
+|   86 |            6   |           3.4 |            4.5 |           1.6 | Iris-versicolor |  4.47663e-101 |       0.876108    |      0.123892    | Iris-versicolor    |
+|   87 |            6.7 |           3.1 |            4.7 |           1.5 | Iris-versicolor |  4.06199e-109 |       0.799295    |      0.200705    | Iris-versicolor    |
+|   88 |            6.3 |           2.3 |            4.4 |           1.3 | Iris-versicolor |  1.75635e-87  |       0.999385    |      0.000614583 | Iris-versicolor    |
+|   89 |            5.6 |           3   |            4.1 |           1.3 | Iris-versicolor |  1.69523e-71  |       0.999796    |      0.00020373  | Iris-versicolor    |
+|   90 |            5.5 |           2.5 |            4   |           1.3 | Iris-versicolor |  1.17284e-68  |       0.999955    |      4.47665e-05 | Iris-versicolor    |
+|   91 |            5.5 |           2.6 |            4.4 |           1.2 | Iris-versicolor |  2.00927e-80  |       0.999874    |      0.00012632  | Iris-versicolor    |
+|   92 |            6.1 |           3   |            4.6 |           1.4 | Iris-versicolor |  6.80084e-98  |       0.989371    |      0.0106285   | Iris-versicolor    |
+|   93 |            5.8 |           2.6 |            4   |           1.2 | Iris-versicolor |  2.02785e-65  |       0.999966    |      3.37713e-05 | Iris-versicolor    |
+|   94 |            5   |           2.3 |            3.3 |           1   | Iris-versicolor |  2.07686e-34  |       1           |      2.02488e-07 | Iris-versicolor    |
+|   95 |            5.6 |           2.7 |            4.2 |           1.3 | Iris-versicolor |  3.92763e-76  |       0.999832    |      0.000167671 | Iris-versicolor    |
+|   96 |            5.7 |           3   |            4.2 |           1.2 | Iris-versicolor |  8.00572e-72  |       0.99985     |      0.000150125 | Iris-versicolor    |
+|   97 |            5.7 |           2.9 |            4.2 |           1.3 | Iris-versicolor |  6.35216e-76  |       0.999715    |      0.000285053 | Iris-versicolor    |
+|   98 |            6.2 |           2.9 |            4.3 |           1.3 | Iris-versicolor |  1.3164e-81   |       0.998992    |      0.00100764  | Iris-versicolor    |
+|   99 |            5.1 |           2.5 |            3   |           1.1 | Iris-versicolor |  1.57426e-29  |       1           |      2.31317e-07 | Iris-versicolor    |
+|  100 |            5.7 |           2.8 |            4.1 |           1.3 | Iris-versicolor |  2.8282e-72   |       0.999847    |      0.00015284  | Iris-versicolor    |
+|  101 |            6.3 |           3.3 |            6   |           2.5 | Iris-virginica  |  6.61961e-245 |       6.35381e-11 |      1           | Iris-virginica     |
+|  102 |            5.8 |           2.7 |            5.1 |           1.9 | Iris-virginica  |  1.73076e-147 |       0.0250122   |      0.974988    | Iris-virginica     |
+|  103 |            7.1 |           3   |            5.9 |           2.1 | Iris-virginica  |  1.11191e-213 |       1.67915e-07 |      1           | Iris-virginica     |
+|  104 |            6.3 |           2.9 |            5.6 |           1.8 | Iris-virginica  |  2.14354e-171 |       0.00199462  |      0.998005    | Iris-virginica     |
+|  105 |            6.5 |           3   |            5.8 |           2.2 | Iris-virginica  |  9.59795e-211 |       2.30543e-07 |      1           | Iris-virginica     |
+|  106 |            7.6 |           3   |            6.6 |           2.1 | Iris-virginica  |  4.424e-265   |       2.40977e-10 |      1           | Iris-virginica     |
+|  107 |            4.9 |           2.5 |            4.5 |           1.7 | Iris-virginica  |  1.29719e-105 |       0.973514    |      0.0264857   | Iris-versicolor    |
+|  108 |            7.3 |           2.9 |            6.3 |           1.8 | Iris-virginica  |  1.82754e-222 |       1.34018e-06 |      0.999999    | Iris-virginica     |
+|  109 |            6.7 |           2.5 |            5.8 |           1.8 | Iris-virginica  |  2.47673e-186 |       0.000492902 |      0.999507    | Iris-virginica     |
+|  110 |            7.2 |           3.6 |            6.1 |           2.5 | Iris-virginica  |  2.74264e-256 |       1.40568e-12 |      1           | Iris-virginica     |
+|  111 |            6.5 |           3.2 |            5.1 |           2   | Iris-virginica  |  2.96506e-156 |       0.000412884 |      0.999587    | Iris-virginica     |
+|  112 |            6.4 |           2.7 |            5.3 |           1.9 | Iris-virginica  |  5.15558e-161 |       0.00277742  |      0.997223    | Iris-virginica     |
+|  113 |            6.8 |           3   |            5.5 |           2.1 | Iris-virginica  |  2.33917e-187 |       4.80712e-06 |      0.999995    | Iris-virginica     |
+|  114 |            5.7 |           2.5 |            5   |           2   | Iris-virginica  |  1.40066e-148 |       0.0128807   |      0.987119    | Iris-virginica     |
+|  115 |            5.8 |           2.8 |            5.1 |           2.4 | Iris-virginica  |  1.46188e-182 |       1.04254e-06 |      0.999999    | Iris-virginica     |
+|  116 |            6.4 |           3.2 |            5.3 |           2.3 | Iris-virginica  |  9.5112e-188  |       4.50952e-07 |      1           | Iris-virginica     |
+|  117 |            6.5 |           3   |            5.5 |           1.8 | Iris-virginica  |  2.27971e-166 |       0.00187197  |      0.998128    | Iris-virginica     |
+|  118 |            7.7 |           3.8 |            6.7 |           2.2 | Iris-virginica  |  1.02757e-278 |       1.64575e-12 |      1           | Iris-virginica     |
+|  119 |            7.7 |           2.6 |            6.9 |           2.3 | Iris-virginica  |  2.68104e-303 |       6.47407e-13 |      1           | Iris-virginica     |
+|  120 |            6   |           2.2 |            5   |           1.5 | Iris-virginica  |  1.59742e-122 |       0.958135    |      0.0418646   | Iris-versicolor    |
+|  121 |            6.9 |           3.2 |            5.7 |           2.3 | Iris-virginica  |  5.75692e-214 |       1.17117e-08 |      1           | Iris-virginica     |
+|  122 |            5.6 |           2.8 |            4.9 |           2   | Iris-virginica  |  1.05871e-142 |       0.0137626   |      0.986237    | Iris-virginica     |
+|  123 |            7.7 |           2.8 |            6.7 |           2   | Iris-virginica  |  8.00551e-267 |       7.5824e-10  |      1           | Iris-virginica     |
+|  124 |            6.3 |           2.7 |            4.9 |           1.8 | Iris-virginica  |  3.19765e-133 |       0.129987    |      0.870013    | Iris-virginica     |
+|  125 |            6.7 |           3.3 |            5.7 |           2.1 | Iris-virginica  |  3.86332e-198 |       9.71778e-07 |      0.999999    | Iris-virginica     |
+|  126 |            7.2 |           3.2 |            6   |           1.8 | Iris-virginica  |  3.38923e-201 |       7.39902e-06 |      0.999993    | Iris-virginica     |
+|  127 |            6.2 |           2.8 |            4.8 |           1.8 | Iris-virginica  |  1.21708e-127 |       0.199928    |      0.800072    | Iris-virginica     |
+|  128 |            6.1 |           3   |            4.9 |           1.8 | Iris-virginica  |  8.38702e-132 |       0.107484    |      0.892516    | Iris-virginica     |
+|  129 |            6.4 |           2.8 |            5.6 |           2.1 | Iris-virginica  |  2.613e-191   |       1.09468e-05 |      0.999989    | Iris-virginica     |
+|  130 |            7.2 |           3   |            5.8 |           1.6 | Iris-virginica  |  1.38619e-177 |       0.000701806 |      0.999298    | Iris-virginica     |
+|  131 |            7.4 |           2.8 |            6.1 |           1.9 | Iris-virginica  |  5.35059e-216 |       9.06238e-07 |      0.999999    | Iris-virginica     |
+|  132 |            7.9 |           3.8 |            6.4 |           2   | Iris-virginica  |  4.42159e-245 |       2.96731e-10 |      1           | Iris-virginica     |
+|  133 |            6.4 |           2.8 |            5.6 |           2.2 | Iris-virginica  |  2.34473e-198 |       1.50788e-06 |      0.999998    | Iris-virginica     |
+|  134 |            6.3 |           2.8 |            5.1 |           1.5 | Iris-virginica  |  1.70603e-127 |       0.712645    |      0.287355    | Iris-versicolor    |
+|  135 |            6.1 |           2.6 |            5.6 |           1.4 | Iris-virginica  |  6.1362e-150  |       0.486199    |      0.513801    | Iris-virginica     |
+|  136 |            7.7 |           3   |            6.1 |           2.3 | Iris-virginica  |  1.21338e-245 |       8.98579e-11 |      1           | Iris-virginica     |
+|  137 |            6.3 |           3.4 |            5.6 |           2.4 | Iris-virginica  |  7.69531e-212 |       6.58849e-09 |      1           | Iris-virginica     |
+|  138 |            6.4 |           3.1 |            5.5 |           1.8 | Iris-virginica  |  1.14477e-165 |       0.00190228  |      0.998098    | Iris-virginica     |
+|  139 |            6   |           3   |            4.8 |           1.8 | Iris-virginica  |  1.97701e-126 |       0.193184    |      0.806816    | Iris-virginica     |
+|  140 |            6.9 |           3.1 |            5.4 |           2.1 | Iris-virginica  |  4.76127e-182 |       5.23126e-06 |      0.999995    | Iris-virginica     |
+|  141 |            6.7 |           3.1 |            5.6 |           2.4 | Iris-virginica  |  1.45671e-214 |       5.01447e-09 |      1           | Iris-virginica     |
+|  142 |            6.9 |           3.1 |            5.1 |           2.3 | Iris-virginica  |  6.12189e-180 |       4.67798e-07 |      1           | Iris-virginica     |
+|  143 |            5.8 |           2.7 |            5.1 |           1.9 | Iris-virginica  |  1.73076e-147 |       0.0250122   |      0.974988    | Iris-virginica     |
+|  144 |            6.8 |           3.2 |            5.9 |           2.3 | Iris-virginica  |  8.87112e-226 |       4.42556e-09 |      1           | Iris-virginica     |
+|  145 |            6.7 |           3.3 |            5.7 |           2.5 | Iris-virginica  |  3.23769e-228 |       1.64603e-10 |      1           | Iris-virginica     |
+|  146 |            6.7 |           3   |            5.2 |           2.3 | Iris-virginica  |  2.96341e-184 |       5.85508e-07 |      0.999999    | Iris-virginica     |
+|  147 |            6.3 |           2.5 |            5   |           1.9 | Iris-virginica  |  1.13194e-144 |       0.0254458   |      0.974554    | Iris-virginica     |
+|  148 |            6.5 |           3   |            5.2 |           2   | Iris-virginica  |  5.57089e-162 |       0.000370167 |      0.99963     | Iris-virginica     |
+|  149 |            6.2 |           3.4 |            5.4 |           2.3 | Iris-virginica  |  5.05671e-192 |       2.4602e-07  |      1           | Iris-virginica     |
+|  150 |            5.9 |           3   |            5.1 |           1.8 | Iris-virginica  |  2.63202e-141 |       0.056005    |      0.943995    | Iris-virginica     |
++------+----------------+---------------+----------------+---------------+-----------------+---------------+-------------------+------------------+--------------------+
+
+Akurasi Model Naïve Bayes: 0.9595
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Akurasi Model Naïve Bayes: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Model Naïve Bayes: 95.95%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mengapa-data-asli-96-dan-data-bersih-95">
+<h1>🔍 <strong>Mengapa Data Asli 96% dan Data Bersih 95%?</strong> 🤔<a class="headerlink" href="#mengapa-data-asli-96-dan-data-bersih-95" title="Link to this heading">#</a></h1>
+<section id="perbedaan-akurasi">
+<h2>📊 <strong>Perbedaan Akurasi</strong><a class="headerlink" href="#perbedaan-akurasi" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Data Asli (dengan 1 outlier) →</strong> 🟢 <strong>96%</strong></p></li>
+<li><p><strong>Data Bersih (tanpa outlier) →</strong> 🔵 <strong>95%</strong></p></li>
+</ul>
+<p>Meskipun hanya <strong>1 baris outlier</strong>, akurasinya sedikit berbeda! Kenapa bisa begitu? 🤷‍♂️</p>
+</section>
+<hr class="docutils" />
+<section id="outlier-bisa-membantu-model-membedakan-kelas">
+<h2>📌 <strong>1. Outlier Bisa Membantu Model Membedakan Kelas?</strong> 🎭<a class="headerlink" href="#outlier-bisa-membantu-model-membedakan-kelas" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Outlier dalam dataset mungkin <strong>secara tidak sengaja membantu model</strong> membedakan kelas lebih baik dalam <strong>dataset training &amp; testing</strong>.</p></li>
+<li><p>Jika outlier membuat model lebih condong ke satu pola tertentu, bisa jadi model lebih cocok dengan data testing, sehingga <strong>akurasi terlihat lebih tinggi (96%)</strong>.</p></li>
+</ul>
+<p>📝 <strong>Namun, ini bisa berbahaya!</strong></p>
+<ul class="simple">
+<li><p>Model mungkin bekerja <strong>baik pada data uji saat ini</strong>, tapi <strong>kurang stabil pada data baru</strong> (real-world).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="pengaruh-outlier-terhadap-distribusi-data">
+<h2>📌 <strong>2. Pengaruh Outlier terhadap Distribusi Data</strong> 📈<a class="headerlink" href="#pengaruh-outlier-terhadap-distribusi-data" title="Link to this heading">#</a></h2>
+<p>Naïve Bayes menggunakan <strong>mean ((\mu)) dan varians ((\sigma^2))</strong> untuk menghitung probabilitas.</p>
+<p>Mean dihitung sebagai:<br />
+$<span class="math notranslate nohighlight">\(
+\mu = \frac{\sum X}{N}
+\)</span>$</p>
+<p>Varians dihitung sebagai:<br />
+$<span class="math notranslate nohighlight">\(
+\sigma^2 = \frac{\sum (X - \mu)^2}{N}
+\)</span>$</p>
+<p>Probabilitas likelihood dalam Naïve Bayes dihitung dengan distribusi normal:<br />
+$<span class="math notranslate nohighlight">\(
+P(X | \text{Kelas}) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left( -\frac{(X - \mu)^2}{2\sigma^2} \right)
+\)</span>$</p>
+<ul class="simple">
+<li><p><strong>Data Asli (dengan outlier)</strong> → Mean &amp; varians berubah sedikit, sehingga probabilitasnya sedikit berbeda.</p></li>
+<li><p><strong>Data Bersih (tanpa outlier)</strong> → Mean &amp; varians lebih stabil, tapi model kehilangan pola yang mungkin “membantu” klasifikasi.</p></li>
+</ul>
+<p>💡 <strong>Hasilnya?</strong></p>
+<ul class="simple">
+<li><p>Data asli <strong>memiliki distribusi yang sedikit berbeda</strong>, yang <strong>kebetulan cocok dengan data testing</strong>, sehingga akurasinya naik ke <strong>96%</strong>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="akurasi-naik-tapi-bisa-overfitting">
+<h2>📌 <strong>3. Akurasi Naik, Tapi Bisa Overfitting?</strong> 🚀<a class="headerlink" href="#akurasi-naik-tapi-bisa-overfitting" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Data Asli (96%) mungkin sedikit overfitting</strong> terhadap outlier, sehingga tampak lebih akurat dalam dataset ini.</p></li>
+<li><p><strong>Data Bersih (95%) lebih generalisasi</strong>, jadi meskipun akurasinya sedikit lebih rendah, <strong>model lebih stabil dalam jangka panjang</strong>.</p></li>
+</ul>
+<p>🛑 <strong>Kesalahan yang sering terjadi:</strong></p>
+<blockquote>
+<div><p>“Akurasi lebih tinggi berarti model lebih baik!” ❌ <strong>(Tidak selalu benar!)</strong></p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>🏆 <strong>Kesimpulan</strong><a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p>✅ <strong>Perbedaan 1% tidak signifikan</strong>, tetapi menunjukkan bahwa <strong>outlier sedikit mempengaruhi model</strong>.<br />
+✅ <strong>Akurasi lebih tinggi bukan berarti lebih baik!</strong> Bisa jadi itu hanya karena model menghafal pola dari outlier.<br />
+✅ <strong>Model tanpa outlier lebih stabil &amp; lebih bisa diandalkan pada data baru!</strong></p>
+<p>🎯 <strong>Kesimpulan Akhir:</strong><br />
+📢 <strong>Jika outlier tidak masuk akal, lebih baik dihapus agar model lebih generalisasi &amp; tidak hanya menghafal data training!</strong> ✨</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="LOF.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1. Local Outlier Factor (LOF)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-naive-bayes">🧠 Apa itu Naïve Bayes?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-naive-bayes-penting">🔥 Mengapa Naïve Bayes Penting?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-dasar-teorema-bayes">🔢 Rumus dasar <strong>Teorema Bayes</strong>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-ini-diperlukan">🔄 Langkah-langkah Ini Diperlukan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-data-dari-mysql-postgresql">1️⃣ Mengambil Data dari MySQL &amp; PostgreSQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data">2️⃣ Menggabungkan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-dan-menghapus-outlier">3️⃣ Mencari dan menghapus Outlier 🔍</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah-perhitungan-naive-bayes">🌟 <strong>Langkah-langkah Perhitungan Naïve Bayes</strong> 📊</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-dataset">📌 1. <strong>Persiapan Dataset</strong> 📂</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-prior-probability-p-kelas">📌 2. <strong>Menghitung Prior Probability ( P(Kelas) )</strong> 🧮</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-likelihood-p-fitur-kelas">📌 3. <strong>Menghitung Likelihood ( P(Fitur | Kelas) )</strong> 📊</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-posterior-probability-p-kelas-fitur">📌 4. <strong>Menghitung Posterior Probability ( P(Kelas | Fitur) )</strong> 🤔</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-kelas-dengan-probabilitas-tertinggi">📌 5. <strong>Menentukan Kelas dengan Probabilitas Tertinggi</strong> 🏆</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-data-asli-96-dan-data-bersih-95">🔍 <strong>Mengapa Data Asli 96% dan Data Bersih 95%?</strong> 🤔</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbedaan-akurasi">📊 <strong>Perbedaan Akurasi</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-bisa-membantu-model-membedakan-kelas">📌 <strong>1. Outlier Bisa Membantu Model Membedakan Kelas?</strong> 🎭</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengaruh-outlier-terhadap-distribusi-data">📌 <strong>2. Pengaruh Outlier terhadap Distribusi Data</strong> 📈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#akurasi-naik-tapi-bisa-overfitting">📌 <strong>3. Akurasi Naik, Tapi Bisa Overfitting?</strong> 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">🏆 <strong>Kesimpulan</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
