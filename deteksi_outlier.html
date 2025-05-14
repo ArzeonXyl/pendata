@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -190,7 +190,12 @@
 <li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="UTS.html">mengambil data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS Analisis data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-mean_clustering.html">🧩 Clustering</a></li>
+
+
+
+
 
 </ul>
 
@@ -707,8 +712,8 @@ Successfully installed pymysql-1.1.1
 <h3>1️⃣ Ambil Data dari MySQL<a class="headerlink" href="#ambil-data-dari-mysql" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymysql</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymysql</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Koneksi ke MySQL</span>
 <span class="n">mysql_conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -750,8 +755,8 @@ Successfully installed pymysql-1.1.1
 <h3>2️⃣ Ambil Data dari PostgreSQL<a class="headerlink" href="#ambil-data-dari-postgresql" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psycopg2</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="c1"># Koneksi ke PostgreSQL</span>
 <span class="n">pg_conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -980,8 +985,8 @@ Successfully installed pymysql-1.1.1
 <h2>🔍 Kode untuk Mencari KNN (K-Nearest Neighbors)<a class="headerlink" href="#kode-untuk-mencari-knn-k-nearest-neighbors" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># jumlah tetangga yang kamu mau</span>
 <span class="n">hasil</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1455,7 +1460,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 <span class="n">outlier_df</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">]</span>
 
 <span class="c1"># Visualisasi</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">result_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">outlier_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">outlier_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Outlier&#39;</span><span class="p">)</span>
@@ -1471,8 +1476,8 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Menghitung Z-Score</span>
 <span class="n">mean_distance</span> <span class="o">=</span> <span class="n">result_df</span><span class="p">[</span><span class="s1">&#39;avg_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1531,7 +1536,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 <p>🌟 <strong>Kesimpulan Utama:</strong> KNN menawarkan pendekatan intuitif untuk mendeteksi outlier, namun hasil terbaik diperoleh dengan kombinasi pemilihan K yang tepat, threshold yang sesuai, dan visualisasi yang informatif.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
@@ -1549,7 +1554,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
 
 <span class="n">clf</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">result_df</span><span class="p">[[</span><span class="s1">&#39;petal length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal width&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">]])</span>
@@ -1920,10 +1925,10 @@ Jumlah total data: 150
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.legend_handler</span> <span class="kn">import</span> <span class="n">HandlerPathCollection</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.legend_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">HandlerPathCollection</span>
 
-<span class="k">def</span> <span class="nf">update_legend_marker_size</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">orig</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_legend_marker_size</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">orig</span><span class="p">):</span>
     <span class="s2">&quot;Customize size of the legend marker&quot;</span>
     <span class="n">handle</span><span class="o">.</span><span class="n">update_from</span><span class="p">(</span><span class="n">orig</span><span class="p">)</span>
     <span class="n">handle</span><span class="o">.</span><span class="n">set_sizes</span><span class="p">([</span><span class="mi">20</span><span class="p">])</span>

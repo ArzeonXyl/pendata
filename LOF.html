@@ -28,7 +28,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -190,7 +190,12 @@
 <li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="UTS.html">mengambil data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS Analisis data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-mean_clustering.html">🧩 Clustering</a></li>
+
+
+
+
 
 </ul>
 
@@ -1088,8 +1093,8 @@ LOF(P_a) = \frac{\sum_{P_b \in N_k(P_a)} \frac{LRD(P_b)}{LRD(P_a)}}{k}
 <p>Untuk mempermudah analisis, berikut adalah visualisasi distribusi data dan nilai LOF:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="c1"># Data</span>
 <span class="n">pasien_manual</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;P2&#39;</span><span class="p">,</span> <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">,</span> <span class="s1">&#39;P5&#39;</span><span class="p">,</span> <span class="s1">&#39;P6&#39;</span><span class="p">,</span> <span class="s1">&#39;P7&#39;</span><span class="p">,</span> <span class="s1">&#39;P8&#39;</span><span class="p">,</span> <span class="s1">&#39;P9&#39;</span><span class="p">,</span> <span class="s1">&#39;P10&#39;</span><span class="p">]</span>
@@ -1119,9 +1124,9 @@ LOF(P_a) = \frac{\sum_{P_b \in N_k(P_a)} \frac{LRD(P_b)}{LRD(P_a)}}{k}
 <p>berikut merupakan perhitungan lof dengan code manual tanpa library</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
     <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">85</span><span class="p">],</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">78</span><span class="p">],</span> <span class="p">[</span><span class="mi">125</span><span class="p">,</span> <span class="mi">83</span><span class="p">],</span> <span class="p">[</span><span class="mi">140</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
@@ -1129,7 +1134,7 @@ LOF(P_a) = \frac{\sum_{P_b \in N_k(P_a)} \frac{LRD(P_b)}{LRD(P_a)}}{k}
 <span class="p">])</span>
 
 <span class="c1"># Fungsi menghitung jarak Euclidean</span>
-<span class="k">def</span> <span class="nf">euclidean_dist</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">euclidean_dist</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 
 <span class="c1"># Menghitung jarak antara setiap titik</span>
@@ -1240,7 +1245,7 @@ P10 ke P9: 109.78615577567146
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung k-distance dan k-neighbors</span>
-<span class="k">def</span> <span class="nf">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">other</span><span class="p">)</span> <span class="k">for</span> <span class="n">other</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
     <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
     <span class="n">k_neighbors</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">sorted_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>  <span class="c1"># Hindari jarak ke dirinya sendiri</span>
@@ -1276,11 +1281,11 @@ P10: K-Distance = 8.246211251235321
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung reachability distance (RD)</span>
-<span class="k">def</span> <span class="nf">reachability_dist</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">reachability_dist</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">k_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
 
 <span class="c1"># Menghitung local reachability density (LRD)</span>
-<span class="k">def</span> <span class="nf">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
     <span class="n">rd_sum</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
@@ -1310,7 +1315,7 @@ P10: K-Distance = 8.246211251235321
 
 <span class="c1"># Menghitung Local Outlier Factor (LOF)</span>
 <span class="c1"># Menghitung Local Outlier Factor (LOF)</span>
-<span class="k">def</span> <span class="nf">local_outlier_factor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">lrd_values</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">local_outlier_factor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">lrd_values</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">k_dist</span><span class="p">,</span> <span class="n">neighbors</span> <span class="o">=</span> <span class="n">k_distance_and_neighbors</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
     <span class="n">lrd_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lrd_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">((</span><span class="n">data</span> <span class="o">==</span> <span class="n">neighbor</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">)</span>
     <span class="n">current_lrd</span> <span class="o">=</span> <span class="n">local_reachability_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
@@ -1546,11 +1551,11 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <h3>1. <strong>Import Library</strong><a class="headerlink" href="#import-library" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
-<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
 </pre></div>
 </div>
 </div>
