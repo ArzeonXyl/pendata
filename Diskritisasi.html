@@ -1,0 +1,1754 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Diskritisasi &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Diskritisasi';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Memahami Decision Tree: Dari Konsep Hingga Perhitungan" href="Decisiontree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">1. Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS Analisis data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-mean_clustering.html">🧩 Clustering</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Decisiontree.html">Memahami Decision Tree: Dari Konsep Hingga Perhitungan</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Diskritisasi</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FDiskritisasi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Diskritisasi.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Diskritisasi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-diskritisasi">penjelasan Diskritisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-matematika-di-balik-metode-diskritisasi">Rumus Matematika di Balik Metode Diskritisasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-width-binning-pembagian-berdasarkan-rentang-sama">1. Equal Width Binning (Pembagian Berdasarkan Rentang Sama)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kmeans-clustering-metode-yang-kita-gunakan">2. KMeans Clustering (Metode yang Kita Gunakan)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-lingkungan-koneksi-database">1. Persiapan Lingkungan &amp; Koneksi Database</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalasi-library">1.1. Instalasi Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengambilan-data-dari-database-mysql">1.2. Pengambilan Data dari Database MySQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspeksi-data-awal">1.3. Inspeksi Data Awal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-pada-data-asli-baseline">2. Pemodelan pada Data Asli (Baseline)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemisahan-fitur-dan-target">2.1. Pemisahan Fitur dan Target</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-training-dan-testing">2.2. Pembagian Data Training dan Testing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-dan-evaluasi-model">2.3. Pelatihan dan Evaluasi Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-pada-data-hasil-diskritisasi">3. Pemodelan pada Data Hasil Diskritisasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-fitur-dan-one-hot-encoding">3.1. Persiapan Fitur dan One-Hot Encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.2. Pelatihan dan Evaluasi Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-kesimpulan">4. Perbandingan Hasil &amp; Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-visual">5. Analisis Visual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-batas-klasterisasi-kmeans">5.1. Visualisasi Batas Klasterisasi KMeans</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-spesies-dalam-kategori">5.2. Visualisasi Distribusi Spesies dalam Kategori</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="diskritisasi">
+<h1>Diskritisasi<a class="headerlink" href="#diskritisasi" title="Link to this heading">#</a></h1>
+<section id="penjelasan-diskritisasi">
+<h2>penjelasan Diskritisasi<a class="headerlink" href="#penjelasan-diskritisasi" title="Link to this heading">#</a></h2>
+<p>Secara sederhana, <strong>diskritisasi</strong> adalah proses mengubah data numerik yang kontinu (memiliki banyak kemungkinan nilai, seperti tinggi badan atau suhu) menjadi sejumlah kategori atau “wadah” (bins) yang terbatas dan diskrit.</p>
+<p><strong>Analogi Sederhana:</strong>
+Bayangkan Anda memiliki daftar nilai ujian siswa dari 0 hingga 100. Nilai ini kontinu. Kemudian, Anda mengubahnya menjadi nilai huruf:</p>
+<ul class="simple">
+<li><p>Nilai 85 - 100 menjadi <strong>‘A’</strong></p></li>
+<li><p>Nilai 70 - 84.9 menjadi <strong>‘B’</strong></p></li>
+<li><p>Nilai 55 - 69.9 menjadi <strong>‘C’</strong></p></li>
+</ul>
+<p>Proses mengubah nilai angka menjadi nilai huruf inilah yang disebut <strong>diskritisasi</strong>. Anda mengubah data yang memiliki banyak variasi menjadi beberapa kategori saja (‘A’, ‘B’, ‘C’).</p>
+<p>Dalam proyek yang kita kerjakan, kita melakukan hal yang sama pada panjang dan lebar kelopak bunga (petal/sepal). Alih-alih menggunakan angka presisi seperti 5.1 cm, 4.9 cm, atau 7.0 cm, kita mengelompokkannya ke dalam kategori seperti ‘A’, ‘B’, ‘C’, dan ‘D’.</p>
+<p><strong>Tujuan Diskritisasi:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Penyederhanaan:</strong> Membuat data lebih mudah dipahami dan dianalisis.</p></li>
+<li><p><strong>Kompatibilitas Model:</strong> Beberapa model machine learning, seperti <em>Categorical Naive Bayes</em> yang kita gunakan, secara khusus memerlukan input berupa data kategorikal.</p></li>
+<li><p><strong>Menangkap Hubungan Non-Linear:</strong> Terkadang, hubungan antara fitur dan target tidak lurus (linear). Mengelompokkan data ke dalam kategori dapat membantu model menangkap pola yang lebih kompleks.</p></li>
+<li><p><strong>Mengurangi Dampak Outlier:</strong> Nilai yang sangat ekstrem (outlier) akan masuk ke dalam kategori yang sama dengan nilai lain di ujung rentang, sehingga dampaknya tidak terlalu besar.</p></li>
+</ol>
+<hr class="docutils" />
+</section>
+<section id="rumus-matematika-di-balik-metode-diskritisasi">
+<h2>Rumus Matematika di Balik Metode Diskritisasi<a class="headerlink" href="#rumus-matematika-di-balik-metode-diskritisasi" title="Link to this heading">#</a></h2>
+<p>Tidak ada satu “rumus diskritisasi” tunggal. Rumusnya sangat bergantung pada <strong>metode</strong> yang dipilih. Berikut adalah dua metode populer beserta matematikanya:</p>
+<section id="equal-width-binning-pembagian-berdasarkan-rentang-sama">
+<h3>1. Equal Width Binning (Pembagian Berdasarkan Rentang Sama)<a class="headerlink" href="#equal-width-binning-pembagian-berdasarkan-rentang-sama" title="Link to this heading">#</a></h3>
+<p>Ini adalah metode paling dasar di mana kita membagi rentang data menjadi <code class="docutils literal notranslate"><span class="pre">k</span></code> interval dengan lebar yang sama.</p>
+<p>Rumus untuk menentukan lebar setiap interval (<code class="docutils literal notranslate"><span class="pre">w</span></code>) adalah:</p>
+<div class="math notranslate nohighlight">
+\[w = \frac{\text{Nilai Maksimum} - \text{Nilai Minimum}}{k}\]</div>
+<p>Di mana:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Nilai</span> <span class="pre">Maksimum</span></code> adalah data terbesar dalam fitur.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Nilai</span> <span class="pre">Minimum</span></code> adalah data terkecil dalam fitur.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> adalah jumlah kategori/wadah yang kita inginkan.</p></li>
+</ul>
+<p>Batas intervalnya kemudian adalah: <code class="docutils literal notranslate"><span class="pre">Minimum</span></code>, <code class="docutils literal notranslate"><span class="pre">Minimum</span> <span class="pre">+</span> <span class="pre">w</span></code>, <code class="docutils literal notranslate"><span class="pre">Minimum</span> <span class="pre">+</span> <span class="pre">2w</span></code>, …, <code class="docutils literal notranslate"><span class="pre">Maksimum</span></code>.</p>
+</section>
+<section id="kmeans-clustering-metode-yang-kita-gunakan">
+<h3>2. KMeans Clustering (Metode yang Kita Gunakan)<a class="headerlink" href="#kmeans-clustering-metode-yang-kita-gunakan" title="Link to this heading">#</a></h3>
+<p>Metode ini jauh lebih canggih. Alih-alih hanya memotong rentang data, KMeans secara aktif mencari “pengelompokan alami” dalam data. Tujuannya adalah untuk meminimalkan jarak antara setiap titik data dengan pusat klaster (disebut <strong>centroid</strong>) tempat ia berada.</p>
+<p>Secara matematis, KMeans bertujuan untuk meminimalkan sebuah fungsi biaya yang disebut <strong>Within-Cluster Sum of Squares (WCSS)</strong>.</p>
+<p>Rumus untuk WCSS adalah:</p>
+<div class="math notranslate nohighlight">
+\[\text{WCSS} = \sum_{i=1}^{k} \sum_{x \in C_i} \left\| x - \mu_i \right\|^2\]</div>
+<p>Penjelasan rumus:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> adalah jumlah klaster (atau jumlah kategori yang kita inginkan).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i</span></code> adalah indeks dari sebuah klaster, dari 1 sampai <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_i\)</span> adalah himpunan semua titik data <code class="docutils literal notranslate"><span class="pre">x</span></code> yang termasuk dalam klaster ke-<code class="docutils literal notranslate"><span class="pre">i</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu_i\)</span> adalah titik pusat (centroid) dari klaster ke-<code class="docutils literal notranslate"><span class="pre">i</span></code>. Centroid ini dihitung sebagai rata-rata dari semua titik data di dalam klaster tersebut.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\left\| x - \mu_i \right\|^2\)</span> adalah kuadrat jarak (jarak Euclidean) dari sebuah titik data <code class="docutils literal notranslate"><span class="pre">x</span></code> ke centroid <span class="math notranslate nohighlight">\(\mu_i\)</span> dari klasternya.</p></li>
+</ul>
+<p><strong>Cara kerjanya:</strong> Algoritma KMeans secara berulang-ulang (iteratif) akan menggeser posisi centroid (<span class="math notranslate nohighlight">\(\mu_i\)</span>) dan mengubah keanggotaan titik data dalam klaster (<span class="math notranslate nohighlight">\(C_i\)</span>) sampai nilai total WCSS sekecil mungkin. Setelah proses ini selesai, setiap klaster yang terbentuk menjadi satu kategori diskrit.</p>
+</section>
+</section>
+<section id="persiapan-lingkungan-koneksi-database">
+<h2>1. Persiapan Lingkungan &amp; Koneksi Database<a class="headerlink" href="#persiapan-lingkungan-koneksi-database" title="Link to this heading">#</a></h2>
+<p>Langkah awal adalah mempersiapkan lingkungan kerja dengan menginstal library yang dibutuhkan dan menghubungkan notebook ke database untuk mengambil dataset Iris.</p>
+<section id="instalasi-library">
+<h3>1.1. Instalasi Library<a class="headerlink" href="#instalasi-library" title="Link to this heading">#</a></h3>
+<p>Kita memerlukan <code class="docutils literal notranslate"><span class="pre">mysql-connector-python</span></code> untuk koneksi ke MySQL, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> untuk manipulasi data, dan <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> untuk olah datanya</p>
+<p><em>Output dari sel ini adalah konfirmasi bahwa semua library yang dibutuhkan telah berhasil terpasang di lingkungan Colab.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Menginstal library yang dibutuhkan...&quot;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">pip</span> install mysql-connector-python pandas scikit-learn -q
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Instalasi selesai.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Menginstal library yang dibutuhkan...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/33.9 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.1/33.9 MB</span> <span class=" -Color -Color-Red">2.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:14</span>
+   ╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.6/33.9 MB</span> <span class=" -Color -Color-Red">9.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:04</span>
+   ━━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">3.8/33.9 MB</span> <span class=" -Color -Color-Red">35.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">9.0/33.9 MB</span> <span class=" -Color -Color-Red">63.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">14.4/33.9 MB</span> <span class=" -Color -Color-Red">151.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">19.7/33.9 MB</span> <span class=" -Color -Color-Red">155.1 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━ <span class=" -Color -Color-Green">25.3/33.9 MB</span> <span class=" -Color -Color-Red">156.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╺━━━ <span class=" -Color -Color-Green">30.7/33.9 MB</span> <span class=" -Color -Color-Red">156.9 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">33.8/33.9 MB</span> <span class=" -Color -Color-Red">155.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">33.8/33.9 MB</span> <span class=" -Color -Color-Red">155.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">33.8/33.9 MB</span> <span class=" -Color -Color-Red">155.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸ <span class=" -Color -Color-Green">33.8/33.9 MB</span> <span class=" -Color -Color-Red">155.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:01</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">33.9/33.9 MB</span> <span class=" -Color -Color-Red">49.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Instalasi selesai.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pengambilan-data-dari-database-mysql">
+<h3>1.2. Pengambilan Data dari Database MySQL<a class="headerlink" href="#pengambilan-data-dari-database-mysql" title="Link to this heading">#</a></h3>
+<p>Selanjutnya, kita mengambil data dari server database eksternal saya menggunakan kredensial yang telah disediakan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Langkah 2: Koneksi ke Database &amp; Ambil Data ---</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mysql.connector</span><span class="w"> </span><span class="kn">import</span> <span class="n">Error</span>
+
+<span class="c1"># Masukkan kredensial database Anda di sini</span>
+<span class="n">db_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;mysql-34425cbd-irismysqlaldi.h.aivencloud.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="mi">22476</span><span class="p">,</span>
+    <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;AVNS_QsQ7Yf7zzcmrk83yFgg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;database&quot;</span><span class="p">:</span> <span class="s2">&quot;iris_baru&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Nama tabel</span>
+<span class="n">TABLE_NAME</span> <span class="o">=</span> <span class="s1">&#39;iris&#39;</span>
+
+<span class="n">data_iris</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Membuat koneksi ke database</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Menghubungkan ke database &#39;</span><span class="si">{</span><span class="n">db_config</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">db_config</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Koneksi berhasil!&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Query untuk mengambil semua data dari tabel</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">TABLE_NAME</span><span class="si">}</span><span class="s2">;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mengambil data dari tabel &#39;</span><span class="si">{</span><span class="n">TABLE_NAME</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Membaca data menggunakan pandas</span>
+        <span class="n">data_iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil dimuat ke DataFrame.&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error saat menghubungkan ke MySQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># Menutup koneksi</span>
+    <span class="k">if</span> <span class="s1">&#39;conn&#39;</span> <span class="ow">in</span> <span class="nb">locals</span><span class="p">()</span> <span class="ow">and</span> <span class="n">conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Koneksi ke database ditutup.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan 5 baris pertama dari data yang berhasil diambil</span>
+<span class="k">if</span> <span class="n">data_iris</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berikut adalah 5 baris pertama dari data Anda:&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">data_iris</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">data_discretized</span> <span class="o">=</span> <span class="n">data_iris</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Menghubungkan ke database &#39;iris_baru&#39;...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Koneksi berhasil!
+Mengambil data dari tabel &#39;iris&#39;...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-2-500022929&gt;:32: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  data_iris = pd.read_sql(query, conn)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data berhasil dimuat ke DataFrame.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Koneksi ke database ditutup.
+
+Berikut adalah 5 baris pertama dari data Anda:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-0d177592-ff2c-4518-8a58-ad3974c638c2" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal_length_cm</th>
+      <th>sepal_width_cm</th>
+      <th>petal_length_cm</th>
+      <th>petal_width_cm</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-0d177592-ff2c-4518-8a58-ad3974c638c2')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-0d177592-ff2c-4518-8a58-ad3974c638c2 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-0d177592-ff2c-4518-8a58-ad3974c638c2');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+</section>
+<section id="inspeksi-data-awal">
+<h3>1.3. Inspeksi Data Awal<a class="headerlink" href="#inspeksi-data-awal" title="Link to this heading">#</a></h3>
+<p>Setelah data berhasil dimuat, diatas adalah tampilan 5 baris pertama untuk memastikan data sesuai dengan yang diharapkan.</p>
+</section>
+</section>
+<section id="pemodelan-pada-data-asli-baseline">
+<h2>2. Pemodelan pada Data Asli (Baseline)<a class="headerlink" href="#pemodelan-pada-data-asli-baseline" title="Link to this heading">#</a></h2>
+<p>Pada tahap ini, kita membangun model klasifikasi menggunakan data asli (numerik) untuk mendapatkan acuan performa (baseline accuracy) dalam hal ini saya menggunakna  naive bayes dan k-mean clustering sebagai metode olah datanya.</p>
+<section id="pemisahan-fitur-dan-target">
+<h3>2.1. Pemisahan Fitur dan Target<a class="headerlink" href="#pemisahan-fitur-dan-target" title="Link to this heading">#</a></h3>
+<p>Data dibagi menjadi dua: <strong>X</strong> (fitur/prediktor) dan <strong>y</strong> (target/label).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 1.1: Memisahkan Fitur dan Target dari Data Asli ---</span>
+
+<span class="c1"># Memilih kolom fitur (semua kolom kecuali &#39;species&#39;)</span>
+<span class="n">X_asli</span> <span class="o">=</span> <span class="n">data_iris</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Memilih kolom target</span>
+<span class="n">y_asli</span> <span class="o">=</span> <span class="n">data_iris</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitur (X) untuk data asli:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_asli</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah total data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_iris</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Target (y) untuk data asli:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">y_asli</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitur (X) untuk data asli:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-91fd011e-702d-443d-8d8f-9eb8cbf4b011" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal_length_cm</th>
+      <th>sepal_width_cm</th>
+      <th>petal_length_cm</th>
+      <th>petal_width_cm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-91fd011e-702d-443d-8d8f-9eb8cbf4b011')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-91fd011e-702d-443d-8d8f-9eb8cbf4b011 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-91fd011e-702d-443d-8d8f-9eb8cbf4b011');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah total data: 150 baris
+
+Target (y) untuk data asli:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Iris-setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Iris-setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> object</label></div></div>
+</div>
+<p>dari hasil diatas data dapat dipisah kan untuk kolom species dengan jumlah data 150 dengan x_asli(sudah tidak ada data kolom species)</p>
+</section>
+<section id="pembagian-data-training-dan-testing">
+<h3>2.2. Pembagian Data Training dan Testing<a class="headerlink" href="#pembagian-data-training-dan-testing" title="Link to this heading">#</a></h3>
+<p>Dataset dibagi menjadi 80% untuk melatih model dan 20% untuk menguji performanya. Penggunaan <code class="docutils literal notranslate"><span class="pre">random_state=42</span></code> memastikan hasil pembagian data konsisten setiap kali kode dijalankan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+
+
+<span class="n">X_train_asli</span><span class="p">,</span> <span class="n">X_test_asli</span><span class="p">,</span> <span class="n">y_train_asli</span><span class="p">,</span> <span class="n">y_test_asli</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_asli</span><span class="p">,</span> <span class="n">y_asli</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran data training: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train_asli</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran data testing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test_asli</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ukuran data training: 120 baris
+Ukuran data testing: 30 baris
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="pelatihan-dan-evaluasi-model">
+<h3>2.3. Pelatihan dan Evaluasi Model<a class="headerlink" href="#pelatihan-dan-evaluasi-model" title="Link to this heading">#</a></h3>
+<p>Dua model, Gaussian Naive Bayes dan Decision Tree, dilatih dan dievaluasi.</p>
+<p><strong>A. Gaussian Naive Bayes</strong>
+Model ini dipilih karena cocok untuk fitur numerik kontinu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A: Melatih dan Evaluasi Gaussian Naive Bayes ---</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># 1. Inisialisasi model</span>
+<span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># 2. Latih model dengan data training</span>
+<span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_asli</span><span class="p">,</span> <span class="n">y_train_asli</span><span class="p">)</span>
+
+<span class="c1"># 3. Lakukan prediksi pada data testing</span>
+<span class="n">y_pred_gnb_asli</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_asli</span><span class="p">)</span>
+
+<span class="c1"># 4. Hitung akurasi</span>
+<span class="n">acc_gnb_asli</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_asli</span><span class="p">,</span> <span class="n">y_pred_gnb_asli</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Gaussian Naive Bayes pada Data Asli: </span><span class="si">{</span><span class="n">acc_gnb_asli</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Gaussian Naive Bayes pada Data Asli: 100.00%
+</pre></div>
+</div>
+</div>
+</div>
+<p>dari hasil pelatihannya ini hasil akurasinya menujukkan 100%, jadi model ini bisa mengolah data dengan tepat dan bisa menebak data nya dengan tepat</p>
+<p><strong>B. Decision Tree</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># B: Melatih dan Evaluasi Decision Tree ---</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="c1"># 1. Inisialisasi model</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 2. Latih model dengan data training</span>
+<span class="n">dt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_asli</span><span class="p">,</span> <span class="n">y_train_asli</span><span class="p">)</span>
+
+<span class="c1"># 3. Lakukan prediksi pada data testing</span>
+<span class="n">y_pred_dt_asli</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_asli</span><span class="p">)</span>
+
+<span class="c1"># 4. Hitung akurasi</span>
+<span class="n">acc_dt_asli</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_asli</span><span class="p">,</span> <span class="n">y_pred_dt_asli</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Decision Tree pada Data Asli: </span><span class="si">{</span><span class="n">acc_dt_asli</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Decision Tree pada Data Asli: 100.00%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pemodelan-pada-data-hasil-diskritisasi">
+<h2>3. Pemodelan pada Data Hasil Diskritisasi<a class="headerlink" href="#pemodelan-pada-data-hasil-diskritisasi" title="Link to this heading">#</a></h2>
+<p>Sekarang, kita melakukan pemodelan pada data yang fiturnya telah diubah menjadi kategorikal.</p>
+<section id="persiapan-fitur-dan-one-hot-encoding">
+<h3>3.1. Persiapan Fitur dan One-Hot Encoding<a class="headerlink" href="#persiapan-fitur-dan-one-hot-encoding" title="Link to this heading">#</a></h3>
+<p>Fitur kategorikal (‘A’, ‘B’, ‘C’, dst.) harus diubah menjadi format numerik agar bisa diproses model. Kita menggunakan <strong>One-Hot Encoding</strong>, yang mengubah setiap kategori menjadi kolom baru berisi nilai 0 atau 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2.1: Mempersiapkan dan Melakukan Encoding pada Fitur Kategorikal ---</span>
+
+<span class="c1"># Memilih kolom fitur (semua kolom kecuali &#39;species&#39;)</span>
+<span class="n">X_diskrit_kategorikal</span> <span class="o">=</span> <span class="n">data_discretized</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Memilih kolom target</span>
+<span class="n">y_diskrit</span> <span class="o">=</span> <span class="n">data_discretized</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span>
+
+<span class="c1"># Melakukan One-Hot Encoding pada fitur-fitur kategorikal</span>
+<span class="c1"># Fungsi pd.get_dummies() secara otomatis melakukan ini untuk kita</span>
+<span class="n">X_diskrit_encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_diskrit_kategorikal</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitur (X) setelah di-encode:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_diskrit_encoded</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah kolom fitur baru setelah encoding: </span><span class="si">{</span><span class="n">X_diskrit_encoded</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitur (X) setelah di-encode:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-a20b1012-8a18-41b4-b68a-31d356c75a57" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>sepal_length_cm</th>
+      <th>sepal_width_cm</th>
+      <th>petal_length_cm</th>
+      <th>petal_width_cm</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a20b1012-8a18-41b4-b68a-31d356c75a57')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a20b1012-8a18-41b4-b68a-31d356c75a57 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a20b1012-8a18-41b4-b68a-31d356c75a57');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah kolom fitur baru setelah encoding: 5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>3.2. Pelatihan dan Evaluasi Model<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Model dilatih kembali menggunakan data yang sudah di-encode.</p>
+<p><strong>A. Categorical Naive Bayes</strong>
+Kita menggunakan <code class="docutils literal notranslate"><span class="pre">CategoricalNB</span></code> karena model ini dirancang khusus untuk fitur diskrit/kategorikal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2.2: Membagi Data Hasil Diskritisasi ---</span>
+
+<span class="c1"># Membagi data hasil encoding</span>
+<span class="n">X_train_diskrit</span><span class="p">,</span> <span class="n">X_test_diskrit</span><span class="p">,</span> <span class="n">y_train_diskrit</span><span class="p">,</span> <span class="n">y_test_diskrit</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_diskrit_encoded</span><span class="p">,</span> <span class="n">y_diskrit</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran data training (diskritisasi): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train_diskrit</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ukuran data testing (diskritisasi): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test_diskrit</span><span class="p">)</span><span class="si">}</span><span class="s2"> baris&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ukuran data training (diskritisasi): 120 baris
+Ukuran data testing (diskritisasi): 30 baris
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2.3 A: Melatih dan Evaluasi Categorical Naive Bayes ---</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">CategoricalNB</span>
+
+<span class="c1"># 1. Inisialisasi model</span>
+<span class="n">cnb</span> <span class="o">=</span> <span class="n">CategoricalNB</span><span class="p">()</span>
+
+<span class="c1"># 2. Latih model dengan data training yang sudah di-encode</span>
+<span class="n">cnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_diskrit</span><span class="p">,</span> <span class="n">y_train_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 3. Lakukan prediksi pada data testing</span>
+<span class="n">y_pred_cnb_diskrit</span> <span class="o">=</span> <span class="n">cnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 4. Hitung akurasi</span>
+<span class="n">acc_cnb_diskrit</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_diskrit</span><span class="p">,</span> <span class="n">y_pred_cnb_diskrit</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Categorical Naive Bayes pada Data Diskritisasi: </span><span class="si">{</span><span class="n">acc_cnb_diskrit</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Categorical Naive Bayes pada Data Diskritisasi: 96.67%
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>B. Decision Tree</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2.3 B: Melatih dan Evaluasi Decision Tree ---</span>
+
+<span class="c1"># 1. Inisialisasi model (kita bisa gunakan model dt yang sama)</span>
+<span class="n">dt_diskrit</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 2. Latih model dengan data training yang sudah di-encode</span>
+<span class="n">dt_diskrit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_diskrit</span><span class="p">,</span> <span class="n">y_train_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 3. Lakukan prediksi pada data testing</span>
+<span class="n">y_pred_dt_diskrit</span> <span class="o">=</span> <span class="n">dt_diskrit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 4. Hitung akurasi</span>
+<span class="n">acc_dt_diskrit</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_diskrit</span><span class="p">,</span> <span class="n">y_pred_dt_diskrit</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Decision Tree pada Data Diskritisasi: </span><span class="si">{</span><span class="n">acc_dt_diskrit</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Decision Tree pada Data Diskritisasi: 100.00%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2.3 B: Melatih dan Evaluasi Decision Tree ---</span>
+
+<span class="c1"># 1. Inisialisasi model (kita bisa gunakan model dt yang sama)</span>
+<span class="n">dt_diskrit</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 2. Latih model dengan data training yang sudah di-encode</span>
+<span class="n">dt_diskrit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_diskrit</span><span class="p">,</span> <span class="n">y_train_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 3. Lakukan prediksi pada data testing</span>
+<span class="n">y_pred_dt_diskrit</span> <span class="o">=</span> <span class="n">dt_diskrit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_diskrit</span><span class="p">)</span>
+
+<span class="c1"># 4. Hitung akurasi</span>
+<span class="n">acc_dt_diskrit</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_diskrit</span><span class="p">,</span> <span class="n">y_pred_dt_diskrit</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Decision Tree pada Data Diskritisasi: </span><span class="si">{</span><span class="n">acc_dt_diskrit</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Decision Tree pada Data Diskritisasi: 100.00%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="perbandingan-hasil-kesimpulan">
+<h2>4. Perbandingan Hasil &amp; Kesimpulan<a class="headerlink" href="#perbandingan-hasil-kesimpulan" title="Link to this heading">#</a></h2>
+<p>Hasil dari keempat skenario pemodelan dirangkum dalam satu tabel untuk perbandingan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Langkah 3: Membuat Tabel Perbandingan Akurasi ---</span>
+
+<span class="c1"># Membuat dictionary untuk menyimpan hasil</span>
+<span class="n">hasil_akurasi</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">,</span> <span class="s1">&#39;Decision Tree&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Akurasi pada Data Asli (Numerik)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">acc_gnb_asli</span><span class="p">,</span> <span class="n">acc_dt_asli</span><span class="p">],</span>
+    <span class="s1">&#39;Akurasi pada Data Hasil Diskritisasi (Kategorikal)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">acc_cnb_diskrit</span><span class="p">,</span> <span class="n">acc_dt_diskrit</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Membuat DataFrame dari dictionary</span>
+<span class="n">df_hasil</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">hasil_akurasi</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kolom akurasi menjadi persentase</span>
+<span class="n">df_hasil</span><span class="p">[</span><span class="s1">&#39;Akurasi pada Data Asli (Numerik)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_hasil</span><span class="p">[</span><span class="s1">&#39;Akurasi pada Data Asli (Numerik)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df_hasil</span><span class="p">[</span><span class="s1">&#39;Akurasi pada Data Hasil Diskritisasi (Kategorikal)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_hasil</span><span class="p">[</span><span class="s1">&#39;Akurasi pada Data Hasil Diskritisasi (Kategorikal)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabel Perbandingan Hasil Akurasi Model&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_hasil</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tabel Perbandingan Hasil Akurasi Model
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-c6ee63c6-a7ad-4a76-b0bb-7e0992870245" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model</th>
+      <th>Akurasi pada Data Asli (Numerik)</th>
+      <th>Akurasi pada Data Hasil Diskritisasi (Kategorikal)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Naive Bayes</td>
+      <td>100.00%</td>
+      <td>96.67%</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Decision Tree</td>
+      <td>100.00%</td>
+      <td>100.00%</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-c6ee63c6-a7ad-4a76-b0bb-7e0992870245')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-c6ee63c6-a7ad-4a76-b0bb-7e0992870245 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-c6ee63c6-a7ad-4a76-b0bb-7e0992870245');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Tabel perbandingan menunjukkan bahwa untuk kasus dataset Iris ini, baik pada data asli maupun data hasil diskritisasi, kedua model yaitu (Naive bayes) dengan akursasi 96,67% sudah termasuk baik dan (Decision Tree) memberikan <strong>akurasi 100.00%</strong>. Ini menandakan bahwa pola pada dataset Iris sangat jelas sehingga proses diskritisasi tidak mengurangi kemampuan model untuk melakukan klasifikasi dengan sempurna.</p>
+</section>
+<section id="analisis-visual">
+<h2>5. Analisis Visual<a class="headerlink" href="#analisis-visual" title="Link to this heading">#</a></h2>
+<p>Visualisasi membantu kita memahami bagaimana proses diskritisasi bekerja dan mengapa hasilnya efektif.</p>
+<section id="visualisasi-batas-klasterisasi-kmeans">
+<h3>5.1. Visualisasi Batas Klasterisasi KMeans<a class="headerlink" href="#visualisasi-batas-klasterisasi-kmeans" title="Link to this heading">#</a></h3>
+<p>Plot ini menunjukkan bagaimana KMeans mengelompokkan data berdasarkan fitur <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> dan <code class="docutils literal notranslate"><span class="pre">petal_width</span></code>. Warna titik merepresentasikan kategori baru (‘A’, ‘B’, ‘C’, ‘D’) yang dihasilkan dari proses diskritisasi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Visualisasi 1: Melihat Batas Klasterisasi KMeans ---</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Visualisasi Batas Kategori pada Fitur Petal (Kelopak)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Membuat scatter plot</span>
+<span class="c1"># Sumbu x dan y menggunakan data numerik asli</span>
+<span class="c1"># Warna (hue) menggunakan data kategori dari hasil diskritisasi</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">data_iris</span><span class="p">[</span><span class="s1">&#39;petal_length_cm&#39;</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">data_iris</span><span class="p">[</span><span class="s1">&#39;petal_width_cm&#39;</span><span class="p">],</span>
+    <span class="n">hue</span><span class="o">=</span><span class="n">data_discretized</span><span class="p">[</span><span class="s1">&#39;petal_length_cm&#39;</span><span class="p">],</span> <span class="c1"># Warna berdasarkan kategori hasil diskritisasi</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="c1"># Skema warna</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="c1"># Ukuran titik</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span> <span class="c1"># Transparansi</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Visualisasi Hasil Diskritisasi KMeans pada Petal&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Petal Length (cm) - Asli&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Petal Width (cm) - Asli&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Kategori Baru&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Visualisasi Batas Kategori pada Fitur Petal (Kelopak)
+</pre></div>
+</div>
+<img alt="_images/3d7e08b94b246a2075da57755e801e78b61d321c4f4aa95d98ef3bb42c9c4604.png" src="_images/3d7e08b94b246a2075da57755e801e78b61d321c4f4aa95d98ef3bb42c9c4604.png" />
+</div>
+</div>
+<p><em>Plot scatter menunjukkan empat kelompok data yang diidentifikasi oleh KMeans.Kelompok ‘A’ (warna gelap) memiliki panjang dan lebar petal terkecil, sementara kelompok ‘D’ (warna terang) memiliki ukuran terbesar, menunjukkan pengelompokan yang jelas dan logis.</em></p>
+</section>
+<section id="visualisasi-distribusi-spesies-dalam-kategori">
+<h3>5.2. Visualisasi Distribusi Spesies dalam Kategori<a class="headerlink" href="#visualisasi-distribusi-spesies-dalam-kategori" title="Link to this heading">#</a></h3>
+<p>Plot ini adalah kunci untuk memahami efektivitas diskritisasi. Kita melihat komposisi spesies dalam setiap kategori yang telah dibuat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Visualisasi 2: Melihat Distribusi Spesies di Tiap Kategori ---</span>
+
+<span class="c1"># Mengambil kembali daftar fitur yang kita diskritisasi</span>
+<span class="n">features_to_visualize</span> <span class="o">=</span> <span class="n">discretization_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Visualisasi Distribusi Spesies di Dalam Setiap Kategori Baru</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Loop untuk membuat plot untuk setiap fitur</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features_to_visualize</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># Menggunakan countplot dari seaborn untuk kemudahan</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">data_discretized</span><span class="p">[</span><span class="n">feature</span> <span class="o">+</span> <span class="s1">&#39;_discrete&#39;</span><span class="p">],</span> <span class="c1"># Sumbu x adalah kategori (A, B, C)</span>
+        <span class="n">hue</span><span class="o">=</span><span class="n">data_discretized</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">],</span> <span class="c1"># Warna dibedakan berdasarkan spesies</span>
+        <span class="n">order</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">data_discretized</span><span class="p">[</span><span class="n">feature</span> <span class="o">+</span> <span class="s1">&#39;_discrete&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="c1"># Mengurutkan kategori (A, B, C)</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribusi Spesies untuk Kategori Fitur &quot;</span><span class="si">{</span><span class="n">feature</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Kategori Hasil Diskritisasi&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Jumlah Data&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-14-3658738744&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Mengambil kembali daftar fitur yang kita diskritisasi</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">features_to_visualize</span> <span class="o">=</span> <span class="n">discretization_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Visualisasi Distribusi Spesies di Dalam Setiap Kategori Baru</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;discretization_params&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Dari serangkaian diagram batang, terlihat jelas bahwa kategori yang dibuat sangat berkorelasi dengan spesies. Contoh paling signifikan ada pada <code class="docutils literal notranslate"><span class="pre">petal_length_cm</span></code>, di mana Kategori ‘A’ secara eksklusif berisi spesies <code class="docutils literal notranslate"><span class="pre">Iris-setosa</span></code>. Ini secara visual membuktikan mengapa model klasifikasi dapat dengan mudah mencapai akurasi tinggi bahkan setelah data didiskritisasi.</em></p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Decisiontree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Memahami Decision Tree: Dari Konsep Hingga Perhitungan</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-diskritisasi">penjelasan Diskritisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rumus-matematika-di-balik-metode-diskritisasi">Rumus Matematika di Balik Metode Diskritisasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-width-binning-pembagian-berdasarkan-rentang-sama">1. Equal Width Binning (Pembagian Berdasarkan Rentang Sama)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kmeans-clustering-metode-yang-kita-gunakan">2. KMeans Clustering (Metode yang Kita Gunakan)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-lingkungan-koneksi-database">1. Persiapan Lingkungan &amp; Koneksi Database</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instalasi-library">1.1. Instalasi Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengambilan-data-dari-database-mysql">1.2. Pengambilan Data dari Database MySQL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspeksi-data-awal">1.3. Inspeksi Data Awal</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-pada-data-asli-baseline">2. Pemodelan pada Data Asli (Baseline)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemisahan-fitur-dan-target">2.1. Pemisahan Fitur dan Target</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-training-dan-testing">2.2. Pembagian Data Training dan Testing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-dan-evaluasi-model">2.3. Pelatihan dan Evaluasi Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-pada-data-hasil-diskritisasi">3. Pemodelan pada Data Hasil Diskritisasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-fitur-dan-one-hot-encoding">3.1. Persiapan Fitur dan One-Hot Encoding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">3.2. Pelatihan dan Evaluasi Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil-kesimpulan">4. Perbandingan Hasil &amp; Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-visual">5. Analisis Visual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-batas-klasterisasi-kmeans">5.1. Visualisasi Batas Klasterisasi KMeans</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-spesies-dalam-kategori">5.2. Visualisasi Distribusi Spesies dalam Kategori</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
