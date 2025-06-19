@@ -1,0 +1,2286 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>penjelasan dataset &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data_mining_PRA_UAS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Diskritisasi" href="Diskritisasi.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">1. Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS Analisis data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-mean_clustering.html">🧩 Clustering</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Decisiontree.html">Memahami Decision Tree: Dari Konsep Hingga Perhitungan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html">Diskritisasi</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">penjelasan dataset</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdata_mining_PRA_UAS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/data_mining_PRA_UAS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>penjelasan dataset</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data">ambil data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lihat-isi-data">lihat isi data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infromasi-fitur-apa-saja-pada-tabelnya">infromasi fitur apa saja pada tabelnya</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-tipe-data-dan-deskripsi-per-feature">informasi tipe data dan deskripsi per feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik-data">ringkasan statistik data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data-histogram">visualisasi data histogram</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-histogram-setiap-feature">visualisasi histogram setiap feature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-local-outlier-factor-lof-dan-alasan-pemilihannya">Penjelasan Algoritma Local Outlier Factor (LOF) dan Alasan Pemilihannya</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-utama">Konsep Utama</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja">Cara Kerja</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alasan-memilih-lof-untuk-dataset-ini">Alasan Memilih LOF untuk Dataset Ini</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-gaussian-naive-bayes">Penjelasan Algoritma Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Konsep Utama</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cara Kerja</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan">Kelebihan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan">Kekurangan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model-gaussian-naive-bayes">Hasil Evaluasi Model Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-hasil-specific-dari-confusion-matrix-dan-classification-report">Interpretasi Hasil Specific dari Confusion Matrix dan Classification Report</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-report">Classification Report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-analisis-dan-klasifikasi-dataset-beras">Kesimpulan Analisis dan Klasifikasi Dataset Beras</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="penjelasan-dataset">
+<h1>penjelasan dataset<a class="headerlink" href="#penjelasan-dataset" title="Link to this heading">#</a></h1>
+<p>Dataset ini mencakup 3.810 citra bulir padi dari dua spesies, yaitu Osmancik dan Cammeo, yang kemudian diproses untuk ekstraksi fitur. Dari setiap citra, berhasil diekstraksi tujuh fitur morfologi</p>
+<p>Untuk penelitian ini, dipilih dua spesies padi bersertifikat yang dominan ditanam di Turki: Osmancik, yang telah dibudidayakan secara luas sejak tahun 1997, dan Cammeo, yang mulai ditanam sejak tahun 2014. Secara umum, spesies Osmancik memiliki karakteristik bulir yang lebar, panjang, mengkilap, dan kusam. Sementara itu, spesies Cammeo juga menampilkan karakteristik bulir yang lebar, panjang, mengkilap, dan kusam. Total 3.810 citra bulir padi dari kedua spesies tersebut telah diakuisisi, diproses, dan diinferensi untuk mendapatkan tujuh fitur morfologi per bulir</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ucimlrepo</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ucimlrepo in /usr/local/lib/python3.11/dist-packages (0.0.7)
+Requirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2.2.2)
+Requirement already satisfied: certifi&gt;=2020.12.5 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2025.6.15)
+Requirement already satisfied: numpy&gt;=1.23.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.0.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="ambil-data">
+<h2>ambil data<a class="headerlink" href="#ambil-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ucimlrepo</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ucirepo</span>
+
+<span class="c1"># fetch dataset</span>
+<span class="n">rice_cammeo_and_osmancik</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">545</span><span class="p">)</span>
+
+<span class="c1"># data (as pandas dataframes)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">rice_cammeo_and_osmancik</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rice_cammeo_and_osmancik</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">targets</span>
+
+<span class="c1"># metadata</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rice_cammeo_and_osmancik</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+<span class="c1"># variable information</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rice_cammeo_and_osmancik</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;uci_id&#39;: 545, &#39;name&#39;: &#39;Rice (Cammeo and Osmancik)&#39;, &#39;repository_url&#39;: &#39;https://archive.ics.uci.edu/dataset/545/rice+cammeo+and+osmancik&#39;, &#39;data_url&#39;: &#39;https://archive.ics.uci.edu/static/public/545/data.csv&#39;, &#39;abstract&#39;: &quot;A total of 3810 rice grain&#39;s images were taken for the two species, processed and feature inferences were made. 7 morphological features were obtained for each grain of rice.&quot;, &#39;area&#39;: &#39;Biology&#39;, &#39;tasks&#39;: [&#39;Classification&#39;], &#39;characteristics&#39;: [&#39;Multivariate&#39;], &#39;num_instances&#39;: 3810, &#39;num_features&#39;: 7, &#39;feature_types&#39;: [&#39;Real&#39;], &#39;demographics&#39;: [], &#39;target_col&#39;: [&#39;Class&#39;], &#39;index_col&#39;: None, &#39;has_missing_values&#39;: &#39;no&#39;, &#39;missing_values_symbol&#39;: None, &#39;year_of_dataset_creation&#39;: 2019, &#39;last_updated&#39;: &#39;Fri Nov 03 2023&#39;, &#39;dataset_doi&#39;: &#39;10.24432/C5MW4Z&#39;, &#39;creators&#39;: [], &#39;intro_paper&#39;: {&#39;ID&#39;: 276, &#39;type&#39;: &#39;NATIVE&#39;, &#39;title&#39;: &#39;Classification of Rice Varieties Using Artificial Intelligence Methods&#39;, &#39;authors&#39;: &#39;Ilkay Cinar, M. Koklu&#39;, &#39;venue&#39;: &#39;International Journal of Intelligent Systems and Applications in Engineering&#39;, &#39;year&#39;: 2019, &#39;journal&#39;: None, &#39;DOI&#39;: &#39;10.18201/ijisae.2019355381&#39;, &#39;URL&#39;: &#39;https://www.semanticscholar.org/paper/4e508bb906c8fdc04ead6f20bd8918fcb3605d1c&#39;, &#39;sha&#39;: None, &#39;corpus&#39;: None, &#39;arxiv&#39;: None, &#39;mag&#39;: None, &#39;acl&#39;: None, &#39;pmid&#39;: None, &#39;pmcid&#39;: None}, &#39;additional_info&#39;: {&#39;summary&#39;: &quot;Among  the certified rice grown in TURKEY,  the  Osmancik species, which has a large planting area since 1997 and the Cammeo species grown since 2014 have been selected for the study.  When  looking  at  the  general  characteristics  of  Osmancik species, they have a wide, long, glassy and dull appearance.  When looking at the general characteristics of the Cammeo species, they have wide and long, glassy and dull in appearance.  A total of 3810 rice grain&#39;s images were taken for the two species, processed and feature inferences were made. 7 morphological features were obtained for each grain of rice. &quot;, &#39;purpose&#39;: None, &#39;funded_by&#39;: None, &#39;instances_represent&#39;: None, &#39;recommended_data_splits&#39;: None, &#39;sensitive_data&#39;: None, &#39;preprocessing_description&#39;: None, &#39;variable_info&#39;: &#39;1.) Area: Returns  the  number  of  pixels  within  the boundaries of the rice grain.\r\n2.) Perimeter: Calculates the circumference by calculating  the  distance  between  pixels around the boundaries of the rice grain.\r\n3.) Major Axis Length: The longest line that can be drawn on the rice  grain,  i.e.  the  main  axis  distance, gives.\r\n4.) Minor Axis Length: The shortest line that can be drawn on the rice  grain,  i.e.  the  small  axis  distance, gives.\r\n5.) Eccentricity: It measures how round the ellipse, which has  the  same  moments  as  the  rice  grain, is.\r\n6.) Convex Area: Returns  the  pixel  count  of  the  smallest convex shell of the region formed by the rice grain.\r\n7.) Extent: Returns the ratio of the regionformed by the rice grain to the bounding box pixels.\r\n8.) Class: Cammeo and Osmancik rices&#39;, &#39;citation&#39;: None}}
+                name     role        type demographic  \
+0               Area  Feature     Integer        None   
+1          Perimeter  Feature  Continuous        None   
+2  Major_Axis_Length  Feature  Continuous        None   
+3  Minor_Axis_Length  Feature  Continuous        None   
+4       Eccentricity  Feature  Continuous        None   
+5        Convex_Area  Feature     Integer        None   
+6             Extent  Feature  Continuous        None   
+7              Class   Target      Binary        None   
+
+                                         description units missing_values  
+0  Returns the number of pixels within the bounda...    px             no  
+1  Calculates the circumference by calculating th...    px             no  
+2  The longest line that can be drawn on the rice...  None             no  
+3  The shortest line that can be drawn on the ric...  None             no  
+4  It measures how round the ellipse, which has t...  None             no  
+5  Returns the pixel count of the smallest convex...  None             no  
+6  Returns the ratio of the region formed by the ...  None             no  
+7                                Cammeo and Osmancik  None             no  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lihat-isi-data">
+<h2>lihat isi data<a class="headerlink" href="#lihat-isi-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-2f1e3a68-01d6-45d0-9b4d-1cc3a727866f" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Area</th>
+      <th>Perimeter</th>
+      <th>Major_Axis_Length</th>
+      <th>Minor_Axis_Length</th>
+      <th>Eccentricity</th>
+      <th>Convex_Area</th>
+      <th>Extent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>15231</td>
+      <td>525.578979</td>
+      <td>229.749878</td>
+      <td>85.093788</td>
+      <td>0.928882</td>
+      <td>15617</td>
+      <td>0.572896</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14656</td>
+      <td>494.311005</td>
+      <td>206.020065</td>
+      <td>91.730972</td>
+      <td>0.895405</td>
+      <td>15072</td>
+      <td>0.615436</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14634</td>
+      <td>501.122009</td>
+      <td>214.106781</td>
+      <td>87.768288</td>
+      <td>0.912118</td>
+      <td>14954</td>
+      <td>0.693259</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>13176</td>
+      <td>458.342987</td>
+      <td>193.337387</td>
+      <td>87.448395</td>
+      <td>0.891861</td>
+      <td>13368</td>
+      <td>0.640669</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14688</td>
+      <td>507.166992</td>
+      <td>211.743378</td>
+      <td>89.312454</td>
+      <td>0.906691</td>
+      <td>15262</td>
+      <td>0.646024</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3805</th>
+      <td>11441</td>
+      <td>415.858002</td>
+      <td>170.486771</td>
+      <td>85.756592</td>
+      <td>0.864280</td>
+      <td>11628</td>
+      <td>0.681012</td>
+    </tr>
+    <tr>
+      <th>3806</th>
+      <td>11625</td>
+      <td>421.390015</td>
+      <td>167.714798</td>
+      <td>89.462570</td>
+      <td>0.845850</td>
+      <td>11904</td>
+      <td>0.694279</td>
+    </tr>
+    <tr>
+      <th>3807</th>
+      <td>12437</td>
+      <td>442.498993</td>
+      <td>183.572922</td>
+      <td>86.801979</td>
+      <td>0.881144</td>
+      <td>12645</td>
+      <td>0.626739</td>
+    </tr>
+    <tr>
+      <th>3808</th>
+      <td>9882</td>
+      <td>392.296997</td>
+      <td>161.193985</td>
+      <td>78.210480</td>
+      <td>0.874406</td>
+      <td>10097</td>
+      <td>0.659064</td>
+    </tr>
+    <tr>
+      <th>3809</th>
+      <td>11434</td>
+      <td>404.709992</td>
+      <td>161.079269</td>
+      <td>90.868195</td>
+      <td>0.825692</td>
+      <td>11591</td>
+      <td>0.802949</td>
+    </tr>
+  </tbody>
+</table>
+<p>3810 rows × 7 columns</p>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-2f1e3a68-01d6-45d0-9b4d-1cc3a727866f')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-2f1e3a68-01d6-45d0-9b4d-1cc3a727866f button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-2f1e3a68-01d6-45d0-9b4d-1cc3a727866f');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output text_html">
+  <div id="df-66059a44-a6f5-4a23-be51-acde1459ecd2" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Cammeo</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Cammeo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cammeo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cammeo</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Cammeo</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3805</th>
+      <td>Osmancik</td>
+    </tr>
+    <tr>
+      <th>3806</th>
+      <td>Osmancik</td>
+    </tr>
+    <tr>
+      <th>3807</th>
+      <td>Osmancik</td>
+    </tr>
+    <tr>
+      <th>3808</th>
+      <td>Osmancik</td>
+    </tr>
+    <tr>
+      <th>3809</th>
+      <td>Osmancik</td>
+    </tr>
+  </tbody>
+</table>
+<p>3810 rows × 1 columns</p>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-66059a44-a6f5-4a23-be51-acde1459ecd2')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-66059a44-a6f5-4a23-be51-acde1459ecd2 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-66059a44-a6f5-4a23-be51-acde1459ecd2');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+</section>
+<section id="infromasi-fitur-apa-saja-pada-tabelnya">
+<h2>infromasi fitur apa saja pada tabelnya<a class="headerlink" href="#infromasi-fitur-apa-saja-pada-tabelnya" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kolom pada DataFrame X:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kolom pada DataFrame y:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolom pada DataFrame X:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Area&#39;, &#39;Perimeter&#39;, &#39;Major_Axis_Length&#39;, &#39;Minor_Axis_Length&#39;,
+       &#39;Eccentricity&#39;, &#39;Convex_Area&#39;, &#39;Extent&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolom pada DataFrame y:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Class&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="informasi-tipe-data-dan-deskripsi-per-feature">
+<h2>informasi tipe data dan deskripsi per feature<a class="headerlink" href="#informasi-tipe-data-dan-deskripsi-per-feature" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">rice_cammeo_and_osmancik</span><span class="o">.</span><span class="n">variables</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-bf09bb67-752a-4dd9-bd28-6043247abafe" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>role</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Area</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Returns the number of pixels within the bounda...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Perimeter</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Calculates the circumference by calculating th...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Major_Axis_Length</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>The longest line that can be drawn on the rice...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Minor_Axis_Length</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>The shortest line that can be drawn on the ric...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eccentricity</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>It measures how round the ellipse, which has t...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Convex_Area</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Returns the pixel count of the smallest convex...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Extent</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Returns the ratio of the region formed by the ...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Class</td>
+      <td>Target</td>
+      <td>Binary</td>
+      <td>Cammeo and Osmancik</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-bf09bb67-752a-4dd9-bd28-6043247abafe')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-bf09bb67-752a-4dd9-bd28-6043247abafe button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-bf09bb67-752a-4dd9-bd28-6043247abafe');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>berikut penjelasan fitur dan deskripsinya</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>index</p></th>
+<th class="head text-left"><p>name</p></th>
+<th class="head text-left"><p>role</p></th>
+<th class="head text-left"><p>type</p></th>
+<th class="head text-left"><p>description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>0</p></td>
+<td class="text-left"><p>Area</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Integer</p></td>
+<td class="text-left"><p>Mengembalikan jumlah piksel dalam batas area butir beras.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>1</p></td>
+<td class="text-left"><p>Perimeter</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Continuous</p></td>
+<td class="text-left"><p>Menghitung keliling dengan menghitung jarak antar piksel di sekitar batas butir beras.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>2</p></td>
+<td class="text-left"><p>Major_Axis_Length</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Continuous</p></td>
+<td class="text-left"><p>Garis terpanjang yang dapat ditarik pada butir beras, yaitu jarak sumbu utama.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>3</p></td>
+<td class="text-left"><p>Minor_Axis_Length</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Continuous</p></td>
+<td class="text-left"><p>Garis terpendek yang dapat ditarik pada butir beras, yaitu jarak sumbu kecil.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>4</p></td>
+<td class="text-left"><p>Eccentricity</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Continuous</p></td>
+<td class="text-left"><p>Mengukur seberapa bulat elips, yang memiliki momen yang sama dengan butir beras.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>5</p></td>
+<td class="text-left"><p>Convex_Area</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Integer</p></td>
+<td class="text-left"><p>Mengembalikan jumlah piksel dari selubung cembung terkecil pada area yang dibentuk oleh butir beras.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>6</p></td>
+<td class="text-left"><p>Extent</p></td>
+<td class="text-left"><p>Feature</p></td>
+<td class="text-left"><p>Continuous</p></td>
+<td class="text-left"><p>Mengembalikan rasio area yang dibentuk oleh butir beras terhadap kotak pembatasnya.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>7</p></td>
+<td class="text-left"><p>Class</p></td>
+<td class="text-left"><p>Target</p></td>
+<td class="text-left"><p>Binary</p></td>
+<td class="text-left"><p>Cammeo dan Osmancik</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ringkasan-statistik-data">
+<h2>ringkasan statistik data<a class="headerlink" href="#ringkasan-statistik-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-394c1b86-6fbc-494e-b9b5-f89c41c5d0dd" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Area</th>
+      <th>Perimeter</th>
+      <th>Major_Axis_Length</th>
+      <th>Minor_Axis_Length</th>
+      <th>Eccentricity</th>
+      <th>Convex_Area</th>
+      <th>Extent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+      <td>3810.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>12667.727559</td>
+      <td>454.239180</td>
+      <td>188.776222</td>
+      <td>86.313750</td>
+      <td>0.886871</td>
+      <td>12952.496850</td>
+      <td>0.661934</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1732.367706</td>
+      <td>35.597081</td>
+      <td>17.448679</td>
+      <td>5.729817</td>
+      <td>0.020818</td>
+      <td>1776.972042</td>
+      <td>0.077239</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>7551.000000</td>
+      <td>359.100006</td>
+      <td>145.264465</td>
+      <td>59.532406</td>
+      <td>0.777233</td>
+      <td>7723.000000</td>
+      <td>0.497413</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>11370.500000</td>
+      <td>426.144752</td>
+      <td>174.353855</td>
+      <td>82.731695</td>
+      <td>0.872402</td>
+      <td>11626.250000</td>
+      <td>0.598862</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>12421.500000</td>
+      <td>448.852493</td>
+      <td>185.810059</td>
+      <td>86.434647</td>
+      <td>0.889050</td>
+      <td>12706.500000</td>
+      <td>0.645361</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>13950.000000</td>
+      <td>483.683746</td>
+      <td>203.550438</td>
+      <td>90.143677</td>
+      <td>0.902588</td>
+      <td>14284.000000</td>
+      <td>0.726562</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>18913.000000</td>
+      <td>548.445984</td>
+      <td>239.010498</td>
+      <td>107.542450</td>
+      <td>0.948007</td>
+      <td>19099.000000</td>
+      <td>0.861050</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-394c1b86-6fbc-494e-b9b5-f89c41c5d0dd')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-394c1b86-6fbc-494e-b9b5-f89c41c5d0dd button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-394c1b86-6fbc-494e-b9b5-f89c41c5d0dd');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>code untuk memnampilkan berapa banyak data berdasarkan class nya</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Osmancik</th>
+      <td>2180</td>
+    </tr>
+    <tr>
+      <th>Cammeo</th>
+      <td>1630</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div></div>
+</div>
+</section>
+<section id="visualisasi-data-histogram">
+<h2>visualisasi data histogram<a class="headerlink" href="#visualisasi-data-histogram" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Count of Rice Classes&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/be67c26f458ae9533367897ad92a4c6e9416f7bfa982c5711b85978e647b61cd.png" src="_images/be67c26f458ae9533367897ad92a4c6e9416f7bfa982c5711b85978e647b61cd.png" />
+</div>
+</div>
+<section id="visualisasi-histogram-setiap-feature">
+<h3>visualisasi histogram setiap feature<a class="headerlink" href="#visualisasi-histogram-setiap-feature" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">X</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/20ecdfaa74f70f148ad37f1260282bb1f0832741cb26e4c7bc99640f1f5c0a41.png" src="_images/20ecdfaa74f70f148ad37f1260282bb1f0832741cb26e4c7bc99640f1f5c0a41.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="preprocessing">
+<h2>preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<p>disini saya menggunakan teknik lof untuk mendeteksi outliernya</p>
+<section id="penjelasan-algoritma-local-outlier-factor-lof-dan-alasan-pemilihannya">
+<h3>Penjelasan Algoritma Local Outlier Factor (LOF) dan Alasan Pemilihannya<a class="headerlink" href="#penjelasan-algoritma-local-outlier-factor-lof-dan-alasan-pemilihannya" title="Link to this heading">#</a></h3>
+<p><strong>Local Outlier Factor (LOF)</strong> adalah algoritma deteksi outlier yang berbasis pada kepadatan (density-based). Algoritma ini mengukur seberapa terisolasi atau abnormal suatu titik data relatif terhadap tetangga terdekatnya, bukan relatif terhadap seluruh dataset secara global.</p>
+<section id="konsep-utama">
+<h4>Konsep Utama<a class="headerlink" href="#konsep-utama" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>K-distance:</strong> Jarak dari suatu titik data <span class="math notranslate nohighlight">\(p\)</span> ke tetangga terdekat ke-<span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+<li><p><strong>Reachability Distance:</strong> Jarak yang “diperhalus” antara dua titik. Ini adalah jarak maksimum antara titik <span class="math notranslate nohighlight">\(p\)</span> dan titik lain <span class="math notranslate nohighlight">\(o\)</span>, atau k-distance dari <span class="math notranslate nohighlight">\(o\)</span>, mana yang lebih besar. Ini membantu mengurangi fluktuasi statistik pada titik-titik yang sangat dekat.</p></li>
+<li><p><strong>Local Reachability Density (LRD):</strong> Kebalikan dari rata-rata reachability distance dari suatu titik <span class="math notranslate nohighlight">\(p\)</span> ke tetangga-tetangga k-nya. LRD mengukur seberapa padat area di sekitar titik <span class="math notranslate nohighlight">\(p\)</span>. Kepadatan yang lebih rendah berarti titik tersebut lebih terisolasi.</p>
+<div class="math notranslate nohighlight">
+\[LRD(p) = \frac{1}{\text{average}_{o \in N_k(p)} \text{reachability-distance}_k(p, o)}\]</div>
+<p>Di mana <span class="math notranslate nohighlight">\(N_k(p)\)</span> adalah k-tetangga terdekat dari titik <span class="math notranslate nohighlight">\(p\)</span>.</p>
+</li>
+<li><p><strong>Local Outlier Factor (LOF):</strong> Rasio rata-rata LRD dari tetangga-tetangga k-nya terhadap LRD dari titik <span class="math notranslate nohighlight">\(p\)</span> itu sendiri.</p>
+<div class="math notranslate nohighlight">
+\[LOF_k(p) = \text{average}_{o \in N_k(p)} \left( \frac{LRD(o)}{LRD(p)} \right)\]</div>
+<ul class="simple">
+<li><p>Jika LRD titik <span class="math notranslate nohighlight">\(p\)</span> mirip dengan LRD tetangganya, LOF akan mendekati 1. Ini menunjukkan titik tersebut berada di area dengan kepadatan yang mirip dengan tetangganya (bukan outlier).</p></li>
+<li><p>Jika LRD titik <span class="math notranslate nohighlight">\(p\)</span> secara signifikan lebih rendah dari LRD tetangganya, LOF akan jauh lebih besar dari 1. Ini menunjukkan titik tersebut berada di area yang kurang padat dibandingkan tetangganya, menjadikannya kandidat outlier.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="cara-kerja">
+<h4>Cara Kerja<a class="headerlink" href="#cara-kerja" title="Link to this heading">#</a></h4>
+<p>LOF menghitung skor LOF untuk setiap titik data. Skor ini merepresentasikan tingkat “keanehan” lokal titik tersebut. Skor LOF yang tinggi menunjukkan bahwa titik tersebut memiliki kepadatan lokal yang jauh lebih rendah dibandingkan tetangganya, sehingga dianggap sebagai outlier.</p>
+</section>
+<section id="alasan-memilih-lof-untuk-dataset-ini">
+<h4>Alasan Memilih LOF untuk Dataset Ini<a class="headerlink" href="#alasan-memilih-lof-untuk-dataset-ini" title="Link to this heading">#</a></h4>
+<p>Kami memilih Local Outlier Factor (LOF) untuk mendeteksi outlier pada dataset beras yang sudah diskalakan berdasarkan beberapa pertimbangan:</p>
+<ol class="arabic simple">
+<li><p><strong>Berbasis Kepadatan Lokal:</strong> Dataset kita memiliki fitur-fitur numerik yang distribusinya mungkin bervariasi (seperti yang terlihat dari histogram). LOF sangat efektif dalam mendeteksi outlier yang mungkin berada di luar pola umum data, bahkan jika pola data memiliki kepadatan yang berbeda di berbagai area. Metode ini tidak hanya mencari titik yang jauh dari semua titik lain secara global, tetapi titik yang aneh <em>relatif terhadap lingkungannya</em>.</p></li>
+<li><p><strong>Tidak Memerlukan Asumsi Distribusi:</strong> LOF adalah metode non-parametrik. Ini tidak mengasumsikan bahwa data mengikuti distribusi statistik tertentu (seperti normal), yang membuatnya fleksibel untuk berbagai jenis data.</p></li>
+<li><p><strong>Cocok untuk Data Multidimensional:</strong> Dengan 7 fitur numerik, dataset kita bersifat multidimensional. LOF bekerja dengan baik dalam ruang berdimensi tinggi untuk mengukur isolasi titik data.</p></li>
+<li><p><strong>Memberikan Skor Outlier:</strong> LOF memberikan skor numerik untuk setiap sampel, yang memungkinkan kita untuk mengurutkan sampel berdasarkan tingkat “keanehan” dan menetapkan ambang batas (seperti yang dilakukan oleh <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> di scikit-learn yang menggunakan ambang batas -1 untuk memisahkan outlier dari inlier) untuk mengidentifikasi outlier.</p></li>
+</ol>
+<p>Meskipun ada metode lain, LOF memberikan keseimbangan yang baik antara kemampuan mendeteksi outlier dalam berbagai kepadatan data dan kemudahan interpretasi skornya dalam konteks lokalitas. Untuk dataset berukuran menengah seperti ini, LOF adalah pilihan yang efisien dan efektif.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span> <span class="c1"># Make sure pandas is imported here if not globally available</span>
+
+<span class="c1"># Apply LOF for outlier detection</span>
+<span class="c1"># Use the scaled NumPy array X_scaled directly</span>
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="c1"># fit_predict returns -1 for outliers and 1 for inliers</span>
+<span class="n">outlier_labels</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># Use X_scaled (NumPy array)</span>
+
+<span class="c1"># The opposite_of_outlier_scores_ attribute provides the LOF scores.</span>
+<span class="n">lof_scores</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+
+<span class="c1"># Create the X_scaled_df DataFrame *after* LOF calculation,</span>
+<span class="c1"># including the original scaled data plus the LOF results.</span>
+<span class="c1"># We need X_scaled (NumPy array) and original column names from X</span>
+<span class="n">X_scaled_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="c1"># Recreate DataFrame from scaled array</span>
+
+<span class="c1"># Add the LOF scores and labels to the scaled DataFrame</span>
+<span class="n">X_scaled_df</span><span class="p">[</span><span class="s1">&#39;lof_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lof_scores</span>
+<span class="n">X_scaled_df</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_labels</span>
+
+<span class="c1"># Display samples with the lowest LOF scores (most likely outliers)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples with lowest LOF scores (most likely outliers):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_scaled_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;lof_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Display the count of samples identified as outliers (-1) and inliers (1)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Count of outliers (-1) and inliers (1):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_scaled_df</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples with lowest LOF scores (most likely outliers):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-ddf5e241-a01a-4142-99b3-f7167fad37dd" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Area</th>
+      <th>Perimeter</th>
+      <th>Major_Axis_Length</th>
+      <th>Minor_Axis_Length</th>
+      <th>Eccentricity</th>
+      <th>Convex_Area</th>
+      <th>Extent</th>
+      <th>lof_score</th>
+      <th>is_outlier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3263</th>
+      <td>10189</td>
+      <td>454.316010</td>
+      <td>180.737656</td>
+      <td>73.326431</td>
+      <td>0.914003</td>
+      <td>11000</td>
+      <td>0.519794</td>
+      <td>-4.540012</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>1203</th>
+      <td>18913</td>
+      <td>541.745972</td>
+      <td>227.135483</td>
+      <td>106.948357</td>
+      <td>0.882209</td>
+      <td>19099</td>
+      <td>0.804124</td>
+      <td>-4.432991</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>600</th>
+      <td>18313</td>
+      <td>538.497986</td>
+      <td>222.464249</td>
+      <td>106.184746</td>
+      <td>0.878734</td>
+      <td>18724</td>
+      <td>0.624420</td>
+      <td>-3.164374</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>3025</th>
+      <td>7551</td>
+      <td>369.063995</td>
+      <td>163.408829</td>
+      <td>59.532406</td>
+      <td>0.931275</td>
+      <td>7723</td>
+      <td>0.756462</td>
+      <td>-3.110818</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>181</th>
+      <td>14806</td>
+      <td>509.376007</td>
+      <td>214.142426</td>
+      <td>89.691704</td>
+      <td>0.908059</td>
+      <td>15594</td>
+      <td>0.708794</td>
+      <td>-2.856323</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ddf5e241-a01a-4142-99b3-f7167fad37dd')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-ddf5e241-a01a-4142-99b3-f7167fad37dd button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-ddf5e241-a01a-4142-99b3-f7167fad37dd');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Count of outliers (-1) and inliers (1):
+is_outlier
+ 1    3762
+-1      48
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>hasil dari lof menyatakan bahwa yang termasuk outlier ini sebanyak 34 data</p>
+<p>setelah itu kita hapus data outliernya agar pelatiahan model semakin bagus</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove outliers from the scaled features and encoded target</span>
+<span class="c1"># Keep only the rows where &#39;is_outlier&#39; is 1 (inliers)</span>
+<span class="n">X_cleaned_scaled</span> <span class="o">=</span> <span class="n">X_scaled_df</span><span class="p">[</span><span class="n">X_scaled_df</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lof_score&#39;</span><span class="p">,</span> <span class="s1">&#39;is_outlier&#39;</span><span class="p">])</span>
+<span class="n">y_cleaned_encoded</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">X_scaled_df</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Display the shape of the cleaned dataframes to confirm rows were removed</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of X_cleaned_scaled after removing outliers:&quot;</span><span class="p">,</span> <span class="n">X_cleaned_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of y_cleaned_encoded after removing outliers:&quot;</span><span class="p">,</span> <span class="n">y_cleaned_encoded</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Display the first few rows of the cleaned scaled features</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cleaned scaled features (first 5 rows):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_cleaned_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of X_cleaned_scaled after removing outliers: (3762, 7)
+Shape of y_cleaned_encoded after removing outliers: (3762, 1)
+
+Cleaned scaled features (first 5 rows):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-39fc7bfe-5ad0-4cdc-8a0f-600b60a895a6" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Area</th>
+      <th>Perimeter</th>
+      <th>Major_Axis_Length</th>
+      <th>Minor_Axis_Length</th>
+      <th>Eccentricity</th>
+      <th>Convex_Area</th>
+      <th>Extent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>15231</td>
+      <td>525.578979</td>
+      <td>229.749878</td>
+      <td>85.093788</td>
+      <td>0.928882</td>
+      <td>15617</td>
+      <td>0.572896</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14656</td>
+      <td>494.311005</td>
+      <td>206.020065</td>
+      <td>91.730972</td>
+      <td>0.895405</td>
+      <td>15072</td>
+      <td>0.615436</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14634</td>
+      <td>501.122009</td>
+      <td>214.106781</td>
+      <td>87.768288</td>
+      <td>0.912118</td>
+      <td>14954</td>
+      <td>0.693259</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>13176</td>
+      <td>458.342987</td>
+      <td>193.337387</td>
+      <td>87.448395</td>
+      <td>0.891861</td>
+      <td>13368</td>
+      <td>0.640669</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>13479</td>
+      <td>477.015991</td>
+      <td>200.053055</td>
+      <td>86.650291</td>
+      <td>0.901328</td>
+      <td>13786</td>
+      <td>0.657897</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-39fc7bfe-5ad0-4cdc-8a0f-600b60a895a6')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-39fc7bfe-5ad0-4cdc-8a0f-600b60a895a6 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-39fc7bfe-5ad0-4cdc-8a0f-600b60a895a6');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="clustering">
+<h2>clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h2>
+<p>pada clustering ini saya memakai metode naive bayes</p>
+<section id="penjelasan-algoritma-gaussian-naive-bayes">
+<h3>Penjelasan Algoritma Gaussian Naive Bayes<a class="headerlink" href="#penjelasan-algoritma-gaussian-naive-bayes" title="Link to this heading">#</a></h3>
+<p><strong>Gaussian Naive Bayes</strong> adalah salah satu varian dari algoritma klasifikasi Naive Bayes. Algoritma ini didasarkan pada <strong>Teorema Bayes</strong> dan memiliki asumsi “naive” bahwa semua fitur bersifat independen satu sama lain, <strong>diberikan kelasnya</strong>.</p>
+<section id="id1">
+<h4>Konsep Utama<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>Teorema Bayes:</strong> Algoritma ini menggunakan Teorema Bayes untuk menghitung probabilitas bahwa suatu sampel termasuk dalam kelas tertentu (<code class="docutils literal notranslate"><span class="pre">P(Kelas</span> <span class="pre">|</span> <span class="pre">Fitur)</span></code>), berdasarkan probabilitas awal kelas (<code class="docutils literal notranslate"><span class="pre">P(Kelas)</span></code>) dan probabilitas fitur diberikan kelas (<code class="docutils literal notranslate"><span class="pre">P(Fitur</span> <span class="pre">|</span> <span class="pre">Kelas)</span></code>).</p>
+<p>Rumus Teorema Bayes:
+<code class="docutils literal notranslate"><span class="pre">P(Kelas</span> <span class="pre">|</span> <span class="pre">Fitur)</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">P(Fitur</span> <span class="pre">|</span> <span class="pre">Kelas)</span> <span class="pre">*</span> <span class="pre">P(Kelas)</span> <span class="pre">]</span> <span class="pre">/</span> <span class="pre">P(Fitur)</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P(Kelas</span> <span class="pre">|</span> <span class="pre">Fitur)</span></code> (Posterior Probability): Probabilitas bahwa sampel termasuk dalam kelas tertentu, diberikan nilai fitur-fiturnya. Ini yang ingin kita prediksi.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P(Fitur</span> <span class="pre">|</span> <span class="pre">Kelas)</span></code> (Likelihood): Probabilitas munculnya nilai fitur tertentu, diberikan bahwa sampel tersebut termasuk dalam kelas tertentu.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P(Kelas)</span></code> (Prior Probability): Probabilitas awal bahwa sampel termasuk dalam kelas tertentu (tanpa melihat fiturnya). Ini bisa dihitung dari frekuensi kelas dalam data training.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">P(Fitur)</span></code> (Evidence): Probabilitas munculnya nilai fitur tertentu secara keseluruhan. Ini adalah konstanta untuk semua kelas, jadi seringkali diabaikan dalam perbandingan antar kelas.</p></li>
+</ul>
+</li>
+<li><p><strong>Asumsi “Naive” (Independensi Fitur):</strong> Ini adalah asumsi kunci (dan seringkali tidak realistis) dari Naive Bayes. Asumsi ini mengatakan bahwa nilai dari setiap fitur tidak bergantung pada nilai fitur lainnya, selama kita mengetahui kelasnya. Secara matematis, ini berarti:</p>
+<p><code class="docutils literal notranslate"><span class="pre">P(Fitur1,</span> <span class="pre">Fitur2,</span> <span class="pre">...,</span> <span class="pre">FiturN</span> <span class="pre">|</span> <span class="pre">Kelas)</span> <span class="pre">=</span> <span class="pre">P(Fitur1</span> <span class="pre">|</span> <span class="pre">Kelas)</span> <span class="pre">*</span> <span class="pre">P(Fitur2</span> <span class="pre">|</span> <span class="pre">Kelas)</span> <span class="pre">*</span> <span class="pre">...</span> <span class="pre">*</span> <span class="pre">P(FiturN</span> <span class="pre">|</span> <span class="pre">Kelas)</span></code></p>
+<p>Asumsi inilah yang membuat Naive Bayes “naive” tetapi juga membuatnya sangat cepat dan efisien, karena perhitungan probabilitas menjadi jauh lebih sederhana.</p>
+</li>
+<li><p><strong>Gaussian:</strong> Varian Gaussian Naive Bayes digunakan ketika fitur-fitur bersifat <strong>kontinu</strong>. Algoritma ini mengasumsikan bahwa nilai-nilai fitur untuk setiap kelas mengikuti <strong>distribusi Gaussian (Normal)</strong>. Untuk setiap kelas dan setiap fitur, model akan menghitung mean (rata-rata) dan standard deviation (standar deviasi) dari nilai fitur dalam data training. <code class="docutils literal notranslate"><span class="pre">P(Fitur</span> <span class="pre">|</span> <span class="pre">Kelas)</span></code> kemudian dihitung menggunakan fungsi kepadatan probabilitas (Probability Density Function - PDF) dari distribusi Gaussian.</p></li>
+</ol>
+</section>
+<section id="id2">
+<h4>Cara Kerja<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Pelatihan:</strong></p>
+<ul class="simple">
+<li><p>Untuk setiap kelas dalam data training, hitung <code class="docutils literal notranslate"><span class="pre">P(Kelas)</span></code> (proporsi sampel dalam kelas tersebut).</p></li>
+<li><p>Untuk setiap kelas dan setiap fitur, hitung mean dan standard deviation dari nilai fitur sampel dalam kelas tersebut. Ini adalah parameter distribusi Gaussian untuk fitur tersebut dalam kelas tersebut.</p></li>
+</ul>
+</li>
+<li><p><strong>Prediksi:</strong></p>
+<ul class="simple">
+<li><p>Untuk sampel baru yang tidak diketahui kelasnya, hitung <code class="docutils literal notranslate"><span class="pre">P(Kelas</span> <span class="pre">|</span> <span class="pre">Fitur)</span></code> untuk setiap kelas menggunakan Teorema Bayes dan asumsi independensi.</p></li>
+<li><p>Karena <code class="docutils literal notranslate"><span class="pre">P(Fitur)</span></code> sama untuk semua kelas, kita hanya perlu membandingkan <code class="docutils literal notranslate"><span class="pre">P(Fitur</span> <span class="pre">|</span> <span class="pre">Kelas)</span> <span class="pre">*</span> <span class="pre">P(Kelas)</span></code>.</p></li>
+<li><p>Model memprediksi kelas yang memberikan nilai <code class="docutils literal notranslate"><span class="pre">P(Kelas</span> <span class="pre">|</span> <span class="pre">Fitur)</span></code> tertinggi.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="kelebihan">
+<h4>Kelebihan<a class="headerlink" href="#kelebihan" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Sederhana dan mudah diimplementasikan.</p></li>
+<li><p>Sangat cepat untuk dilatih dan diprediksi, bahkan pada dataset besar.</p></li>
+<li><p>Tidak sensitif terhadap skala fitur.</p></li>
+<li><p>Bagus sebagai baseline model atau ketika data training terbatas.</p></li>
+</ul>
+</section>
+<section id="kekurangan">
+<h4>Kekurangan<a class="headerlink" href="#kekurangan" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Asumsi independensi fitur seringkali tidak terpenuhi di dunia nyata, yang dapat mengurangi performa jika fitur-fitur sangat berkorelasi.</p></li>
+<li><p>Estimasi probabilitas bisa kurang akurat karena asumsi independensi.</p></li>
+</ul>
+<p>Meskipun memiliki asumsi yang kuat, Gaussian Naive Bayes seringkali berkinerja surprisingly baik dalam praktiknya, terutama pada masalah klasifikasi teks atau ketika fitur-fitur memang relatif independen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Split the cleaned and scaled data into training and testing sets</span>
+<span class="c1"># Using a standard split of 80% for training and 20% for testing</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_cleaned_scaled</span><span class="p">,</span> <span class="n">y_cleaned_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of X_train:&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of X_test:&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of y_train:&quot;</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of y_test:&quot;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of X_train: (3009, 7)
+Shape of X_test: (753, 7)
+Shape of y_train: (3009, 1)
+Shape of y_test: (753, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize and train the Gaussian Naive Bayes model</span>
+<span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Make predictions on the testing set</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Calculate the accuracy of the model</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># Print the accuracy as a percentage</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy of the Gaussian Naive Bayes model: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy of the Gaussian Naive Bayes model: 89.91%
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/utils/validation.py:1408: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>dari hasil pelatiahn model mendapatkan akurasi sebanyak 91.80% akurasi ini cukup baik untuk data ini</p>
+</section>
+</section>
+</section>
+<section id="hasil-evaluasi-model-gaussian-naive-bayes">
+<h2>Hasil Evaluasi Model Gaussian Naive Bayes<a class="headerlink" href="#hasil-evaluasi-model-gaussian-naive-bayes" title="Link to this heading">#</a></h2>
+<p>Setelah melatih model Gaussian Naive Bayes dan melakukan prediksi pada data testing, kita mengevaluasi performanya menggunakan Confusion Matrix dan Classification Report.</p>
+<section id="confusion-matrix">
+<h3>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h3>
+<p>Confusion Matrix memberikan ringkasan visual tentang seberapa baik model dalam mengklasifikasikan setiap kelas. Hasilnya adalah:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="c1"># Calculate the confusion matrix</span>
+<span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># Display the confusion matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">conf_matrix</span><span class="p">)</span>
+
+<span class="c1"># Calculate and display the classification report</span>
+<span class="c1"># This includes Precision, Recall, F1-Score, and Support for each class</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion Matrix:
+[[296  43]
+ [ 33 381]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Cammeo       0.90      0.87      0.89       339
+    Osmancik       0.90      0.92      0.91       414
+
+    accuracy                           0.90       753
+   macro avg       0.90      0.90      0.90       753
+weighted avg       0.90      0.90      0.90       753
+</pre></div>
+</div>
+</div>
+</div>
+<section id="interpretasi-hasil-specific-dari-confusion-matrix-dan-classification-report">
+<h4>Interpretasi Hasil Specific dari Confusion Matrix dan Classification Report<a class="headerlink" href="#interpretasi-hasil-specific-dari-confusion-matrix-dan-classification-report" title="Link to this heading">#</a></h4>
+<p>Berdasarkan hasil eksekusi kode sebelumnya:</p>
+<p><strong>Confusion Matrix:</strong></p>
+<p>dari hasil runningnya Ini berarti:</p>
+<ul class="simple">
+<li><p><strong>True Negatives (TN = 296):</strong> Terdapat 296 sampel yang sebenarnya adalah kelas 0 (Cammeo) dan diprediksi dengan benar oleh model sebagai kelas 0.</p></li>
+<li><p><strong>False Positives (FP = 43):</strong> Terdapat 43 sampel yang sebenarnya adalah kelas 0 (Cammeo) tetapi diprediksi salah oleh model sebagai kelas 1 (Osmancik). Ini sering disebut sebagai kesalahan “Type I error”.</p></li>
+<li><p><strong>False Negatives (FN = 33):</strong> Terdapat 33 sampel yang sebenarnya adalah kelas 1 (Osmancik) tetapi diprediksi salah oleh model sebagai kelas 0 (Cammeo). Ini sering disebut sebagai kesalahan “Type II error”.</p></li>
+<li><p><strong>True Positives (TP = 381):</strong> Terdapat 381 sampel yang sebenarnya adalah kelas 1 (Osmancik) dan diprediksi dengan benar oleh model sebagai kelas 1.</p></li>
+</ul>
+<p>Dari matriks ini, kita bisa melihat bahwa model memiliki jumlah prediksi benar (296 + 381 = 677) yang jauh lebih banyak daripada prediksi salah (43 + 33 = 76).</p>
+</section>
+</section>
+<section id="classification-report">
+<h3>Classification Report<a class="headerlink" href="#classification-report" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="kesimpulan-analisis-dan-klasifikasi-dataset-beras">
+<h2>Kesimpulan Analisis dan Klasifikasi Dataset Beras<a class="headerlink" href="#kesimpulan-analisis-dan-klasifikasi-dataset-beras" title="Link to this heading">#</a></h2>
+<p>Dataset ini berisi fitur morfologi dari dua spesies beras, Osmancik dan Cammeo, dengan total 3.810 sampel. Tujuh fitur numerik telah diekstraksi untuk setiap bulir.</p>
+<p>Langkah-langkah analisis dan pemodelan yang telah dilakukan meliputi:</p>
+<ol class="arabic simple">
+<li><p><strong>Pengambilan Data:</strong> Data diambil menggunakan library <code class="docutils literal notranslate"><span class="pre">ucimlrepo</span></code>.</p></li>
+<li><p><strong>Eksplorasi Data:</strong> Dilakukan pemeriksaan ringkasan statistik fitur (<code class="docutils literal notranslate"><span class="pre">X.describe()</span></code>) dan distribusi kelas target (<code class="docutils literal notranslate"><span class="pre">y.value_counts()</span></code>), serta visualisasi distribusi fitur (histogram) dan count plot kelas target. Ditemukan bahwa jumlah sampel antar kelas cukup seimbang.</p></li>
+<li><p><strong>Pra-pemrosesan Data:</strong></p>
+<ul class="simple">
+<li><p>Variabel target (<code class="docutils literal notranslate"><span class="pre">y</span></code>) diubah menjadi format numerik menggunakan Label Encoding.</p></li>
+<li><p>Fitur-fitur numerik (<code class="docutils literal notranslate"><span class="pre">X</span></code>) diskalakan menggunakan StandardScaler untuk menstandarisasi rentang nilai.</p></li>
+<li><p>Deteksi outlier dilakukan menggunakan Local Outlier Factor (LOF), yang mengidentifikasi 34 outlier. Outlier ini kemudian dihapus dari dataset yang sudah diskalakan dan target yang sudah di-encode.</p></li>
+</ul>
+</li>
+<li><p><strong>Pemodelan dan Evaluasi Klasifikasi:</strong></p>
+<ul class="simple">
+<li><p>Dataset yang sudah dibersihkan dan diskalakan dibagi menjadi training set dan testing set.</p></li>
+<li><p>Model klasifikasi <strong>Gaussian Naive Bayes</strong> dipilih dan dilatih pada training set.</p></li>
+<li><p>Model dievaluasi menggunakan testing set.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Hasil Evaluasi Model Naive Bayes:</strong></p>
+<ul class="simple">
+<li><p><strong>Akurasi:</strong> Model mencapai akurasi <strong>89.91%</strong> pada data testing.</p></li>
+<li><p><strong>Confusion Matrix dan Classification Report:</strong> Menunjukkan performa yang baik dan seimbang untuk kedua kelas (Cammeo dan Osmancik), dengan nilai Precision, Recall, dan F1-score yang tinggi (sekitar 87-92%) untuk kedua kelas. Ini menandakan bahwa model mampu memprediksi kedua jenis beras dengan tingkat kesalahan yang relatif rendah.</p></li>
+</ul>
+<p><strong>Kesimpulan:</strong></p>
+<p>Model Gaussian Naive Bayes yang dilatih pada fitur morfologi beras yang sudah diskalakan dan dibersihkan dari outlier menunjukkan kemampuan yang kuat dalam mengklasifikasikan jenis beras antara Osmancik dan Cammeo. Akurasi 89.91% dan metrik evaluasi lainnya yang baik mengindikasikan bahwa fitur-fitur morfologi yang diekstraksi sangat relevan dan diskriminatif untuk tugas klasifikasi ini. Meskipun asumsi independensi Naive Bayes mungkin tidak sepenuhnya terpenuhi, model ini memberikan performa yang sangat baik sebagai baseline.</p>
+<p>Untuk eksplorasi lebih lanjut, membandingkan performa model ini dengan algoritma klasifikasi lain (seperti SVM atau Random Forest) atau melakukan <em>hyperparameter tuning</em> dapat berpotensi meningkatkan hasil lebih lanjut, meskipun hasil saat ini sudah sangat memuaskan.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Diskritisasi.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Diskritisasi</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ambil-data">ambil data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lihat-isi-data">lihat isi data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infromasi-fitur-apa-saja-pada-tabelnya">infromasi fitur apa saja pada tabelnya</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-tipe-data-dan-deskripsi-per-feature">informasi tipe data dan deskripsi per feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-statistik-data">ringkasan statistik data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data-histogram">visualisasi data histogram</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-histogram-setiap-feature">visualisasi histogram setiap feature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-local-outlier-factor-lof-dan-alasan-pemilihannya">Penjelasan Algoritma Local Outlier Factor (LOF) dan Alasan Pemilihannya</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-utama">Konsep Utama</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja">Cara Kerja</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alasan-memilih-lof-untuk-dataset-ini">Alasan Memilih LOF untuk Dataset Ini</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">clustering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-algoritma-gaussian-naive-bayes">Penjelasan Algoritma Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Konsep Utama</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Cara Kerja</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan">Kelebihan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan">Kekurangan</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model-gaussian-naive-bayes">Hasil Evaluasi Model Gaussian Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-hasil-specific-dari-confusion-matrix-dan-classification-report">Interpretasi Hasil Specific dari Confusion Matrix dan Classification Report</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-report">Classification Report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-analisis-dan-klasifikasi-dataset-beras">Kesimpulan Analisis dan Klasifikasi Dataset Beras</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -200,6 +200,7 @@
 
 <li class="toctree-l1"><a class="reference internal" href="Decisiontree.html">Memahami Decision Tree: Dari Konsep Hingga Perhitungan</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html">Diskritisasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_mining_PRA_UAS.html">penjelasan dataset</a></li>
 </ul>
 
     </div>
@@ -681,16 +682,7 @@ d = \sqrt{(10 - 7)^2 + (3.0 - 2.8)^2}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
-  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
-Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">2.4 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
-Successfully installed pymysql-1.1.1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
 </pre></div>
 </div>
 </div>
@@ -781,13 +773,23 @@ Successfully installed pymysql-1.1.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari PostgreSQL:
-   id        class  sepal_length  sepal_width
-0   1  Iris-setosa          20.1         30.5
-1   2  Iris-setosa           4.9          3.0
-2   3  Iris-setosa           4.7          3.2
-3   4  Iris-setosa           4.6          3.1
-4   5  Iris-setosa           5.0          3.6
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OperationalError</span><span class="g g-Whitespace">                          </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-4-1609815360.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Koneksi ke PostgreSQL</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">pg_conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="s2">&quot;postgres://avnadmin:AVNS_0S2t3zth51a__4WQCdz@pg-2c20c354-pendataku.h.aivencloud.com:26053/defaultdb?sslmode=require&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="p">)</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/psycopg2/__init__.py</span> in <span class="ni">connect</span><span class="nt">(dsn, connection_factory, cursor_factory, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span> 
+<span class="g g-Whitespace">    </span><span class="mi">121</span>     <span class="n">dsn</span> <span class="o">=</span> <span class="n">_ext</span><span class="o">.</span><span class="n">make_dsn</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">122</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">_connect</span><span class="p">(</span><span class="n">dsn</span><span class="p">,</span> <span class="n">connection_factory</span><span class="o">=</span><span class="n">connection_factory</span><span class="p">,</span> <span class="o">**</span><span class="n">kwasync</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>     <span class="k">if</span> <span class="n">cursor_factory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="n">conn</span><span class="o">.</span><span class="n">cursor_factory</span> <span class="o">=</span> <span class="n">cursor_factory</span>
+
+<span class="ne">OperationalError</span>: could not translate host name &quot;pg-2c20c354-pendataku.h.aivencloud.com&quot; to address: Name or service not known
 </pre></div>
 </div>
 </div>
@@ -927,7 +929,7 @@ Successfully installed pymysql-1.1.1
 | 98  | Iris-versicolor | 4.3           | 1.3          | 6.2           | 2.9          |
 | 99  | Iris-versicolor | 3.0           | 1.1          | 5.1           | 2.5          |
 | 100 | Iris-versicolor | 4.1           | 1.3          | 5.7           | 2.8          |
-| 101 | Iris-virginica  | 6.0           | 2.5          | 6.3           | 3.3          |
+| 101 | Iris-virginica  | 6.0           | 2.5          | 60.0          | 30.0         |
 | 102 | Iris-virginica  | 5.1           | 1.9          | 5.8           | 2.7          |
 | 103 | Iris-virginica  | 5.9           | 2.1          | 7.1           | 3.0          |
 | 104 | Iris-virginica  | 5.6           | 1.8          | 6.3           | 2.9          |
@@ -1224,7 +1226,7 @@ Successfully installed pymysql-1.1.1
 +-----+------+----------------+---------------+----------------+---------------+----------------+
 |  99 |  100 |            4.1 |           1.3 |            5.7 |           2.8 |       0.179411 |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
-| 100 |  101 |            6   |           2.5 |            6.3 |           3.3 |       0.478055 |
+| 100 |  101 |            6   |           2.5 |           60   |          30   |      58.5598   |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
 | 101 |  102 |            5.1 |           1.9 |            5.8 |           2.7 |       0.193601 |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
@@ -1296,7 +1298,7 @@ Successfully installed pymysql-1.1.1
 +-----+------+----------------+---------------+----------------+---------------+----------------+
 | 135 |  136 |            6.1 |           2.3 |            7.7 |           3   |       0.583188 |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
-| 136 |  137 |            5.6 |           2.4 |            6.3 |           3.4 |       0.35217  |
+| 136 |  137 |            5.6 |           2.4 |            6.3 |           3.4 |       0.356046 |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
 | 137 |  138 |            5.5 |           1.8 |            6.4 |           3.1 |       0.25789  |
 +-----+------+----------------+---------------+----------------+---------------+----------------+
@@ -1474,7 +1476,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7cea604542dae2cc4161d377b8e0c34cba93eca112d45abde2de4f016310a240.png" src="_images/7cea604542dae2cc4161d377b8e0c34cba93eca112d45abde2de4f016310a240.png" />
+<img alt="_images/8312da7372bba4790ce410f82f47ae784d9beddf1472c21c025c6d0ba5810553.png" src="_images/8312da7372bba4790ce410f82f47ae784d9beddf1472c21c025c6d0ba5810553.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1503,7 +1505,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b9b6b056e572f9cc6d6d807051643fd099e9fbfee1a17e480b90aa1e74d4f8cb.png" src="_images/b9b6b056e572f9cc6d6d807051643fd099e9fbfee1a17e480b90aa1e74d4f8cb.png" />
+<img alt="_images/101346af400d067e98137f22e14fb72037a76162cf021fd47fa48b02b93328a4.png" src="_images/101346af400d067e98137f22e14fb72037a76162cf021fd47fa48b02b93328a4.png" />
 </div>
 </div>
 </section>
@@ -1582,12 +1584,12 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 0      1      Iris-setosa          86.4         70.0          20.1   
 14    15      Iris-setosa           1.2          0.2           5.8   
 15    16      Iris-setosa           1.5          0.4           5.7   
-33    34      Iris-setosa           1.4          0.2           5.5   
 41    42      Iris-setosa           1.3          0.3           4.5   
 57    58  Iris-versicolor           3.3          1.0           4.9   
 60    61  Iris-versicolor           3.5          1.0           5.0   
 93    94  Iris-versicolor           3.3          1.0           5.0   
 98    99  Iris-versicolor           3.0          1.1           5.1   
+100  101   Iris-virginica           6.0          2.5          60.0   
 105  106   Iris-virginica           6.6          2.1           7.6   
 106  107   Iris-virginica           4.5          1.7           4.9   
 117  118   Iris-virginica           6.7          2.2           7.7   
@@ -1596,26 +1598,26 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 131  132   Iris-virginica           6.4          2.0           7.9   
 
      sepal_width  avg_distance    z_score  
-0           30.5    108.837746  12.164466  
-14           4.0      0.476358  -0.063416  
-15           4.4      0.508240  -0.059818  
-33           4.2      0.364755  -0.076010  
-41           2.3      0.702252  -0.037925  
-57           2.4      0.328992  -0.080045  
-60           2.0      0.496544  -0.061138  
-93           2.3      0.296425  -0.083720  
-98           2.5      0.498569  -0.060910  
-105          3.0      0.447149  -0.066712  
-106          2.5      0.763383  -0.031027  
-117          3.8      0.697026  -0.038515  
-118          2.6      0.618153  -0.047415  
-122          2.8      0.428387  -0.068829  
-131          3.8      0.740949  -0.033559  
+0           30.5    108.837746  10.709931  
+14           4.0      0.476358  -0.094645  
+15           4.4      0.508240  -0.091467  
+41           2.3      0.702252  -0.072122  
+57           2.4      0.328992  -0.109339  
+60           2.0      0.496544  -0.092633  
+93           2.3      0.296425  -0.112586  
+98           2.5      0.498569  -0.092431  
+100         30.0     58.559826   5.696784  
+105          3.0      0.447149  -0.097558  
+106          2.5      0.763383  -0.066026  
+117          3.8      0.697026  -0.072643  
+118          2.6      0.618153  -0.080507  
+122          2.8      0.428387  -0.099429  
+131          3.8      0.740949  -0.068263  
 [-1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1
-  1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1
+  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1
   1  1  1  1  1  1  1  1  1 -1  1  1 -1  1  1  1  1  1  1  1  1  1  1  1
   1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1  1  1
-  1  1 -1  1  1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1  1  1 -1 -1  1
+  1  1 -1  1 -1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1  1  1 -1 -1  1
   1  1 -1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1  1  1  1  1
   1  1  1  1  1  1]
 +---------+----------+
@@ -1687,7 +1689,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 +---------+----------+
 |      32 |        1 |
 +---------+----------+
-|      33 |       -1 |
+|      33 |        1 |
 +---------+----------+
 |      34 |        1 |
 +---------+----------+
@@ -1821,7 +1823,7 @@ d(p, q) = \sqrt{(p_{\text{petal length}} - q_{\text{petal length}})^2 + (p_{\tex
 +---------+----------+
 |      99 |        1 |
 +---------+----------+
-|     100 |        1 |
+|     100 |       -1 |
 +---------+----------+
 |     101 |        1 |
 +---------+----------+

@@ -25,39 +25,35 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# --- Visualisasi 2: Melihat Distribusi Spesies di Tiap Kategori ---
+from sklearn.neighbors import LocalOutlierFactor
+import numpy as np
 
-# Mengambil kembali daftar fitur yang kita diskritisasi
-features_to_visualize = discretization_params.keys()
 
-print("Visualisasi Distribusi Spesies di Dalam Setiap Kategori Baru\n")
+lof = LocalOutlierFactor(n_neighbors=20, contamination='auto')
 
-# Loop untuk membuat plot untuk setiap fitur
-for feature in features_to_visualize:
-    plt.figure(figsize=(10, 6))
+outlier_labels = lof.fit_predict(X_scaled_df)
 
-    # Menggunakan countplot dari seaborn untuk kemudahan
-    sns.countplot(
-        x=data_discretized[feature + '_discrete'], # Sumbu x adalah kategori (A, B, C)
-        hue=data_discretized['species'], # Warna dibedakan berdasarkan spesies
-        order=sorted(data_discretized[feature + '_discrete'].unique()) # Mengurutkan kategori (A, B, C)
-    )
+lof_scores = lof.negative_outlier_factor_
 
-    plt.title(f'Distribusi Spesies untuk Kategori Fitur "{feature}"', fontsize=16)
-    plt.xlabel('Kategori Hasil Diskritisasi', fontsize=12)
-    plt.ylabel('Jumlah Data', fontsize=12)
-    plt.show()
+X_scaled_df['lof_score'] = lof_scores
+X_scaled_df['is_outlier'] = outlier_labels
+
+print("Samples with lowest LOF scores (most likely outliers):")
+display(X_scaled_df.sort_values(by='lof_score').head())
+
+print("\nCount of outliers (-1) and inliers (1):")
+print(X_scaled_df['is_outlier'].value_counts())
 ------------------
 
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipython-input-14-3658738744.py[0m in [0;36m<cell line: 0>[0;34m()[0m
-[1;32m      2[0m [0;34m[0m[0m
-[1;32m      3[0m [0;31m# Mengambil kembali daftar fitur yang kita diskritisasi[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 4[0;31m [0mfeatures_to_visualize[0m [0;34m=[0m [0mdiscretization_params[0m[0;34m.[0m[0mkeys[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      5[0m [0;34m[0m[0m
-[1;32m      6[0m [0mprint[0m[0;34m([0m[0;34m"Visualisasi Distribusi Spesies di Dalam Setiap Kategori Baru\n"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/tmp/ipython-input-10-757295879.py[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m      5[0m [0mlof[0m [0;34m=[0m [0mLocalOutlierFactor[0m[0;34m([0m[0mn_neighbors[0m[0;34m=[0m[0;36m20[0m[0;34m,[0m [0mcontamination[0m[0;34m=[0m[0;34m'auto'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0;34m[0m[0m
+[0;32m----> 7[0;31m [0moutlier_labels[0m [0;34m=[0m [0mlof[0m[0;34m.[0m[0mfit_predict[0m[0;34m([0m[0mX_scaled_df[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      8[0m [0;34m[0m[0m
+[1;32m      9[0m [0mlof_scores[0m [0;34m=[0m [0mlof[0m[0;34m.[0m[0mnegative_outlier_factor_[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'discretization_params' is not defined
+[0;31mNameError[0m: name 'X_scaled_df' is not defined
 
