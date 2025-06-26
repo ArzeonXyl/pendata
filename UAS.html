@@ -1,0 +1,3570 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>UAS &#8212; Penambangan Data Aldi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UAS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="penjelasan dataset" href="data_mining_PRA_UAS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data Aldi - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data Aldi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Proyek Penambangan Data Aldi
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="data_understanding.html">🌟 Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deteksi_outlier.html">🌟 Deteksi Outlier dengan K-Nearest Neighbors (KNN)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="LOF.html">1. Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html">📌 Penjelasan Naïve Bayes &amp; Alasan Langkah-langkahnya</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="UTS.html">UTS Analisis data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k-mean_clustering.html">🧩 Clustering</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Decisiontree.html">Memahami Decision Tree: Dari Konsep Hingga Perhitungan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html">Diskritisasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_mining_PRA_UAS.html">penjelasan dataset</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">UAS</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FUAS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/UAS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>UAS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UAS</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mendapatkan-data">mendapatkan data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-kolom-x-dan-y">menampilkan kolom x dan y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mendeskprisikan-tipe-data-disetiap-kolom">mendeskprisikan tipe data disetiap kolom</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof">LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-kunci-dan-rumus-matematis">Konsep Kunci dan Rumus Matematis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-penting-k">Parameter Penting: <code class="docutils literal notranslate"><span class="pre">k</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-ke-k-k-distance">1. Jarak ke-k (k-distance)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-ketercapaian-reachability-distance">2. Jarak Ketercapaian (Reachability Distance)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kepadatan-ketercapaian-lokal-local-reachability-density-lrd">3. Kepadatan Ketercapaian Lokal (Local Reachability Density - lrd)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof-rumus-akhir">4. Local Outlier Factor (LOF) - Rumus Akhir</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-nilai-lof">Interpretasi Nilai LOF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan-dan-kekurangan-lof">Kelebihan dan Kekurangan LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan">Kelebihan:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan">Kekurangan:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-pohon-keputusan">Decision Tree (Pohon Keputusan)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi">Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-akurasi">Ringkasan Akurasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-laporan-klasifikasi-metrik-detail">Analisis Laporan Klasifikasi (Metrik Detail)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="uas">
+<h1>UAS<a class="headerlink" href="#uas" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>ucimlrepo
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ucimlrepo
+  Downloading ucimlrepo-0.0.7-py3-none-any.whl.metadata (5.5 kB)
+Requirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2.2.2)
+Requirement already satisfied: certifi&gt;=2020.12.5 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2025.6.15)
+Requirement already satisfied: numpy&gt;=1.23.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.0.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+Downloading ucimlrepo-0.0.7-py3-none-any.whl (8.0 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: ucimlrepo
+Successfully installed ucimlrepo-0.0.7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mendapatkan-data">
+<h1>mendapatkan data<a class="headerlink" href="#mendapatkan-data" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ucimlrepo</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ucirepo</span>
+
+<span class="c1"># fetch dataset</span>
+<span class="n">ilpd_indian_liver_patient_dataset</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">225</span><span class="p">)</span>
+
+<span class="c1"># data (as pandas dataframes)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ilpd_indian_liver_patient_dataset</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">ilpd_indian_liver_patient_dataset</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">targets</span>
+
+<span class="c1"># metadata</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ilpd_indian_liver_patient_dataset</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+<span class="c1"># variable information</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ilpd_indian_liver_patient_dataset</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;uci_id&#39;: 225, &#39;name&#39;: &#39;ILPD (Indian Liver Patient Dataset)&#39;, &#39;repository_url&#39;: &#39;https://archive.ics.uci.edu/dataset/225/ilpd+indian+liver+patient+dataset&#39;, &#39;data_url&#39;: &#39;https://archive.ics.uci.edu/static/public/225/data.csv&#39;, &#39;abstract&#39;: &#39;Death by liver cirrhosis continues to increase, given the increase in alcohol consumption rates, chronic hepatitis infections, and obesity-related liver disease. Notwithstanding the high mortality of this disease, liver diseases do not affect all sub-populations equally. The early detection of pathology is a determinant of patient outcomes, yet female patients appear to be marginalized when it comes to early diagnosis of liver pathology. \nThe dataset comprises 584 patient records collected from the NorthEast of Andhra Pradesh, India.\nThe prediction task is to determine whether a patient suffers from liver disease based on the information about several biochemical markers, including albumin and other enzymes required for metabolism.\n&#39;, &#39;area&#39;: &#39;Health and Medicine&#39;, &#39;tasks&#39;: [&#39;Classification&#39;], &#39;characteristics&#39;: [&#39;Multivariate&#39;], &#39;num_instances&#39;: 583, &#39;num_features&#39;: 10, &#39;feature_types&#39;: [&#39;Integer&#39;, &#39;Real&#39;], &#39;demographics&#39;: [&#39;Age&#39;, &#39;Gender&#39;], &#39;target_col&#39;: [&#39;Selector&#39;], &#39;index_col&#39;: None, &#39;has_missing_values&#39;: &#39;no&#39;, &#39;missing_values_symbol&#39;: None, &#39;year_of_dataset_creation&#39;: 2022, &#39;last_updated&#39;: &#39;Fri Nov 03 2023&#39;, &#39;dataset_doi&#39;: &#39;10.24432/C5D02C&#39;, &#39;creators&#39;: [&#39;Bendi Ramana&#39;, &#39;N. Venkateswarlu&#39;], &#39;intro_paper&#39;: {&#39;ID&#39;: 242, &#39;type&#39;: &#39;NATIVE&#39;, &#39;title&#39;: &#39;Investigating for bias in healthcare algorithms: a sex-stratified analysis of supervised machine learning models in liver disease prediction&#39;, &#39;authors&#39;: &#39;I. Straw, Honghan Wu&#39;, &#39;venue&#39;: &#39;BMJ Health &amp; Care Informatics&#39;, &#39;year&#39;: 2022, &#39;journal&#39;: None, &#39;DOI&#39;: &#39;10.1136%2Fbmjhci-2021-100457&#39;, &#39;URL&#39;: &#39;https://www.semanticscholar.org/paper/df37b91a72fb4fb11dc9ac3d63c1479428e4f14d&#39;, &#39;sha&#39;: None, &#39;corpus&#39;: None, &#39;arxiv&#39;: None, &#39;mag&#39;: None, &#39;acl&#39;: None, &#39;pmid&#39;: None, &#39;pmcid&#39;: None}, &#39;additional_info&#39;: {&#39;summary&#39;: &quot;This data set contains records of 416 patients diagnosed with liver disease and 167 patients without liver disease. This information is contained in the class label named &#39;Selector&#39;.  There are 10 variables per patient: age, gender, total Bilirubin, direct Bilirubin, total proteins, albumin, A/G ratio, SGPT, SGOT and Alkphos. Of the 583 patient records, 441 are male, and 142 are female. \n\nThe current dataset has been used to study \n- differences in patients across US and Indian patients that suffer from liver diseases.\n- gender-based disparities in predicting liver disease, as previous studies have found that biochemical markers do not have the same effectiveness for male and female patients.\n&quot;, &#39;purpose&#39;: None, &#39;funded_by&#39;: None, &#39;instances_represent&#39;: &#39;Medical patients&#39;, &#39;recommended_data_splits&#39;: None, &#39;sensitive_data&#39;: &#39;Yes. The data contains information about the age and gender of the patients.&#39;, &#39;preprocessing_description&#39;: &#39;Any patient whose age exceeded 89 is listed as being of age &quot;90&quot;.&#39;, &#39;variable_info&#39;: None, &#39;citation&#39;: &#39;The original dataset was first proposed by Ramana et al. (2012) as a critical comparison of patients across USA and India:\nRamana, Bendi &amp; Surendra, M &amp; Babu, Prasad &amp; Bala Venkateswarlu, Nagasuri. (2012). A Critical Comparative Study of Liver Patients from USA and INDIA: An Exploratory Analysis. International Journal of Computer Science. 9. &#39;}}
+         name     role        type demographic  \
+0         Age  Feature     Integer         Age   
+1      Gender  Feature      Binary      Gender   
+2          TB  Feature  Continuous        None   
+3          DB  Feature  Continuous        None   
+4     Alkphos  Feature     Integer        None   
+5        Sgpt  Feature     Integer        None   
+6        Sgot  Feature     Integer        None   
+7          TP  Feature  Continuous        None   
+8         ALB  Feature  Continuous        None   
+9   A/G Ratio  Feature  Continuous        None   
+10   Selector   Target      Binary        None   
+
+                                          description  units missing_values  
+0   Age of the patient. Any patient whose age exce...  years             no  
+1                               Gender of the patient   None             no  
+2                                     Total Bilirubin   None             no  
+3                                    Direct Bilirubin   None             no  
+4                                Alkaline Phosphotase   None             no  
+5                            Alamine Aminotransferase   None             no  
+6                          Aspartate Aminotransferase   None             no  
+7                                      Total Proteins   None             no  
+8                                             Albumin   None             no  
+9                          Albumin and Globulin Ratio   None             no  
+10  Selector field used to split the data into two...   None             no  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode ini berfungsi untuk menampilkan beberapa baris pertama dari dua objek yang berbeda, yaitu X dan y.</p>
+<p>display(X.head()): Perintah X.head() mengambil 5 baris pertama dari DataFrame X. Fungsi display() kemudian digunakan untuk menampilkan output ini dalam format yang rapi di Colab. DataFrame X berisi fitur-fitur (variabel independen) dari dataset.
+display(y.head()): Perintah y.head() mengambil 5 baris pertama dari DataFrame y. Fungsi display() kembali digunakan untuk menampilkan output ini. DataFrame y berisi target (variabel dependen) dari dataset, yaitu kolom ‘Selector’.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-a89e5c50-589f-4182-86b3-eb3d759b5228" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>Female</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>Male</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>Male</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>Male</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a89e5c50-589f-4182-86b3-eb3d759b5228')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a89e5c50-589f-4182-86b3-eb3d759b5228 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a89e5c50-589f-4182-86b3-eb3d759b5228');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output text_html">
+  <div id="df-a2fb337c-f782-4e7d-a2a2-42ba5a13a442" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a2fb337c-f782-4e7d-a2a2-42ba5a13a442')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a2fb337c-f782-4e7d-a2a2-42ba5a13a442 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a2fb337c-f782-4e7d-a2a2-42ba5a13a442');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<p>Kode ini digunakan untuk menampilkan nama-nama kolom yang ada di dalam dua DataFrame, yaitu X dan y.</p>
+<p>print(“Kolom pada DataFrame X:”): Ini adalah perintah standar Python untuk mencetak teks ke konsol. Teks ini berfungsi sebagai label untuk output berikutnya, memberitahu Anda bahwa nama-nama kolom yang akan ditampilkan adalah untuk DataFrame X.
+display(X.columns): X.columns mengakses objek Index yang berisi nama-nama kolom dari DataFrame X. display() adalah fungsi di lingkungan seperti Google Colab yang menampilkan objek dengan format yang lebih kaya dan mudah dibaca dibandingkan dengan print(). Jadi, baris ini menampilkan daftar nama kolom di DataFrame X.
+print(“\nKolom pada DataFrame y:”): Mirip dengan baris pertama, ini mencetak label untuk output nama kolom DataFrame y. \n menciptakan baris baru untuk memisahkan output.
+display(y.columns): Ini mengakses dan menampilkan nama-nama kolom dari DataFrame y menggunakan fungsi display().</p>
+<section id="menampilkan-kolom-x-dan-y">
+<h2>menampilkan kolom x dan y<a class="headerlink" href="#menampilkan-kolom-x-dan-y" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kolom pada DataFrame X:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Kolom pada DataFrame y:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolom pada DataFrame X:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Age&#39;, &#39;Gender&#39;, &#39;TB&#39;, &#39;DB&#39;, &#39;Alkphos&#39;, &#39;Sgpt&#39;, &#39;Sgot&#39;, &#39;TP&#39;, &#39;ALB&#39;,
+       &#39;A/G Ratio&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolom pada DataFrame y:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Selector&#39;], dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mendeskprisikan-tipe-data-disetiap-kolom">
+<h2>mendeskprisikan tipe data disetiap kolom<a class="headerlink" href="#mendeskprisikan-tipe-data-disetiap-kolom" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">ilpd_indian_liver_patient_dataset</span><span class="o">.</span><span class="n">variables</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;role&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-1e87e0db-7db9-4e11-96d5-97e9d6e5c842" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>role</th>
+      <th>type</th>
+      <th>description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Age</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Age of the patient. Any patient whose age exce...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Gender</td>
+      <td>Feature</td>
+      <td>Binary</td>
+      <td>Gender of the patient</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>TB</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Total Bilirubin</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>DB</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Direct Bilirubin</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Alkphos</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Alkaline Phosphotase</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Sgpt</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Alamine Aminotransferase</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sgot</td>
+      <td>Feature</td>
+      <td>Integer</td>
+      <td>Aspartate Aminotransferase</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>TP</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Total Proteins</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>ALB</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Albumin</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>A/G Ratio</td>
+      <td>Feature</td>
+      <td>Continuous</td>
+      <td>Albumin and Globulin Ratio</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Selector</td>
+      <td>Target</td>
+      <td>Binary</td>
+      <td>Selector field used to split the data into two...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-1e87e0db-7db9-4e11-96d5-97e9d6e5c842')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-1e87e0db-7db9-4e11-96d5-97e9d6e5c842 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-1e87e0db-7db9-4e11-96d5-97e9d6e5c842');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-63c97853-5e99-47ca-8458-f4f6d3c4a227" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>583.000000</td>
+      <td>579.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>44.746141</td>
+      <td>3.298799</td>
+      <td>1.486106</td>
+      <td>290.576329</td>
+      <td>80.713551</td>
+      <td>109.910806</td>
+      <td>6.483190</td>
+      <td>3.141852</td>
+      <td>0.947064</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>16.189833</td>
+      <td>6.209522</td>
+      <td>2.808498</td>
+      <td>242.937989</td>
+      <td>182.620356</td>
+      <td>288.918529</td>
+      <td>1.085451</td>
+      <td>0.795519</td>
+      <td>0.319592</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4.000000</td>
+      <td>0.400000</td>
+      <td>0.100000</td>
+      <td>63.000000</td>
+      <td>10.000000</td>
+      <td>10.000000</td>
+      <td>2.700000</td>
+      <td>0.900000</td>
+      <td>0.300000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>33.000000</td>
+      <td>0.800000</td>
+      <td>0.200000</td>
+      <td>175.500000</td>
+      <td>23.000000</td>
+      <td>25.000000</td>
+      <td>5.800000</td>
+      <td>2.600000</td>
+      <td>0.700000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>45.000000</td>
+      <td>1.000000</td>
+      <td>0.300000</td>
+      <td>208.000000</td>
+      <td>35.000000</td>
+      <td>42.000000</td>
+      <td>6.600000</td>
+      <td>3.100000</td>
+      <td>0.930000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>58.000000</td>
+      <td>2.600000</td>
+      <td>1.300000</td>
+      <td>298.000000</td>
+      <td>60.500000</td>
+      <td>87.000000</td>
+      <td>7.200000</td>
+      <td>3.800000</td>
+      <td>1.100000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>90.000000</td>
+      <td>75.000000</td>
+      <td>19.700000</td>
+      <td>2110.000000</td>
+      <td>2000.000000</td>
+      <td>4929.000000</td>
+      <td>9.600000</td>
+      <td>5.500000</td>
+      <td>2.800000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-63c97853-5e99-47ca-8458-f4f6d3c4a227')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-63c97853-5e99-47ca-8458-f4f6d3c4a227 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-63c97853-5e99-47ca-8458-f4f6d3c4a227');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="s1">&#39;Selector&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>Selector</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>416</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>167</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Selector&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Count maternal_health_risk.variables&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Selector&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2fe10c2c19a68b7fcff42ec4c3a84b539b805e71927f556091631a1c5dcb5cfd.png" src="_images/2fe10c2c19a68b7fcff42ec4c3a84b539b805e71927f556091631a1c5dcb5cfd.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">X</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b7b4f26a8eb0ebc32159a1d5f3b141962a00a14b76e499c59b8ca427d0e0b19f.png" src="_images/b7b4f26a8eb0ebc32159a1d5f3b141962a00a14b76e499c59b8ca427d0e0b19f.png" />
+</div>
+</div>
+</section>
+<section id="preprocessing">
+<h2>preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+</section>
+<section id="lof">
+<h2>LOF<a class="headerlink" href="#lof" title="Link to this heading">#</a></h2>
+<p>LOF bersifat <strong>lokal</strong>. Ia mengukur kepadatan (density) di sekitar sebuah titik dan membandingkannya dengan kepadatan rata-rata di sekitar tetangga-tetangganya. Sebuah titik dianggap outlier jika ia berada di area yang <strong>jauh lebih tidak padat (less dense)</strong> daripada area di mana tetangganya berada.</p>
+<hr class="docutils" />
+<section id="konsep-kunci-dan-rumus-matematis">
+<h3>Konsep Kunci dan Rumus Matematis<a class="headerlink" href="#konsep-kunci-dan-rumus-matematis" title="Link to this heading">#</a></h3>
+<p>Untuk memahami rumus LOF, kita perlu membangunnya dari beberapa konsep dasar. Mari kita sebut titik yang sedang kita analisis sebagai titik <strong>A</strong>.</p>
+<section id="parameter-penting-k">
+<h4>Parameter Penting: <code class="docutils literal notranslate"><span class="pre">k</span></code><a class="headerlink" href="#parameter-penting-k" title="Link to this heading">#</a></h4>
+<p>Sebelum memulai, kita harus memilih satu parameter, yaitu <code class="docutils literal notranslate"><span class="pre">k</span></code>, yang merupakan jumlah tetangga terdekat yang akan kita pertimbangkan.</p>
+</section>
+<section id="jarak-ke-k-k-distance">
+<h4>1. Jarak ke-k (k-distance)<a class="headerlink" href="#jarak-ke-k-k-distance" title="Link to this heading">#</a></h4>
+<p>Ini adalah konsep paling dasar.</p>
+<ul class="simple">
+<li><p><strong>Definisi:</strong> <code class="docutils literal notranslate"><span class="pre">k-distance(A)</span></code> adalah jarak dari titik A ke tetangga terdekatnya yang ke-<code class="docutils literal notranslate"><span class="pre">k</span></code>.</p></li>
+<li><p><strong>Tujuan:</strong> Ini mendefinisikan “radius” lingkungan lokal di sekitar titik A. Semua titik di dalam radius ini (termasuk si tetangga ke-k) disebut sebagai k-nearest neighbors dari A, atau kita notasikan sebagai <span class="math notranslate nohighlight">\(N_k(A)\)</span>.</p></li>
+</ul>
+</section>
+<section id="jarak-ketercapaian-reachability-distance">
+<h4>2. Jarak Ketercapaian (Reachability Distance)<a class="headerlink" href="#jarak-ketercapaian-reachability-distance" title="Link to this heading">#</a></h4>
+<p>Ini adalah konsep yang sedikit rumit namun krusial untuk membuat perhitungan menjadi stabil.</p>
+<ul class="simple">
+<li><p><strong>Definisi:</strong> Jarak ketercapaian dari titik A ke titik B, dinotasikan <code class="docutils literal notranslate"><span class="pre">reachability-distance_k(A,</span> <span class="pre">B)</span></code>, adalah nilai yang lebih besar antara jarak asli <code class="docutils literal notranslate"><span class="pre">d(A,</span> <span class="pre">B)</span></code> dan <code class="docutils literal notranslate"><span class="pre">k-distance</span></code> dari titik B.</p></li>
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(
+  \text{reachability-distance}_k(A, B) = \max \{ k\text{-distance}(B), d(A, B) \}
+  \)</span>$</p></li>
+<li><p><strong>Tujuan:</strong> Untuk “meratakan” jarak. Jika titik A sangat dekat dengan B (lebih dekat dari radius lingkungan B), kita tetap menganggap jaraknya seolah-olah sejauh radius lingkungan B (<code class="docutils literal notranslate"><span class="pre">k-distance(B)</span></code>). Ini mencegah hasil yang tidak stabil jika titik-titik berada dalam satu klaster yang sangat padat.</p></li>
+</ul>
+</section>
+<section id="kepadatan-ketercapaian-lokal-local-reachability-density-lrd">
+<h4>3. Kepadatan Ketercapaian Lokal (Local Reachability Density - lrd)<a class="headerlink" href="#kepadatan-ketercapaian-lokal-local-reachability-density-lrd" title="Link to this heading">#</a></h4>
+<p>Ini adalah ukuran kepadatan di sekitar titik A.</p>
+<ul class="simple">
+<li><p><strong>Definisi:</strong> <code class="docutils literal notranslate"><span class="pre">lrd_k(A)</span></code> adalah kebalikan (inverse) dari rata-rata jarak ketercapaian dari titik A ke semua tetangganya di <span class="math notranslate nohighlight">\(N_k(A)\)</span>.</p></li>
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(
+  \text{lrd}_k(A) = \frac{1}{\frac{\sum_{B \in N_k(A)} \text{reachability-distance}_k(A, B)}{|N_k(A)|}}
+  \)</span>$</p></li>
+<li><p><strong>Intuisi:</strong></p>
+<ul>
+<li><p>Jika rata-rata jarak ketercapaian ke tetangga-tetangganya kecil (artinya tetangganya sangat dekat), maka nilai <code class="docutils literal notranslate"><span class="pre">lrd</span></code> akan <strong>tinggi</strong> (area padat).</p></li>
+<li><p>Jika rata-rata jarak ketercapaian besar (artinya tetangganya berjauhan), maka nilai <code class="docutils literal notranslate"><span class="pre">lrd</span></code> akan <strong>rendah</strong> (area renggang).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="local-outlier-factor-lof-rumus-akhir">
+<h4>4. Local Outlier Factor (LOF) - Rumus Akhir<a class="headerlink" href="#local-outlier-factor-lof-rumus-akhir" title="Link to this heading">#</a></h4>
+<p>Akhirnya, kita sampai pada skor LOF itu sendiri.</p>
+<ul class="simple">
+<li><p><strong>Definisi:</strong> Skor <code class="docutils literal notranslate"><span class="pre">LOF_k(A)</span></code> adalah rasio antara rata-rata kepadatan ketercapaian lokal (<code class="docutils literal notranslate"><span class="pre">lrd</span></code>) dari tetangga-tetangga A dengan kepadatan ketercapaian lokal (<code class="docutils literal notranslate"><span class="pre">lrd</span></code>) dari titik A itu sendiri.</p></li>
+<li><p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(
+  \text{LOF}_k(A) = \frac{\frac{\sum_{B \in N_k(A)} \text{lrd}_k(B)}{|N_k(A)|}}{\text{lrd}_k(A)}
+  \)</span>$</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretasi-nilai-lof">
+<h3>Interpretasi Nilai LOF<a class="headerlink" href="#interpretasi-nilai-lof" title="Link to this heading">#</a></h3>
+<p>Rumus di atas menghasilkan sebuah skor. Cara menginterpretasikannya adalah sebagai berikut:</p>
+<ul class="simple">
+<li><p><strong>LOF ≈ 1:</strong> Kepadatan di sekitar titik A (<code class="docutils literal notranslate"><span class="pre">lrd(A)</span></code>) hampir sama dengan kepadatan rata-rata tetangganya. Ini berarti A adalah <strong>inlier</strong> (bukan outlier) yang berada di dalam sebuah klaster dengan kepadatan seragam.</p></li>
+<li><p><strong>LOF &lt; 1:</strong> Kepadatan di sekitar titik A lebih tinggi daripada kepadatan rata-rata tetangganya. Ini berarti A berada di titik yang sangat padat (misalnya, di pusat sebuah klaster). Ini jelas <strong>bukan outlier</strong>.</p></li>
+<li><p><strong>LOF &gt; 1:</strong> Kepadatan di sekitar titik A lebih rendah daripada kepadatan rata-rata tetangganya. Ini menandakan bahwa A berada di area yang lebih renggang daripada lingkungannya. Ini adalah <strong>kandidat kuat outlier</strong>. Semakin besar nilainya (misal, 1.5, 2.0, atau lebih), semakin tinggi kemungkinan titik tersebut adalah outlier.</p></li>
+</ul>
+</section>
+<section id="kelebihan-dan-kekurangan-lof">
+<h3>Kelebihan dan Kekurangan LOF<a class="headerlink" href="#kelebihan-dan-kekurangan-lof" title="Link to this heading">#</a></h3>
+<section id="kelebihan">
+<h4>Kelebihan:<a class="headerlink" href="#kelebihan" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Efektif pada Data dengan Kepadatan Bervariasi:</strong> Ini adalah kekuatan utamanya. LOF bisa menemukan outlier yang mungkin terlewat oleh metode lain.</p></li>
+<li><p><strong>Tidak Perlu Asumsi Distribusi:</strong> Tidak mengasumsikan data terdistribusi normal.</p></li>
+<li><p><strong>Memberikan Skor:</strong> Menghasilkan skor anomali yang lebih informatif daripada sekadar label biner “outlier” / “bukan outlier”.</p></li>
+</ul>
+</section>
+<section id="kekurangan">
+<h4>Kekurangan:<a class="headerlink" href="#kekurangan" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Komputasi Mahal:</strong> Membutuhkan perhitungan jarak yang intensif, sehingga bisa menjadi lambat pada dataset yang sangat besar (kompleksitas sekitar O(n²)).</p></li>
+<li><p><strong>Sensitif terhadap Parameter <code class="docutils literal notranslate"><span class="pre">k</span></code>:</strong> Pemilihan nilai <code class="docutils literal notranslate"><span class="pre">k</span></code> dapat mempengaruhi hasilnya.</p></li>
+<li><p><strong>Kurang Efektif pada Data Berdimensi Tinggi:</strong> Seperti banyak algoritma berbasis jarak, efektivitasnya menurun seiring bertambahnya jumlah fitur (dimensi) karena konsep “jarak” menjadi kurang bermakna (curse of dimensionality).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Selector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;Selector&#39;</span><span class="p">]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah missing values sebelum imputasi:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;A/G Ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;A/G Ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah missing values setelah imputasi:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">])</span> <span class="c1"># Male -&gt; 1, Female -&gt; 0 (sesuai urutan abjad)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dataframe setelah encoding Gender:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+
+<span class="n">X_processed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Selector&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_processed</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Selector&#39;</span><span class="p">]</span>
+
+
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">)</span>
+
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X_processed</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">X_processed</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dataframe fitur setelah penskalaan:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">contamination</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.8</span>
+
+<span class="n">numeric_cols_for_lof</span> <span class="o">=</span> <span class="n">X_scaled</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">if</span> <span class="s1">&#39;Gender&#39;</span> <span class="ow">in</span> <span class="n">numeric_cols_for_lof</span><span class="p">:</span>
+    <span class="n">numeric_cols_for_lof</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;Gender&#39;</span><span class="p">)</span>
+
+<span class="n">X_scaled_numeric</span> <span class="o">=</span> <span class="n">X_scaled</span><span class="p">[</span><span class="n">numeric_cols_for_lof</span><span class="p">]</span>
+
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="n">contamination</span><span class="p">)</span>
+
+
+<span class="n">lof</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_scaled_numeric</span><span class="p">)</span>
+<span class="n">outlier_scores</span> <span class="o">=</span> <span class="o">-</span><span class="n">lof</span><span class="o">.</span><span class="n">negative_outlier_factor_</span>
+
+<span class="n">is_outlier_status</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">outlier_scores</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">X_scaled</span><span class="p">[</span><span class="s1">&#39;lof_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_scores</span>
+<span class="n">X_scaled</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">is_outlier_status</span> <span class="c1"># Menggunakan status berdasarkan threshold</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Samples dengan skor LOF tertinggi (paling mungkin outlier):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_scaled</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;lof_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="n">outlier_count</span> <span class="o">=</span> <span class="n">X_scaled</span><span class="p">[</span><span class="n">X_scaled</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">inlier_count</span> <span class="o">=</span> <span class="n">X_scaled</span><span class="p">[</span><span class="n">X_scaled</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah data yang terdeteksi sebagai outlier (-1) berdasarkan threshold </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">outlier_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data yang terdeteksi sebagai inlier (1) berdasarkan threshold </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">inlier_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah missing values sebelum imputasi:
+ Age          0
+Gender       0
+TB           0
+DB           0
+Alkphos      0
+Sgpt         0
+Sgot         0
+TP           0
+ALB          0
+A/G Ratio    4
+Selector     0
+dtype: int64
+
+Jumlah missing values setelah imputasi:
+ Age          0
+Gender       0
+TB           0
+DB           0
+Alkphos      0
+Sgpt         0
+Sgot         0
+TP           0
+ALB          0
+A/G Ratio    0
+Selector     0
+dtype: int64
+
+Dataframe setelah encoding Gender:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipython-input-10-1963270137.py:13: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method({col: value}, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[&#39;A/G Ratio&#39;].fillna(df[&#39;A/G Ratio&#39;].median(), inplace=True)
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-b12353d0-38a2-4531-b82a-d175e2ad874b" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+      <th>Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>65</td>
+      <td>0</td>
+      <td>0.7</td>
+      <td>0.1</td>
+      <td>187</td>
+      <td>16</td>
+      <td>18</td>
+      <td>6.8</td>
+      <td>3.3</td>
+      <td>0.90</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>62</td>
+      <td>1</td>
+      <td>10.9</td>
+      <td>5.5</td>
+      <td>699</td>
+      <td>64</td>
+      <td>100</td>
+      <td>7.5</td>
+      <td>3.2</td>
+      <td>0.74</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>62</td>
+      <td>1</td>
+      <td>7.3</td>
+      <td>4.1</td>
+      <td>490</td>
+      <td>60</td>
+      <td>68</td>
+      <td>7.0</td>
+      <td>3.3</td>
+      <td>0.89</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>58</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>0.4</td>
+      <td>182</td>
+      <td>14</td>
+      <td>20</td>
+      <td>6.8</td>
+      <td>3.4</td>
+      <td>1.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>72</td>
+      <td>1</td>
+      <td>3.9</td>
+      <td>2.0</td>
+      <td>195</td>
+      <td>27</td>
+      <td>59</td>
+      <td>7.3</td>
+      <td>2.4</td>
+      <td>0.40</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-b12353d0-38a2-4531-b82a-d175e2ad874b')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-b12353d0-38a2-4531-b82a-d175e2ad874b button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-b12353d0-38a2-4531-b82a-d175e2ad874b');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataframe fitur setelah penskalaan:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-56ae74d2-920d-4f19-b6f0-173603f0a814" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.252098</td>
+      <td>-1.762281</td>
+      <td>-0.418878</td>
+      <td>-0.493964</td>
+      <td>-0.426715</td>
+      <td>-0.354665</td>
+      <td>-0.318393</td>
+      <td>0.292120</td>
+      <td>0.198969</td>
+      <td>-0.147529</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.066637</td>
+      <td>0.567446</td>
+      <td>1.225171</td>
+      <td>1.430423</td>
+      <td>1.682629</td>
+      <td>-0.091599</td>
+      <td>-0.034333</td>
+      <td>0.937566</td>
+      <td>0.073157</td>
+      <td>-0.650323</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.066637</td>
+      <td>0.567446</td>
+      <td>0.644919</td>
+      <td>0.931508</td>
+      <td>0.821588</td>
+      <td>-0.113522</td>
+      <td>-0.145186</td>
+      <td>0.476533</td>
+      <td>0.198969</td>
+      <td>-0.178953</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.819356</td>
+      <td>0.567446</td>
+      <td>-0.370523</td>
+      <td>-0.387054</td>
+      <td>-0.447314</td>
+      <td>-0.365626</td>
+      <td>-0.311465</td>
+      <td>0.292120</td>
+      <td>0.324781</td>
+      <td>0.166718</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.684839</td>
+      <td>0.567446</td>
+      <td>0.096902</td>
+      <td>0.183135</td>
+      <td>-0.393756</td>
+      <td>-0.294379</td>
+      <td>-0.176363</td>
+      <td>0.753153</td>
+      <td>-0.933340</td>
+      <td>-1.718760</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-56ae74d2-920d-4f19-b6f0-173603f0a814')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-56ae74d2-920d-4f19-b6f0-173603f0a814 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-56ae74d2-920d-4f19-b6f0-173603f0a814');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Samples dengan skor LOF tertinggi (paling mungkin outlier):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-ac33480f-08ce-4304-99e1-50ff3019a99d" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+      <th>lof_score</th>
+      <th>is_outlier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>166</th>
+      <td>0.633896</td>
+      <td>0.567446</td>
+      <td>11.556892</td>
+      <td>0.753324</td>
+      <td>0.170658</td>
+      <td>-0.223132</td>
+      <td>-0.152114</td>
+      <td>-0.261120</td>
+      <td>-0.807528</td>
+      <td>-1.090267</td>
+      <td>3.302512</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>135</th>
+      <td>1.313918</td>
+      <td>0.567446</td>
+      <td>1.289644</td>
+      <td>1.466060</td>
+      <td>3.375871</td>
+      <td>6.408325</td>
+      <td>16.694075</td>
+      <td>0.476533</td>
+      <td>-0.933340</td>
+      <td>-1.404513</td>
+      <td>2.606786</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>571</th>
+      <td>2.797603</td>
+      <td>0.567446</td>
+      <td>-0.354405</td>
+      <td>-0.422690</td>
+      <td>-0.311360</td>
+      <td>-0.190249</td>
+      <td>0.083449</td>
+      <td>0.384326</td>
+      <td>-0.178468</td>
+      <td>-0.776021</td>
+      <td>2.179517</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>572</th>
+      <td>-0.787969</td>
+      <td>0.567446</td>
+      <td>1.982723</td>
+      <td>2.855895</td>
+      <td>-0.645065</td>
+      <td>-0.146405</td>
+      <td>0.052271</td>
+      <td>-0.814361</td>
+      <td>1.079653</td>
+      <td>4.880411</td>
+      <td>2.137798</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>569</th>
+      <td>-1.777092</td>
+      <td>0.567446</td>
+      <td>0.709391</td>
+      <td>0.931508</td>
+      <td>-0.093010</td>
+      <td>0.725002</td>
+      <td>0.201230</td>
+      <td>0.568740</td>
+      <td>1.079653</td>
+      <td>0.795210</td>
+      <td>2.073037</td>
+      <td>-1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ac33480f-08ce-4304-99e1-50ff3019a99d')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-ac33480f-08ce-4304-99e1-50ff3019a99d button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-ac33480f-08ce-4304-99e1-50ff3019a99d');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data yang terdeteksi sebagai outlier (-1) berdasarkan threshold 1.8: 21
+Jumlah data yang terdeteksi sebagai inlier (1) berdasarkan threshold 1.8: 562
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter data untuk menghapus outlier</span>
+<span class="n">X_cleaned_scaled</span> <span class="o">=</span> <span class="n">X_scaled</span><span class="p">[</span><span class="n">X_scaled</span><span class="p">[</span><span class="s1">&#39;is_outlier&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;lof_score&#39;</span><span class="p">,</span> <span class="s1">&#39;is_outlier&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_cleaned_encoded</span> <span class="o">=</span> <span class="n">y_processed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">X_cleaned_scaled</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="c1"># Ambil target yang sesuai dengan index data bersih</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data setelah menghapus outlier:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitur (X_cleaned_scaled): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_cleaned_scaled</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Target (y_cleaned_encoded): </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_cleaned_encoded</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data fitur setelah menghapus outlier dan penskalaan (beberapa baris pertama):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_cleaned_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data target setelah menghapus outlier (beberapa baris pertama):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">y_cleaned_encoded</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data setelah menghapus outlier:
+Fitur (X_cleaned_scaled): 562
+Target (y_cleaned_encoded): 562
+
+Data fitur setelah menghapus outlier dan penskalaan (beberapa baris pertama):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-ab250e7e-b22c-44c3-ba0a-627b44c278ea" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.252098</td>
+      <td>-1.762281</td>
+      <td>-0.418878</td>
+      <td>-0.493964</td>
+      <td>-0.426715</td>
+      <td>-0.354665</td>
+      <td>-0.318393</td>
+      <td>0.292120</td>
+      <td>0.198969</td>
+      <td>-0.147529</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.066637</td>
+      <td>0.567446</td>
+      <td>1.225171</td>
+      <td>1.430423</td>
+      <td>1.682629</td>
+      <td>-0.091599</td>
+      <td>-0.034333</td>
+      <td>0.937566</td>
+      <td>0.073157</td>
+      <td>-0.650323</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.066637</td>
+      <td>0.567446</td>
+      <td>0.644919</td>
+      <td>0.931508</td>
+      <td>0.821588</td>
+      <td>-0.113522</td>
+      <td>-0.145186</td>
+      <td>0.476533</td>
+      <td>0.198969</td>
+      <td>-0.178953</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.819356</td>
+      <td>0.567446</td>
+      <td>-0.370523</td>
+      <td>-0.387054</td>
+      <td>-0.447314</td>
+      <td>-0.365626</td>
+      <td>-0.311465</td>
+      <td>0.292120</td>
+      <td>0.324781</td>
+      <td>0.166718</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.684839</td>
+      <td>0.567446</td>
+      <td>0.096902</td>
+      <td>0.183135</td>
+      <td>-0.393756</td>
+      <td>-0.294379</td>
+      <td>-0.176363</td>
+      <td>0.753153</td>
+      <td>-0.933340</td>
+      <td>-1.718760</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ab250e7e-b22c-44c3-ba0a-627b44c278ea')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-ab250e7e-b22c-44c3-ba0a-627b44c278ea button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-ab250e7e-b22c-44c3-ba0a-627b44c278ea');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data target setelah menghapus outlier (beberapa baris pertama):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> int64</label></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PowerTransformer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">X_cleaned_scaled</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">y_cleaned_encoded</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ukuran data setelah dibagi (sebelum transformasi):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X_train shape: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X_test shape: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y_train shape: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y_test shape: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+
+<span class="n">numeric_cols_for_transform</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">if</span> <span class="s1">&#39;Gender&#39;</span> <span class="ow">in</span> <span class="n">numeric_cols_for_transform</span><span class="p">:</span>
+    <span class="n">numeric_cols_for_transform</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;Gender&#39;</span><span class="p">)</span>
+
+<span class="n">pt</span> <span class="o">=</span> <span class="n">PowerTransformer</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;yeo-johnson&#39;</span><span class="p">)</span>
+
+<span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_train_transformed</span><span class="p">[</span><span class="n">numeric_cols_for_transform</span><span class="p">]</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">numeric_cols_for_transform</span><span class="p">])</span>
+
+
+<span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_test_transformed</span><span class="p">[</span><span class="n">numeric_cols_for_transform</span><span class="p">]</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">numeric_cols_for_transform</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data fitur latih setelah transformasi distribusi (beberapa baris pertama):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data fitur uji setelah transformasi distribusi (beberapa baris pertama):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">X_test_transformed</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ukuran data setelah dibagi (sebelum transformasi):
+X_train shape: (449, 10)
+X_test shape: (113, 10)
+y_train shape: (449,)
+y_test shape: (113,)
+
+Data fitur latih setelah transformasi distribusi (beberapa baris pertama):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-b592fd38-ae5b-4c57-80ce-48320cb9af97" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>399</th>
+      <td>-1.107590</td>
+      <td>0.567446</td>
+      <td>-0.479530</td>
+      <td>-0.754469</td>
+      <td>-0.208964</td>
+      <td>1.675531</td>
+      <td>1.406331</td>
+      <td>-0.447906</td>
+      <td>-0.147591</td>
+      <td>0.291873</td>
+    </tr>
+    <tr>
+      <th>163</th>
+      <td>-0.358183</td>
+      <td>0.567446</td>
+      <td>0.389691</td>
+      <td>0.511314</td>
+      <td>-0.580557</td>
+      <td>0.049190</td>
+      <td>0.255875</td>
+      <td>0.861264</td>
+      <td>1.494167</td>
+      <td>1.394848</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>-0.857740</td>
+      <td>0.567446</td>
+      <td>-0.598757</td>
+      <td>-0.754469</td>
+      <td>1.571663</td>
+      <td>1.899589</td>
+      <td>-1.109422</td>
+      <td>-1.051418</td>
+      <td>-1.031835</td>
+      <td>-0.780814</td>
+    </tr>
+    <tr>
+      <th>136</th>
+      <td>0.078728</td>
+      <td>-1.762281</td>
+      <td>1.549021</td>
+      <td>1.467781</td>
+      <td>0.824682</td>
+      <td>0.671346</td>
+      <td>0.795353</td>
+      <td>-0.089769</td>
+      <td>-0.779181</td>
+      <td>-1.178814</td>
+    </tr>
+    <tr>
+      <th>468</th>
+      <td>1.325983</td>
+      <td>0.567446</td>
+      <td>-0.479530</td>
+      <td>-0.526579</td>
+      <td>-0.425349</td>
+      <td>-0.444408</td>
+      <td>0.063074</td>
+      <td>-1.051418</td>
+      <td>-1.284498</td>
+      <td>-1.178814</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-b592fd38-ae5b-4c57-80ce-48320cb9af97')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-b592fd38-ae5b-4c57-80ce-48320cb9af97 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-b592fd38-ae5b-4c57-80ce-48320cb9af97');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data fitur uji setelah transformasi distribusi (beberapa baris pertama):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-3d1ffa34-fef1-444a-b7f3-57a5fbbb6799" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>-0.170908</td>
+      <td>0.567446</td>
+      <td>1.800521</td>
+      <td>1.713140</td>
+      <td>1.752436</td>
+      <td>-0.681182</td>
+      <td>-0.121748</td>
+      <td>-0.359452</td>
+      <td>-1.031835</td>
+      <td>-1.178814</td>
+    </tr>
+    <tr>
+      <th>450</th>
+      <td>1.263647</td>
+      <td>0.567446</td>
+      <td>1.870053</td>
+      <td>1.842868</td>
+      <td>0.622535</td>
+      <td>0.325535</td>
+      <td>0.471317</td>
+      <td>-0.447906</td>
+      <td>-0.147591</td>
+      <td>0.291873</td>
+    </tr>
+    <tr>
+      <th>386</th>
+      <td>-0.420616</td>
+      <td>0.567446</td>
+      <td>0.908177</td>
+      <td>1.033860</td>
+      <td>-2.051229</td>
+      <td>-0.681182</td>
+      <td>-0.957567</td>
+      <td>0.959951</td>
+      <td>1.367892</td>
+      <td>0.897212</td>
+    </tr>
+    <tr>
+      <th>282</th>
+      <td>0.328288</td>
+      <td>0.567446</td>
+      <td>-0.852542</td>
+      <td>-0.754469</td>
+      <td>-0.455678</td>
+      <td>-1.393497</td>
+      <td>-1.227778</td>
+      <td>0.472321</td>
+      <td>0.357619</td>
+      <td>-0.042170</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>-0.483052</td>
+      <td>0.567446</td>
+      <td>0.309574</td>
+      <td>0.373314</td>
+      <td>-0.075282</td>
+      <td>0.419336</td>
+      <td>0.161848</td>
+      <td>-0.089769</td>
+      <td>0.862775</td>
+      <td>1.448077</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-3d1ffa34-fef1-444a-b7f3-57a5fbbb6799')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-3d1ffa34-fef1-444a-b7f3-57a5fbbb6799 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-3d1ffa34-fef1-444a-b7f3-57a5fbbb6799');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+</section>
+</section>
+<section id="naive-bayes">
+<h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h3>
+<p>adalah algoritma klasifikasi yang didasarkan pada Teorema Bayes dengan asumsi “naif” mengenai independensi antar fitur. Meskipun asumsinya sederhana (naif), algoritma ini seringkali bekerja dengan baik dalam praktiknya, terutama pada tugas klasifikasi teks dan data dengan banyak fitur.</p>
+<p>Berikut adalah konsep-konsep utamanya:</p>
+<p>Teorema Bayes: Teorema Bayes menjelaskan hubungan antara probabilitas bersyarat. Dalam konteks klasifikasi, kita ingin menghitung probabilitas sebuah data (X) termasuk dalam sebuah kelas tertentu (Y), yaitu <span class="math notranslate nohighlight">\(P(Y|X)\)</span><span class="math notranslate nohighlight">\(P(Y|X)\)</span>. Teorema Bayes menyatakan:</p>
+<p><span class="math notranslate nohighlight">\(P(Y|X) = \frac{P(X|Y) * P(Y)}{P(X)}\)</span><span class="math notranslate nohighlight">\(P(Y|X) = \frac{P(X|Y) * P(Y)}{P(X)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(P(Y|X)\)</span><span class="math notranslate nohighlight">\(P(Y|X)\)</span>: Probabilitas Posterior - Probabilitas bahwa data X termasuk dalam kelas Y. Ini yang ingin kita prediksi.
+<span class="math notranslate nohighlight">\(P(X|Y)\)</span><span class="math notranslate nohighlight">\(P(X|Y)\)</span>: Probabilitas Likelihood - Probabilitas kemunculan data X jika diketahui data tersebut termasuk dalam kelas Y. Ini dihitung dari data training.
+<span class="math notranslate nohighlight">\(P(Y)\)</span><span class="math notranslate nohighlight">\(P(Y)\)</span>: Probabilitas Prior - Probabilitas awal suatu data termasuk dalam kelas Y, tanpa mengetahui fitur X. Ini dihitung dari proporsi kelas di data training.
+<span class="math notranslate nohighlight">\(P(X)\)</span><span class="math notranslate nohighlight">\(P(X)\)</span>: Probabilitas Bukti (Evidence) - Probabilitas kemunculan data X secara keseluruhan. Untuk tugas klasifikasi, nilai ini sama untuk semua kelas, sehingga seringkali diabaikan dalam perbandingan probabilitas antar kelas.
+Asumsi “Naif” (Naïve Assumption): Di sinilah letak kesederhanaan (dan nama “Naive”) algoritma ini. Naive Bayes mengasumsikan bahwa semua fitur bersifat independen satu sama lain, mengingat kelasnya. Artinya, nilai satu fitur tidak mempengaruhi nilai fitur lainnya jika kita sudah mengetahui kelas data tersebut.</p>
+<p>Dengan asumsi ini, probabilitas likelihood <span class="math notranslate nohighlight">\(P(X|Y)\)</span><span class="math notranslate nohighlight">\(P(X|Y)\)</span> dapat dipecah menjadi perkalian probabilitas untuk setiap fitur secara individual:</p>
+<p><span class="math notranslate nohighlight">\(P(X|Y) = P(x_1|Y) * P(x_2|Y) * ... * P(x_n|Y)\)</span><span class="math notranslate nohighlight">\(P(X|Y) = P(x_1|Y) * P(x_2|Y) * ... * P(x_n|Y)\)</span></p>
+<p>Dimana <span class="math notranslate nohighlight">\(x_1, x_2, ..., x_n\)</span><span class="math notranslate nohighlight">\(x_1, x_2, ..., x_n\)</span> adalah nilai dari fitur-fitur dalam data X.</p>
+<p>Proses Klasifikasi: Untuk mengklasifikasikan sebuah data baru, Naive Bayes menghitung probabilitas posterior <span class="math notranslate nohighlight">\(P(Y|X)\)</span><span class="math notranslate nohighlight">\(P(Y|X)\)</span> untuk setiap kemungkinan kelas (Y). Kelas yang memiliki probabilitas posterior tertinggi akan menjadi prediksi model.</p>
+<p><span class="math notranslate nohighlight">\(Prediksi = \arg\max_{Y} P(Y|X) = \arg\max_{Y} P(X|Y) * P(Y)\)</span><span class="math notranslate nohighlight">\(Prediksi = \arg\max_{Y} P(Y|X) = \arg\max_{Y} P(X|Y) * P(Y)\)</span></p>
+<p>(Mengesampingkan <span class="math notranslate nohighlight">\(P(X)\)</span><span class="math notranslate nohighlight">\(P(X)\)</span> karena konstan untuk semua kelas)</p>
+<p>Dengan asumsi naif:</p>
+<p><span class="math notranslate nohighlight">\(Prediksi = \arg\max_{Y} P(Y) * P(x_1|Y) * P(x_2|Y) * ... * P(x_n|Y)\)</span><span class="math notranslate nohighlight">\(Prediksi = \arg\max_{Y} P(Y) * P(x_1|Y) * P(x_2|Y) * ... * P(x_n|Y)\)</span></p>
+<p>Varian Naive Bayes: Ada beberapa varian Naive Bayes, tergantung pada asumsi distribusi probabilitas fitur:</p>
+<p>Gaussian Naive Bayes: Digunakan untuk fitur numerik kontinu. Ia mengasumsikan bahwa probabilitas fitur mengikuti distribusi Gaussian (Normal) untuk setiap kelas. Kita menghitung rata-rata dan standar deviasi fitur untuk setiap kelas dari data training.
+Multinomial Naive Bayes: Umum digunakan untuk data diskrit, seperti hitungan kata dalam klasifikasi teks.
+Bernoulli Naive Bayes: Digunakan untuk fitur biner (hadir atau tidak hadir), juga umum dalam klasifikasi teks (misalnya, apakah sebuah kata muncul dalam dokumen).
+Kelebihan Naive Bayes:</p>
+<p>Cepat dan Efisien: Proses pelatihan dan prediksi sangat cepat.
+Tidak Membutuhkan Banyak Data Training: Dapat bekerja dengan baik bahkan dengan jumlah data training yang relatif kecil.
+Tidak Sensitif terhadap Fitur yang Tidak Relevan: Fitur yang tidak relevan cenderung memiliki probabilitas yang hampir sama di semua kelas, sehingga tidak terlalu mempengaruhi hasil.
+Baik untuk Data Berdimensi Tinggi: Cukup efektif pada dataset dengan banyak fitur.
+Kekurangan Naive Bayes:</p>
+<p>Asumsi Independensi yang Kuat: Asumsi naif bahwa fitur independen jarang terpenuhi di dunia nyata. Jika fitur sangat berkorelasi, performa bisa menurun.
+Masalah Zero Probability: Jika sebuah kategori fitur tidak pernah muncul di data training untuk kelas tertentu, probabilitas likelihood-nya akan nol, yang dapat membuat seluruh probabilitas posterior menjadi nol. Ini biasanya diatasi dengan teknik smoothing (misalnya, Laplace smoothing).
+Estimasi Probabilitas Kurang Baik: Meskipun sering baik dalam klasifikasi (memprediksi kelas yang benar), estimasi probabilitas posterior yang diberikan (nilai <span class="math notranslate nohighlight">\(P(Y|X)\)</span><span class="math notranslate nohighlight">\(P(Y|X)\)</span>) mungkin tidak terlalu akurat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">log_loss</span><span class="p">,</span> <span class="n">accuracy_score</span>
+
+<span class="n">X_train_data</span> <span class="o">=</span> <span class="n">X_train_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_train_data</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_test_data</span> <span class="o">=</span> <span class="n">X_test_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_test_data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+
+<span class="n">nb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+
+<span class="n">nb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_data</span><span class="p">,</span> <span class="n">y_train_data</span><span class="p">)</span>
+
+
+<span class="n">likelihoods_test</span> <span class="o">=</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_data</span><span class="p">)</span>
+
+
+<span class="n">likelihood_df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">likelihoods_test</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;likelihood_class_</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">classes_</span><span class="p">])</span>
+<span class="n">likelihood_df_test</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">X_test_data</span><span class="o">.</span><span class="n">index</span>
+
+
+<span class="n">final_prediction_test</span> <span class="o">=</span> <span class="n">nb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_data</span><span class="p">)</span>
+
+
+<span class="n">likelihood_df_test</span><span class="p">[</span><span class="s2">&quot;final_prediction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_prediction_test</span>
+
+
+<span class="n">data_test_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X_test_data</span><span class="p">,</span> <span class="n">likelihood_df_test</span><span class="p">,</span> <span class="n">y_test_data</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">data_test_results</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Selector&#39;</span><span class="p">:</span> <span class="s1">&#39;Actual_Selector&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Prediksi Naïve Bayes pada Data Uji (setelah transformasi):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data_test_results</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Prediksi Naïve Bayes pada Data Uji (setelah transformasi):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-342443ce-038e-4c59-85de-810aaae14504" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>TB</th>
+      <th>DB</th>
+      <th>Alkphos</th>
+      <th>Sgpt</th>
+      <th>Sgot</th>
+      <th>TP</th>
+      <th>ALB</th>
+      <th>A/G Ratio</th>
+      <th>likelihood_class_1</th>
+      <th>likelihood_class_2</th>
+      <th>final_prediction</th>
+      <th>Actual_Selector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>42</th>
+      <td>-0.170908</td>
+      <td>0.567446</td>
+      <td>1.800521</td>
+      <td>1.713140</td>
+      <td>1.752436</td>
+      <td>-0.681182</td>
+      <td>-0.121748</td>
+      <td>-0.359452</td>
+      <td>-1.031835</td>
+      <td>-1.178814</td>
+      <td>1.000000</td>
+      <td>3.770385e-08</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>450</th>
+      <td>1.263647</td>
+      <td>0.567446</td>
+      <td>1.870053</td>
+      <td>1.842868</td>
+      <td>0.622535</td>
+      <td>0.325535</td>
+      <td>0.471317</td>
+      <td>-0.447906</td>
+      <td>-0.147591</td>
+      <td>0.291873</td>
+      <td>1.000000</td>
+      <td>3.639247e-08</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>386</th>
+      <td>-0.420616</td>
+      <td>0.567446</td>
+      <td>0.908177</td>
+      <td>1.033860</td>
+      <td>-2.051229</td>
+      <td>-0.681182</td>
+      <td>-0.957567</td>
+      <td>0.959951</td>
+      <td>1.367892</td>
+      <td>0.897212</td>
+      <td>0.975324</td>
+      <td>2.467552e-02</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>282</th>
+      <td>0.328288</td>
+      <td>0.567446</td>
+      <td>-0.852542</td>
+      <td>-0.754469</td>
+      <td>-0.455678</td>
+      <td>-1.393497</td>
+      <td>-1.227778</td>
+      <td>0.472321</td>
+      <td>0.357619</td>
+      <td>-0.042170</td>
+      <td>0.060511</td>
+      <td>9.394892e-01</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>-0.483052</td>
+      <td>0.567446</td>
+      <td>0.309574</td>
+      <td>0.373314</td>
+      <td>-0.075282</td>
+      <td>0.419336</td>
+      <td>0.161848</td>
+      <td>-0.089769</td>
+      <td>0.862775</td>
+      <td>1.448077</td>
+      <td>0.792470</td>
+      <td>2.075303e-01</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-342443ce-038e-4c59-85de-810aaae14504')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-342443ce-038e-4c59-85de-810aaae14504 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-342443ce-038e-4c59-85de-810aaae14504');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Akurasi Model Naïve Bayes: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">/tmp/ipython-input-14-1869436607.py</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Akurasi Model Naïve Bayes: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;accuracy&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-pohon-keputusan">
+<h3>Decision Tree (Pohon Keputusan)<a class="headerlink" href="#decision-tree-pohon-keputusan" title="Link to this heading">#</a></h3>
+<p>adalah algoritma machine learning supervised yang dapat digunakan untuk tugas klasifikasi maupun regresi. Algoritma ini bekerja dengan memecah dataset menjadi subset-subset yang lebih kecil secara rekursif berdasarkan nilai fitur, sambil pada saat yang sama sebuah pohon keputusan terkait secara inkremental dibangun. Hasil akhirnya adalah sebuah struktur pohon yang mirip dengan diagram alir, di mana setiap “internal node” merepresentasikan pengujian pada sebuah atribut (fitur), setiap “cabang” merepresentasikan hasil dari pengujian tersebut, dan setiap “leaf node” (atau terminal node) merepresentasikan label kelas (dalam klasifikasi) atau nilai (dalam regresi).</p>
+<p>Berikut konsep-konsep utamanya:</p>
+<p>Struktur Pohon:</p>
+<p>Root Node: Node paling atas yang merepresentasikan seluruh dataset.
+Internal Node: Node yang merepresentasikan pengujian pada sebuah fitur. Data dibagi berdasarkan hasil pengujian ini.
+Branches: Koneksi antara node yang merepresentasikan hasil dari pengujian fitur.
+Leaf Node: Node terminal yang merepresentasikan label kelas akhir (dalam klasifikasi) atau nilai prediksi (dalam regresi).
+Proses Pembuatan Pohon (Induksi): Algoritma Decision Tree membangun pohon secara top-down, dimulai dari root node. Pada setiap node, algoritma memilih fitur “terbaik” untuk memecah data (splitting) berdasarkan kriteria tertentu.</p>
+<p>Kriteria Pemecahan (Splitting Criteria): Tujuan dari pemecahan adalah untuk membuat subset data di setiap cabang menjadi semurni mungkin (pure), artinya sebagian besar data di subset tersebut memiliki label kelas yang sama. Dua kriteria umum untuk mengukur “kemurnian” atau “ketidakmurnian” (impurity) node adalah:</p>
+<p>Gini Impurity: Mengukur seberapa sering elemen yang dipilih secara acak dari subset akan salah diberi label jika diberi label sesuai dengan distribusi label di subset tersebut. Nilai Gini Impurity berkisar antara 0 (sangat murni) hingga 0.5 (paling tidak murni untuk masalah klasifikasi biner).
+Entropy: Mengukur tingkat ketidakpastian atau kekacauan dalam subset. Nilai Entropy berkisar antara 0 (sangat murni) hingga 1 atau lebih (sangat tidak murni).
+Algoritma memilih fitur yang menghasilkan penurunan ketidakmurnian terbesar setelah pemecahan. Penurunan ketidakmurnian ini disebut Information Gain (jika menggunakan Entropy) atau penurunan Gini Impurity.</p>
+<p>Kondisi Berhenti (Stopping Criteria): Proses pemecahan berhenti ketika salah satu kondisi berikut terpenuhi:</p>
+<p>Semua data di node memiliki label kelas yang sama (node murni).
+Tidak ada fitur yang tersisa untuk dipecah.
+Kedalaman pohon mencapai batas maksimum yang ditentukan.
+Jumlah sampel di node kurang dari batas minimum yang ditentukan.
+Prediksi: Untuk mengklasifikasikan data baru, data tersebut dilewatkan dari root node ke bawah, mengikuti cabang sesuai dengan nilai fiturnya pada setiap node internal, hingga mencapai leaf node. Label kelas pada leaf node tersebut menjadi prediksi untuk data baru.</p>
+<p>Kelebihan Decision Tree:</p>
+<p>Mudah Diinterpretasikan: Struktur pohonnya mudah dipahami dan divisualisasikan, sehingga proses pengambilan keputusan model transparan.
+Tidak Membutuhkan Penskalaan Fitur: Decision Tree tidak sensitif terhadap skala fitur.
+Dapat Menangani Data Numerik dan Kategorikal: Dapat bekerja langsung dengan kedua jenis data (meskipun data kategorikal seringkali perlu di-encode).
+Dapat Menangkap Hubungan Non-Linier: Mampu memodelkan hubungan yang kompleks dan non-linier antar fitur.
+Kekurangan Decision Tree:</p>
+<p>Cenderung Overfitting: Pohon yang terlalu dalam bisa sangat spesifik pada data training dan berkinerja buruk pada data baru. Teknik seperti pruning (memangkas cabang) atau membatasi kedalaman pohon diperlukan.
+Sensitif terhadap Variasi Data Kecil: Perubahan kecil pada data training bisa menghasilkan pohon yang sangat berbeda.
+Bias terhadap Fitur dengan Banyak Kategori: Jika ada fitur kategorikal dengan banyak nilai unik, algoritma cenderung memilih fitur tersebut.
+Tidak Selalu Menghasilkan Pohon Optimal Global: Algoritma membangun pohon secara greedy (memilih pemecahan terbaik pada setiap langkah), yang tidak menjamin hasil pohon optimal secara global.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+
+<span class="n">X_train_data</span> <span class="o">=</span> <span class="n">X_train_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_train_data</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_test_data</span> <span class="o">=</span> <span class="n">X_test_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_test_data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+
+<span class="n">model_dt</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">model_dt</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_data</span><span class="p">,</span> <span class="n">y_train_data</span><span class="p">)</span>
+
+
+<span class="n">y_pred_dt</span> <span class="o">=</span> <span class="n">model_dt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_data</span><span class="p">)</span>
+
+<span class="n">accuracy_dt</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_dt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Model Decision Tree pada Data Uji: </span><span class="si">{</span><span class="n">accuracy_dt</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">report_dt</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_dt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Laporan Klasifikasi Decision Tree:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_dt</span><span class="p">)</span>
+
+
+<span class="n">cm_dt</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_dt</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix Decision Tree:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_dt</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Confusion Matrix Decision Tree&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediksi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Aktual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Model Decision Tree pada Data Uji: 64.60%
+
+Laporan Klasifikasi Decision Tree:
+              precision    recall  f1-score   support
+
+           1       0.74      0.79      0.76        81
+           2       0.35      0.28      0.31        32
+
+    accuracy                           0.65       113
+   macro avg       0.54      0.54      0.54       113
+weighted avg       0.63      0.65      0.63       113
+
+
+Confusion Matrix Decision Tree:
+</pre></div>
+</div>
+<img alt="_images/b7fdb67d1b0e45537811f513781f6083a70600d1d06993bfa9e9496f2d720a69.png" src="_images/b7fdb67d1b0e45537811f513781f6083a70600d1d06993bfa9e9496f2d720a69.png" />
+</div>
+</div>
+</section>
+<section id="k-nearest-neighbors-knn">
+<h3>K-Nearest Neighbors (KNN)<a class="headerlink" href="#k-nearest-neighbors-knn" title="Link to this heading">#</a></h3>
+<p>adalah algoritma supervised machine learning yang digunakan untuk klasifikasi dan regresi. Ini adalah algoritma yang sangat sederhana dan “malas” (lazy learner), artinya ia tidak benar-benar mempelajari model selama fase pelatihan, tetapi hanya mengingat dataset pelatihan. Seluruh pekerjaan dilakukan selama fase prediksi.</p>
+<p>Berikut konsep-konsep utamanya:</p>
+<p>Prinsip Dasar: Ide utama di balik KNN adalah bahwa titik data baru akan diklasifikasikan berdasarkan mayoritas kelas dari k tetangga terdekatnya di dataset pelatihan. “Tetangga terdekat” ditentukan berdasarkan jarak antar titik data.</p>
+<p>Parameter k: Ini adalah parameter kunci dari algoritma KNN. k adalah jumlah tetangga terdekat yang akan dipertimbangkan saat membuat prediksi untuk titik data baru. Pemilihan nilai k sangat penting dan dapat mempengaruhi performa model.</p>
+<p>Pengukuran Jarak: KNN menggunakan fungsi jarak untuk menentukan “kedekatan” antar titik data. Fungsi jarak yang paling umum digunakan adalah Jarak Euclidean, tetapi jarak lain seperti Jarak Manhattan juga bisa digunakan.</p>
+<p>Jarak Euclidean: Jarak garis lurus antar dua titik dalam ruang multidimensional. $<span class="math notranslate nohighlight">\(d(p, q) = \sqrt{\sum_{i=1}^n (q_i - p_i)^2}\)</span>$$<span class="math notranslate nohighlight">\(d(p, q) = \sqrt{\sum_{i=1}^n (q_i - p_i)^2}\)</span><span class="math notranslate nohighlight">\(
+Jarak Manhattan: Jumlah jarak absolut di sepanjang semua sumbu. \)</span><span class="math notranslate nohighlight">\(d(p, q) = \sum_{i=1}^n |q_i - p_i|\)</span>$$<span class="math notranslate nohighlight">\(d(p, q) = \sum_{i=1}^n |q_i - p_i|\)</span>$
+Proses Pelatihan (Training): Sangat sederhana! Algoritma hanya menyimpan dataset pelatihan. Tidak ada model matematis yang kompleks dibangun selama pelatihan.</p>
+<p>Proses Prediksi (Prediction) untuk Titik Data Baru: Ketika titik data baru tiba, KNN melakukan langkah-langkah berikut:</p>
+<p>Hitung jarak antara titik data baru dengan setiap titik data di dataset pelatihan.
+Pilih k titik data dari dataset pelatihan yang memiliki jarak terkecil ke titik data baru. Ini adalah “tetangga terdekat”nya.
+Untuk Klasifikasi: Hitung jumlah titik data di antara k tetangga tersebut yang termasuk dalam setiap kelas. Titik data baru akan diberi label kelas yang paling sering muncul di antara k tetangga tersebut (mayoritas suara).
+Untuk Regresi: Hitung rata-rata nilai target dari k tetangga tersebut. Nilai rata-rata ini akan menjadi prediksi untuk titik data baru.
+Kelebihan KNN:</p>
+<p>Sederhana dan Mudah Diimplementasikan: Konsepnya intuitif dan mudah dipahami.
+Tidak Ada Asumsi Distribusi: Tidak mengasumsikan distribusi data (non-parametrik).
+Fleksibel: Dapat digunakan untuk tugas klasifikasi dan regresi.
+Efektif untuk Dataset Kecil-Menengah: Dapat bekerja dengan baik pada dataset yang ukurannya tidak terlalu besar.
+Kekurangan KNN:</p>
+<p>Komputasi Mahal saat Prediksi: Karena harus menghitung jarak ke semua titik data pelatihan untuk setiap prediksi baru, KNN bisa sangat lambat pada dataset besar.
+Sensitif terhadap Skala Fitur: KNN sangat dipengaruhi oleh skala fitur karena berbasis jarak. Fitur dengan rentang nilai besar akan mendominasi perhitungan jarak. Penskalaan fitur (seperti Standard Scaling atau Min-Max Scaling) sangat penting sebelum menggunakan KNN.
+Sensitif terhadap Outlier: Outlier dapat menarik batas keputusan dan mempengaruhi tetangga terdekat, sehingga mempengaruhi prediksi.
+Pemilihan Nilai k: Memilih nilai k yang optimal bisa menjadi tantangan dan seringkali memerlukan eksperimen (misalnya, menggunakan cross-validation).
+Tidak Bekerja Baik pada Data Berdimensi Tinggi: Pada data dengan banyak fitur (dimensi tinggi), konsep “jarak” menjadi kurang bermakna (curse of dimensionality), yang dapat menurunkan kinerja KNN.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">X_train_data</span> <span class="o">=</span> <span class="n">X_train_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_train_data</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_test_data</span> <span class="o">=</span> <span class="n">X_test_transformed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_test_data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">model_knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+
+
+<span class="n">model_knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_data</span><span class="p">,</span> <span class="n">y_train_data</span><span class="p">)</span>
+
+<span class="n">y_pred_knn</span> <span class="o">=</span> <span class="n">model_knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_data</span><span class="p">)</span>
+
+
+<span class="n">accuracy_knn</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Model K-Nearest Neighbors pada Data Uji: </span><span class="si">{</span><span class="n">accuracy_knn</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">report_knn</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Laporan Klasifikasi KNN:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_knn</span><span class="p">)</span>
+
+
+<span class="n">cm_knn</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test_data</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix KNN:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_knn</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Confusion Matrix KNN&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Prediksi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Aktual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Model K-Nearest Neighbors pada Data Uji: 70.80%
+
+Laporan Klasifikasi KNN:
+              precision    recall  f1-score   support
+
+           1       0.78      0.83      0.80        81
+           2       0.48      0.41      0.44        32
+
+    accuracy                           0.71       113
+   macro avg       0.63      0.62      0.62       113
+weighted avg       0.69      0.71      0.70       113
+
+
+Confusion Matrix KNN:
+</pre></div>
+</div>
+<img alt="_images/ab5e1be282f5feb846e3748f387971ed3df4e8cd2b38336f720c683f1ce611b4.png" src="_images/ab5e1be282f5feb846e3748f387971ed3df4e8cd2b38336f720c683f1ce611b4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="evaluasi">
+<h2>Evaluasi<a class="headerlink" href="#evaluasi" title="Link to this heading">#</a></h2>
+</section>
+<section id="evaluasi-model">
+<h2>Evaluasi Model<a class="headerlink" href="#evaluasi-model" title="Link to this heading">#</a></h2>
+<p>Setelah melakukan pra-pemrosesan data (termasuk deteksi outlier, penskalaan, transformasi distribusi, dan pembagian data latih/uji), kita telah melatih dan mengevaluasi tiga model klasifikasi pada data uji: Gaussian Naive Bayes, Decision Tree, dan K-Nearest Neighbors.</p>
+<p>Berikut adalah perbandingan performa model-model tersebut pada data uji.</p>
+<p><strong>Catatan:</strong> Akurasi yang dilaporkan di sini adalah akurasi pada data uji (<code class="docutils literal notranslate"><span class="pre">X_test_transformed</span></code>, <code class="docutils literal notranslate"><span class="pre">y_test</span></code>), yang merepresentasikan kinerja model pada data baru.</p>
+<section id="ringkasan-akurasi">
+<h3>Ringkasan Akurasi<a class="headerlink" href="#ringkasan-akurasi" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Akurasi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Gaussian Naive Bayes</p></td>
+<td><p>68.14%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Decision Tree</p></td>
+<td><p>64.60%</p></td>
+</tr>
+<tr class="row-even"><td><p>K-Nearest Neighbors (KNN)</p></td>
+<td><p>70.80%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>Note: Angka akurasi diambil dari output sel-sel sebelumnya (misalnya, jika beda run time juga mempengaruhi anga nya juga. Perbedaan kecil pada angka akurasi antara eksekusi mungkin terjadi.</em></p>
+</section>
+<section id="analisis-laporan-klasifikasi-metrik-detail">
+<h3>Analisis Laporan Klasifikasi (Metrik Detail)<a class="headerlink" href="#analisis-laporan-klasifikasi-metrik-detail" title="Link to this heading">#</a></h3>
+<p>Untuk mendapatkan gambaran yang lebih lengkap, terutama dalam menangani ketidakseimbangan kelas, mari kita lihat metrik Precision, Recall (Sensitivity), dan F1-Score dari laporan klasifikasi untuk setiap model. Recall untuk kelas minoritas (kelas 2, yang mewakili pasien dengan penyakit hati) sangat penting dalam kasus medis.</p>
+</section>
+</section>
+<section id="kesimpulan">
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p>Berdasarkan analisis dan pemodelan yang telah dilakukan pada <strong>ILPD (Indian Liver Patient Dataset)</strong>, kita telah melalui serangkaian langkah pra-pemrosesan data yang meliputi:</p>
+<ol class="arabic simple">
+<li><p>Penanganan missing values pada kolom ‘A/G Ratio’.</p></li>
+<li><p>Encoding fitur kategorikal ‘Gender’.</p></li>
+<li><p>Penskalaan fitur menggunakan StandardScaler.</p></li>
+<li><p>Deteksi dan penghapusan outlier menggunakan Local Outlier Factor (LOF) dengan parameter spesifik (<code class="docutils literal notranslate"><span class="pre">k=3</span></code>, <code class="docutils literal notranslate"><span class="pre">contamination=0.2</span></code>, threshold 1.8) pada fitur numerik kontinu.</p></li>
+<li><p>Transformasi distribusi pada fitur-fitur numerik menggunakan PowerTransformer (Yeo-Johnson) setelah pembagian data.</p></li>
+<li><p>Pembagian data menjadi set pelatihan dan pengujian dengan stratifikasi.</p></li>
+</ol>
+<p>Setelah pra-pemrosesan ini, kita melatih dan mengevaluasi tiga model klasifikasi: <strong>Gaussian Naive Bayes</strong>, <strong>Decision Tree</strong>, dan <strong>K-Nearest Neighbors (KNN)</strong> pada data uji.</p>
+<p><strong>Ringkasan Performa Model:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Akurasi</p></th>
+<th class="head"><p>Precision (Kelas 2)</p></th>
+<th class="head"><p>Recall (Kelas 2)</p></th>
+<th class="head"><p>F1-Score (Kelas 2)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Gaussian Naive Bayes</p></td>
+<td><p>68.14%</p></td>
+<td><p>93.95%</p></td>
+<td><p>6.25%</p></td>
+<td><p>11.76%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Decision Tree</p></td>
+<td><p>64.60%</p></td>
+<td><p>35.48%</p></td>
+<td><p>28.13%</p></td>
+<td><p>31.48%</p></td>
+</tr>
+<tr class="row-even"><td><p>K-Nearest Neighbors (KNN)</p></td>
+<td><p>70.80%</p></td>
+<td><p>48.00%</p></td>
+<td><p>40.63%</p></td>
+<td><p>44.00%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>(Catatan: Metrik Precision, Recall, F1-Score Kelas 2 diambil dari Laporan Klasifikasi di sel sebelumnya)</em></p>
+<p><strong>Analisis:</strong></p>
+<ul class="simple">
+<li><p>Secara akurasi keseluruhan pada data uji, <strong>Model K-Nearest Neighbors (KNN)</strong> menunjukkan performa terbaik (70.80%), diikuti oleh Gaussian Naive Bayes (68.14%) dan Decision Tree (64.60%).</p></li>
+<li><p>Meskipun Gaussian Naive Bayes memiliki precision yang sangat tinggi untuk Kelas 2 (menunjukkan bahwa ketika ia memprediksi positif, kemungkinannya benar sangat tinggi), Recall-nya sangat rendah (hanya 6.25%), artinya model ini melewatkan sebagian besar kasus positif yang sebenarnya. Ini kemungkinan besar dipengaruhi oleh ketidakseimbangan kelas dan asumsi model.</p></li>
+<li><p>Model KNN menunjukkan keseimbangan yang lebih baik antara Precision (48.00%) dan Recall (40.63%) untuk Kelas 2 dibandingkan Naive Bayes dan Decision Tree, yang tercermin dalam F1-Score yang lebih tinggi untuk kelas minoritas.</p></li>
+<li><p>Decision Tree menunjukkan performa yang paling rendah di antara ketiganya dalam skenario ini.</p></li>
+</ul>
+<p><strong>Kesimpulan Akhir:</strong></p>
+<p>Berdasarkan evaluasi pada data uji, <strong>K-Nearest Neighbors (KNN) adalah model yang paling menjanjikan</strong> di antara ketiganya untuk tugas klasifikasi ini, memberikan akurasi keseluruhan terbaik dan keseimbangan metrik yang lebih baik untuk kelas minoritas. Pra-pemrosesan data yang komprehensif, termasuk penanganan outlier dan transformasi distribusi, kemungkinan berkontribusi pada performa ini.</p>
+<p><strong>Langkah Selanjutnya yang Direkomendasikan:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Tuning Hyperparameter KNN:</strong> Fokus pada model KNN dan lakukan pencarian hyperparameter terbaik (terutama nilai <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> atau <code class="docutils literal notranslate"><span class="pre">k</span></code>) menggunakan cross-validation untuk mengoptimalkan performanya lebih lanjut.</p></li>
+<li><p><strong>Eksplorasi Metrik Lain:</strong> Selain akurasi, fokus pada metrik spesifik seperti AUC-ROC jika relevan untuk masalah ini.</p></li>
+<li><p><strong>Coba Model Lanjutan:</strong> Pertimbangkan algoritma klasifikasi yang lebih canggih seperti Support Vector Machines (SVM), Random Forest, atau Gradient Boosting (XGBoost, LightGBM) yang seringkali berkinerja baik pada dataset seperti ini.</p></li>
+<li><p><strong>Penanganan Imbalance:</strong> Jika Recall kelas minoritas masih menjadi perhatian utama, eksplorasi teknik penanganan imbalance (SMOTE dengan parameter berbeda, teknik lain, atau weighted loss functions pada model yang mendukung).</p></li>
+<li><p><strong>Feature Engineering/Selection:</strong> Analisis lebih dalam terhadap fitur atau pembuatan fitur baru mungkin dapat meningkatkan kemampuan model.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data_mining_PRA_UAS.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">penjelasan dataset</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UAS</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mendapatkan-data">mendapatkan data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-kolom-x-dan-y">menampilkan kolom x dan y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mendeskprisikan-tipe-data-disetiap-kolom">mendeskprisikan tipe data disetiap kolom</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof">LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-kunci-dan-rumus-matematis">Konsep Kunci dan Rumus Matematis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-penting-k">Parameter Penting: <code class="docutils literal notranslate"><span class="pre">k</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-ke-k-k-distance">1. Jarak ke-k (k-distance)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-ketercapaian-reachability-distance">2. Jarak Ketercapaian (Reachability Distance)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kepadatan-ketercapaian-lokal-local-reachability-density-lrd">3. Kepadatan Ketercapaian Lokal (Local Reachability Density - lrd)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor-lof-rumus-akhir">4. Local Outlier Factor (LOF) - Rumus Akhir</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-nilai-lof">Interpretasi Nilai LOF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan-dan-kekurangan-lof">Kelebihan dan Kekurangan LOF</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kelebihan">Kelebihan:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kekurangan">Kekurangan:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes">Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree-pohon-keputusan">Decision Tree (Pohon Keputusan)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi">Evaluasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-akurasi">Ringkasan Akurasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-laporan-klasifikasi-metrik-detail">Analisis Laporan Klasifikasi (Metrik Detail)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Aldi Rahmandika
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
